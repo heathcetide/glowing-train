@@ -17,9 +17,7 @@ import ActivityCard from '../common/ActivityCard.vue'
 const { safeAreaInsets } = uni.getWindowInfo()
 
 const hetght = computed(() => {
-  console.log('safeAreaInsets: ', safeAreaInsets.bottom + safeAreaInsets.top)
-
-  return `calc(100vh - 50rpx - ${safeAreaInsets.bottom + safeAreaInsets.top + 50}px)`
+  return `calc(100vh - 50rpx - ${safeAreaInsets.bottom + safeAreaInsets.top + 100}px)`
 })
 </script>
 
