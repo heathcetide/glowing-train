@@ -21,38 +21,31 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import FoodCard from '../../common/FoodCard.vue'
 import FoodCard2 from '../../common/FoodCard2.vue'
-import icon1 from '@/static/image/cook/food-pic1.svg'
-import icon2 from '@/static/image/cook/food-pic2.svg'
 
-const foodList = [
-  {
-    id: 1,
-    icon: icon1,
-    title: '烤鱼',
-    desc: '烤鱼',
-  },
-  {
-    id: 2,
-    icon: icon2,
-    title: '烤鱼',
-    desc: '烤鱼',
-  },
+// 定义一个 foodList 存储食物列表
+const foodList = ref<any[]>([])
 
-  {
-    id: 3,
-    icon: icon1,
-    title: '烤鱼',
-    desc: '烤鱼',
-  },
-  {
-    id: 4,
-    icon: icon2,
-    title: '烤鱼',
-    desc: '烤鱼',
-  },
-]
+// 页面加载时读取本地存储的数据
+onMounted(() => {
+  // 从本地存储获取推荐食物
+  uni.getStorage({
+    key: 'recommendedFoods',
+    success: (res) => {
+      if (res.data && Array.isArray(res.data)) {
+        // 如果从存储中获取到推荐食物数据，赋值给 foodList
+        foodList.value = res.data
+      } else {
+        console.log('没有找到推荐食物数据')
+      }
+    },
+    fail: () => {
+      console.log('无法获取推荐食物数据')
+    }
+  })
+})
 </script>
 
 <style scoped>

@@ -2,13 +2,6 @@
   <view>
     <CookNavBar title="菜品选择" />
     <view class="contain px-28rpx py-32rpx">
-      <uni-search-bar
-        bg-color="#fff"
-        placeholder="搜索菜品"
-        class="rounded-20rpx"
-        v-model="keyword"
-        @confirm="handleSearch"
-      />
 
       <SGTabs font-size="24.5rpx" :tabs="tabs" :show-border="false" padding="0rpx">
         <template #tabs="{ tab, isActive }">

@@ -29,7 +29,7 @@ import AdviseDielt from './components/AdviseDielt.vue'
 import ToolPanel from './components/ToolPanel.vue'
 import CalorieIntake from './components/CalorieIntake.vue'
 import NutrientDistribution from './components/NutrientDistribution.vue'
-
+import { getUserInventoryMakeFoodAPI } from '@/services/Inventory/InventoryBaseModule'
 import icon from '@/static/image/community/icon-ranke1.svg'
 import Utils from '@/utils'
 
@@ -39,8 +39,32 @@ const handleClickRight = () => {
 const handleClickLeft = () => {
   Utils.navigateBack()
 }
-const goToChoose = () => {
-  Utils.navigateTo('/pagesCook/fruit-choose/index')
+// 点击开始烹饪按钮
+const goToChoose = async () => {
+  try {
+    // 调用获取用户库存推荐食物的接口
+    const response = await getUserInventoryMakeFoodAPI()
+
+    // 假设返回的数据是一个推荐食物数组
+    const recommendedFoods = response.data || []
+
+    // 将推荐食物存储到本地存储
+    uni.setStorage({
+      key: 'recommendedFoods',
+      data: recommendedFoods,
+      success: () => {
+        console.log('食物推荐已存储成功！')
+      },
+      fail: () => {
+        console.log('食物推荐存储失败')
+      }
+    })
+
+    // 跳转到选择食材页面
+    Utils.navigateTo('/pagesCook/fruit-choose/index')
+  } catch (error) {
+    console.error('获取食物推荐失败:', error)
+  }
 }
 </script>
 
