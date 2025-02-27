@@ -172,6 +172,13 @@
         "navigationBarTitleText": "index",
         "navigationStyle": "custom"
       }
+    },
+    {
+      "path": "pages/add-food/index",
+      "style": {
+        "navigationBarTitleText": "index",
+        "navigationStyle": "custom"
+      }
     }
   ],
   "globalStyle": {
@@ -242,6 +249,52 @@
         {
           "path": "index/index",
           "style": {
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pagesPlanLeader",
+      "pages": [
+        {
+          "path": "index/index",
+          "style": {
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "leader_first/index",
+          "style": {
+            "navigationBarTitleText": "index",
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "leader_two/index",
+          "style": {
+            "navigationBarTitleText": "index",
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "leader_three/index",
+          "style": {
+            "navigationBarTitleText": "index",
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "leader_four/index",
+          "style": {
+            "navigationBarTitleText": "index",
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "leader_five/index",
+          "style": {
+            "navigationBarTitleText": "index",
             "navigationStyle": "custom"
           }
         }

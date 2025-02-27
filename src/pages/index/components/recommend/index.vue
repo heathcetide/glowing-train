@@ -7,16 +7,6 @@
   <scroll-view scroll-y class="scroll-view">
     <TabContent />
   </scroll-view>
-  <uni-fab
-    ref="fab"
-    :pattern="pattern"
-    :content="content"
-    horizontal="right"
-    vertical="bottom"
-    :direction="direction"
-    @trigger="trigger"
-    @fabClick="fabClick"
-  />
 </template>
 
 <script setup lang="ts">
@@ -24,40 +14,6 @@ import TabContent from './TabContent.vue'
 import ProgressCard from '../ProgressCard.vue'
 import IconWater from '@/static/image/home/icon-water.svg'
 import { ref } from 'vue'
-
-const fab = ref()
-const direction: UniHelper.UniFabDirection = 'vertical'
-const content = ref<UniHelper.UniFabContentItem[]>([
-  {
-    iconPath: '/static/image.png',
-    selectedIconPath: '/static/image-active.png',
-    text: '相册',
-    active: false,
-  },
-  {
-    iconPath: '/static/home.png',
-    selectedIconPath: '/static/home-active.png',
-    text: '首页',
-    active: false,
-  },
-  {
-    iconPath: '/static/star.png',
-    selectedIconPath: '/static/star-active.png',
-    text: '收藏',
-    active: false,
-  },
-])
-const pattern: UniHelper.UniFabPattern = {
-  color: '#fff',
-  selectedColor: '#fff',
-  buttonColor: '#16A34A',
-
-  backgroundColor: '#22C55E',
-}
-const trigger = (e: UniHelper.UniFabOnTriggerEvent) => {
-  content.value[e.index].active = !e.item.active
-}
-const fabClick = () => {}
 </script>
 
 <style scoped lang="scss">

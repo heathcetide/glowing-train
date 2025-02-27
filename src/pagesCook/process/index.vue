@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view :style="{ paddingTop: safeAreaInsets.top + 'px' }">
     <CookNavBar title="烹饪进行中" />
     <view class="px-26rpx">
       <up-line-progress percentage="70" activeColor="#5DBE8A" :height="5" :show-text="false" />
@@ -49,6 +49,7 @@ import CookNavBar from '../common/CookNavBar.vue'
 import IconBg from '@/static/image/cook/icon-bg-cook.svg'
 import Utils from '@/utils'
 
+const { safeAreaInsets } = uni.getWindowInfo()
 const countDownRef = ref()
 const stepList = [
   '牛肉切丝，加入料酒、生抽腌制15分钟',

@@ -1,8 +1,8 @@
 export interface RecommendCardProps {
-  id: string
+  id: number
   image: string
   title: string
-  avatar: string
+  avatar?: string
   nickName: string
   number: string
   index?: number

@@ -1,5 +1,5 @@
 <template>
-  <scroll-view scroll-y class="scroll-view">
+  <scroll-view scroll-y class="scroll-view" :style="{ height: hetght }">
     <up-waterfall v-model="flowList" ref="uWaterfallRef">
       <template v-slot:left="{ leftList }">
         <view class="demo-warter" v-for="(item, index) in leftList" :key="item.id">
@@ -35,14 +35,19 @@
   </scroll-view>
 </template>
 
-
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app'
 import RecommendCard from './components/RecommendCard.vue'
-import { ref } from 'vue'
-import { nanoid } from 'nanoid/non-secure'
-import { getPostsByCursorAPI } from '@/services/post/postBaseModule' // 引入API请求
+import { computed, ref } from 'vue'
 
+import { getPostsByCursorAPI } from '@/services/post/postBaseModule' // 引入API请求
+import type { RecommendCardProps } from '@/types/community'
+
+const { safeAreaInsets } = uni.getWindowInfo()
+
+const hetght = computed(() => {
+  return `calc(100vh - 50rpx - ${safeAreaInsets.bottom + safeAreaInsets.top}px)`
+})
 const tabs = ref<string[]>(['推荐', '视频', '直播', '图文'])
 
 const uWaterfallRef = ref()
@@ -58,7 +63,7 @@ const fetchPosts = async (cursorId: number, pageSize: number) => {
   try {
     const response = await getPostsByCursorAPI(cursorId, pageSize)
     if (response && response.data) {
-      const posts = response.data.map((item: any) => ({
+      const posts = (response.data as any[]).map((item: any) => ({
         id: item.id,
         title: item.content, // 显示内容作为标题
         image: item.mediaUrl, // 使用媒体链接作为图片
@@ -87,7 +92,6 @@ onLoad(() => {
   addRandomData() // 初始加载数据
 })
 </script>
-
 
 <style lang="scss" scoped>
 $up-main-color: #2979ff;

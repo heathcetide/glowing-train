@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view :style="{ paddingTop: safeAreaInsets.top + 'px' }">
     <CookNavBar title="烹饪准备" />
     <view class="px-28rpx h-1200rpx">
       <up-line-progress percentage="30" activeColor="#5DBE8A" :height="5" :show-text="false"></up-line-progress>
@@ -55,6 +55,7 @@ import iconTool from '@/static/image/cook/tool.svg'
 import IconTime from '@/static/image/cook/icon-time2.svg'
 import Utils from '@/utils'
 
+const { safeAreaInsets } = uni.getWindowInfo()
 const handleStartCook = () => {
   Utils.navigateTo('/pagesCook/process/index')
 }

@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view :style="{ paddingTop: safeAreaInsets.top + 'px' }">
     <CookNavBar title="烹饪完成" />
     <view class="px-28rpx">
       <up-line-progress percentage="100" activeColor="#5DBE8A" :height="5" :show-text="false" />
@@ -70,7 +70,7 @@ import Pic from '@/static/image/cook/cook-success-pic.svg'
 import IconShare from '@/static/image/cook/icon-share.svg'
 import IconSave from '@/static/image/cook/icon-save.svg'
 import IconDielt from '@/static/image//community/icon-diet.svg'
-
+const { safeAreaInsets } = uni.getWindowInfo()
 const list = [
   {
     name: '热量',

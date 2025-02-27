@@ -1,5 +1,5 @@
 <template>
-  <scroll-view scroll-y class="scroll-view">
+  <scroll-view scroll-y class="scroll-view" :style="{ height: hetght }">
     <view class="px-28rpx h-100% flex flex-col gap-28rpx">
       <ActivityCard :item />
       <ActivityCard :item />
@@ -16,7 +16,14 @@
 import type { Community } from '@/types/component'
 import ActivityCard from '../common/ActivityCard.vue'
 import IconCover3 from '@/static/image/community/icon-activity-cover3.svg'
+import { computed } from 'vue'
+const { safeAreaInsets } = uni.getWindowInfo()
 
+const hetght = computed(() => {
+  console.log('safeAreaInsets: ', safeAreaInsets.bottom + safeAreaInsets.top)
+
+  return `calc(100vh - 50rpx - ${safeAreaInsets.bottom + safeAreaInsets.top + 50}px)`
+})
 const item: Community.ActivityCardProps = {
   activityTitle: '低卡美味料理分享会',
   cover: IconCover3,
@@ -25,8 +32,4 @@ const item: Community.ActivityCardProps = {
 }
 </script>
 
-<style scoped lang="scss">
-.scroll-view {
-  height: calc(100vh - 500rpx);
-}
-</style>
+<style scoped lang="scss"></style>

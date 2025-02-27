@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <CookNavBar title="菜品选择" />
     <view class="contain px-28rpx py-32rpx">
       <uni-search-bar
@@ -46,6 +46,7 @@ import { provide } from 'vue'
 import Utils from '@/utils'
 import { ref } from 'vue'
 
+const { safeAreaInsets } = uni.getWindowInfo()
 const tabs = ['全部', '热菜', '凉菜', '主食', '汤类', '小菜']
 const keyword = ref()
 const selectedDielt = ref(0)

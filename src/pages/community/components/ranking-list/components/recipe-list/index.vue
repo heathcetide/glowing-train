@@ -1,5 +1,5 @@
 <template>
-  <scroll-view scroll-y class="scroll-view">
+  <scroll-view scroll-y class="scroll-view" :style="{ height: hetght }">
     <view class="px-28rpx flex gap-28rpx flex-col">
       <RecipeListCard v-for="(item, index) in list" :key="index" :item />
     </view>
@@ -13,6 +13,13 @@ import IconPic1 from '@/static/image/community/icon-pic1.svg'
 import IconPic2 from '@/static/image/community/icon-pic2.svg'
 import IconPic3 from '@/static/image/community/icon-pic3.svg'
 import IconAvatar from '@/static/image/community/icon-avatar.svg'
+import { computed } from 'vue'
+
+const { safeAreaInsets } = uni.getWindowInfo()
+
+const hetght = computed(() => {
+  return `calc(100vh - 50rpx - ${safeAreaInsets.bottom + safeAreaInsets.top}px)`
+})
 const list: Community.RecipeListCardItem[] = [
   {
     author: '健身教练大明',
@@ -54,8 +61,4 @@ const list: Community.RecipeListCardItem[] = [
 ]
 </script>
 
-<style scoped lang="scss">
-.scroll-view {
-  height: calc(100vh - 340rpx);
-}
-</style>
+<style scoped lang="scss"></style>

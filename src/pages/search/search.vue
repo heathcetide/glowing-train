@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <SearchBar />
     <view class="container px-28rpx pt-22rpx">
       <HistoryNote />
@@ -12,6 +12,8 @@
 import SearchBar from './components/SearchBar.vue'
 import HistoryNote from './components/HistoryNote.vue'
 import HotSearch from './components/HotSearch.vue'
+
+const { safeAreaInsets } = uni.getWindowInfo()
 
 const hostList = [
   { title: '低卡减脂餐', num: 12543 },

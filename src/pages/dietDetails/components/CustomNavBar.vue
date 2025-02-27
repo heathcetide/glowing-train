@@ -1,15 +1,4 @@
 <template>
-  <!--     <up-navbar title="食谱" :autoBack="true" :fixed="false" bgColor="#cbf" height="60">
-      <template #left>
-        <up-icon name="arrow-leftward"></up-icon>
-      </template>
-      <template #right>
-        <view class="right_icon">
-          <up-icon name="heart"></up-icon>
-          <up-icon name="share"></up-icon>
-        </view>
-      </template>
-    </up-navbar> -->
   <uni-nav-bar shadow status-bar left-icon="left" left-text="返回" title="食谱" height="100" @clickLeft="goBack" />
   <view class="image">
     <image :src="diet" mode="scaleToFill" />

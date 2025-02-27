@@ -22,10 +22,9 @@
 </template>
 
 <script setup lang="ts">
-import { nanoid } from 'nanoid/non-secure'
 import { withDefaults } from 'vue'
 interface RecommendCardProps {
-  id: string
+  id: number
   image: string
   title: string
   avatar: string
@@ -36,7 +35,7 @@ interface RecommendCardProps {
 }
 
 const props = withDefaults(defineProps<RecommendCardProps>(), {
-  id: nanoid(),
+  id: 1,
   image: '/static/image/community/recomment1.png',
   title: '绿色食物推荐',
   avatar: '/static/image/community/user_tx.png',

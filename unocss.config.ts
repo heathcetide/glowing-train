@@ -18,6 +18,7 @@ export default {
       'flex-col2': 'flex flex-col items-center',
       'shadow-card': 'shadow-0rpx 2rpx 4rpx 0rpx rgba(0,0,0,1)',
       col: 'flex flex-col items-center justify-center',
+      'text-0': 'text-#333333',
     },
   ],
 
