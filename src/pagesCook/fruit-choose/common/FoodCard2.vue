@@ -10,12 +10,7 @@
         <button class="bg-#5DBE8A text-#fff" @click="handleClick" size="mini">选择</button>
       </view>
     </view>
-    <SGPopupDialog
-      ref="alertDialog"
-      @confirm="handleConfirm"
-      :hot="hot"
-      :item="{ icon: item.icon, title: item.title }"
-    />
+    <SGPopupDialog ref="alertDialog" @confirm="handleConfirm" :hot="hot" :item="item" />
   </view>
 </template>
 

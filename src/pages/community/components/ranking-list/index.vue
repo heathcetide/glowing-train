@@ -1,5 +1,5 @@
 <template>
-  <SGTabs :tabs :show-border="false" :show-border-buttom="false" padding="0rpx">
+  <SGTabsSub :tabs :show-border="false" :show-border-buttom="false" padding="0rpx">
     <template #tabs="{ tab, index, isActive }">
       <view
         v-if="!isActive"
@@ -19,7 +19,7 @@
     <template #tab-0><RecipeList /></template>
     <template #tab-1><DrinkList /></template>
     <template #tab-2><ToolList /></template>
-  </SGTabs>
+  </SGTabsSub>
 </template>
 
 <script setup lang="ts">

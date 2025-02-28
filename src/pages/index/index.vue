@@ -30,7 +30,7 @@
             <PoupCard :icon="item.icon" :image="item.image" :title="item.title" :subTitle="item.subTitle" />
           </uni-col>
           <uni-row>
-            <view class="p-42rpx flex justify-between bg-#fff">
+            <view class="p-42rpx flex justify-between bg-#fff" @click="goToAiService">
               <view class="image size-84rpx rounded-full bg-#ECFDF5">
                 <image :src="icon5" class="size-84rpx" mode="scaleToFill" />
               </view>
@@ -65,7 +65,11 @@ import icon2 from '@/static/image/home/icon-run-man.svg'
 import icon3 from '@/static/image/home/icon-stack.svg'
 import icon4 from '@/static/image/home/share-icon.svg'
 import icon5 from '@/static/image/home/icon-ai.svg'
+import Utils from '@/utils'
 
+import useChangeStore from '@/stores/modules/change'
+
+const changeStore = useChangeStore()
 const { safeAreaInsets } = uni.getWindowInfo()
 const list = [
   {
@@ -103,6 +107,13 @@ const show = ref(false)
 
 const tabs = ref(['推荐', '饮食', '运动', '计划'])
 
+const goToAiService = () => {
+  changeStore.changeTabType('main')
+  changeStore.changeTab(3)
+  setTimeout(() => {
+    Utils.switchTab('/pages/community/community')
+  }, 500)
+}
 // 定义方法
 function open() {
   // 打开逻辑，比如设置 show 为 true

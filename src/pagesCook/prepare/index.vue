@@ -27,16 +27,12 @@
       </scroll-view>
 
       <view class="p-15rpx flex w-100% mt-20rpx jsustify-between items-center bg-white shadow1">
-        <view class="title flex-1 gap10rpx">
+        <view class="title flex-1 gap10rpx center gap-10rpx">
           <image class="size-28rpx" :src="IconTime" mode="scaleToFill" />
           <text>预计时间: 30分钟</text>
         </view>
         <view class="scores flex-1 justify-end flex">
-          <uni-icons type="star-filled" color="#FDC60F" size="20" />
-          <uni-icons type="star-filled" color="#FDC60F" size="20" />
-          <uni-icons type="star-filled" color="#FDC60F" size="20" />
-          <uni-icons type="star" color="#333333" size="20" />
-          <uni-icons type="star" color="#333333" size="20" />
+          <uni-rate v-model="rateValue" disabled-color="#FFCA3E" disabled />
         </view>
       </view>
       <view class="w-100% mt-42rpx">
@@ -55,6 +51,7 @@ import iconTool from '@/static/image/cook/tool.svg'
 import IconTime from '@/static/image/cook/icon-time2.svg'
 import Utils from '@/utils'
 
+const rateValue = ref(3)
 const { safeAreaInsets } = uni.getWindowInfo()
 const handleStartCook = () => {
   Utils.navigateTo('/pagesCook/process/index')

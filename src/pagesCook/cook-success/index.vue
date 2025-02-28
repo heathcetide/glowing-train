@@ -19,13 +19,7 @@
 
       <view class="col bg-#fff p-24rpx rounded-14rpx">
         <text class="text-#333333">为这次烹饪打分</text>
-        <view>
-          <uni-icons type="star-filled" color="#333333" size="20" />
-          <uni-icons type="star-filled" color="#333333" size="20" />
-          <uni-icons type="star-filled" color="#333333" size="20" />
-          <uni-icons type="star-filled" color="#333333" size="20" />
-          <uni-icons type="star-filled" color="#333333" size="20" />
-        </view>
+        <uni-rate v-model="rateValue" />
       </view>
       <view class="col bg-#fff p-28rpx rounded-14rpx shadow1 my-22rpx">
         <view class="flex justify-start w-100%">
@@ -70,7 +64,10 @@ import Pic from '@/static/image/cook/cook-success-pic.svg'
 import IconShare from '@/static/image/cook/icon-share.svg'
 import IconSave from '@/static/image/cook/icon-save.svg'
 import IconDielt from '@/static/image//community/icon-diet.svg'
+import { ref } from 'vue'
 const { safeAreaInsets } = uni.getWindowInfo()
+
+const rateValue = ref(0)
 const list = [
   {
     name: '热量',

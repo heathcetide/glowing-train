@@ -11,7 +11,7 @@
       }"
     >
       <slot name="prevIcon"></slot>
-      <view v-for="(tab, index) in tabs" :key="index" class="tab-item" @click="handleTabClick(index, tab)">
+      <view v-for="(tab, index) in tabs" :key="index" class="tab-item" @click="handleTabClick(index)">
         <view class="text mx-5rpx" :class="{ active: activeTab === index }" :style="{ padding: padding }">
           <slot name="tabs" :tab :index :isActive="activeTab === index ? true : false"></slot>
         </view>
@@ -25,8 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import useChangeStore from '@/stores/modules/change'
-const changeStore = useChangeStore()
+import { ref } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -47,22 +46,12 @@ const props = withDefaults(
   },
 )
 
-const activeTab = changeStore.getActiveIndex()
-const tabTab = changeStore.tabType
-const handleTabClick = (index: number, tab: string) => {
-  const tabs = ['食谱榜单', '食谱榜单', '工具榜单']
+const activeTab = ref(0)
 
-  if (tabs.includes(tab)) {
-    console.log('触发了', tab)
-
-    changeStore.changeTabType('sub')
-    setTimeout(() => {
-      changeStore.changeTab(index)
-    }, 1)
-    return
-  }
-  changeStore.changeTabType('main')
-  changeStore.changeTab(index)
+const handleTabClick = (index: number) => {
+  activeTab.value = index
+  // changeStore.changeTabType('main')
+  // changeStore.changeTab(index)
 }
 </script>
 

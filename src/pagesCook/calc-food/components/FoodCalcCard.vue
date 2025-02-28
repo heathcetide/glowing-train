@@ -13,17 +13,33 @@
     >
       <up-image :src="item.icon" width="168rpx" radius="14rpx" height="168rpx" mode="scaleToFill" />
     </uni-badge>
+
     <view class="px-22rpx items-center w-100%">
       <view class="flex flex-col w-100%">
         <view class="justify-between flex w-100%">
           <text>{{ item.title }}</text>
-          <uni-icons type="trash-filled" color="" size="20" />
+          <uni-icons type="trash-filled" color="" @click="handleDelete" size="20" />
         </view>
         <text class="text-#333333 text-21rpx ellipsis mt-8rpx mb-20rpx">{{ item.desc }}</text>
         <text class="text-#333333 text-21rpx ellipsis">{{ item.subDesc }}</text>
       </view>
+
       <view class="mt-22rpx">
-        <CalcNumber v-model="value" />
+        <up-number-box v-model="item.num!">
+          <template #minus>
+            <view class="minus">
+              <uni-icons type="minus" color="" size="24" />
+            </view>
+          </template>
+          <template #input>
+            <text style="width: 50px; text-align: center" class="input">{{ item.num }}</text>
+          </template>
+          <template #plus>
+            <view class="plus">
+              <uni-icons type="plus" size="24" />
+            </view>
+          </template>
+        </up-number-box>
       </view>
     </view>
   </view>
@@ -31,10 +47,13 @@
 
 <script setup lang="ts">
 import icon1 from '@/static/image/cook/food-pic1.svg'
-import CalcNumber from './CalcNumber.vue'
 import type { CookModule } from '@/types/component'
+import useCookStore from '@/stores/modules/cook'
 
 import { ref } from 'vue'
+import Utils from '@/utils'
+
+const useCook = useCookStore()
 
 // 创建响应式数据
 const value = ref(1)
@@ -59,6 +78,17 @@ const props = withDefaults(defineProps<Props>(), {
     } as CookModule.FoodCalcCardItem),
 })
 
+const handleDelete = () => {
+  Utils.showModal({
+    title: '确定要删除这个菜品吗?',
+    content: '',
+    cancel: () => {},
+    confirm: () => {
+      useCook.deleteDiet(props.item.id)
+      Utils.showToast('删除成功')
+    },
+  })
+}
 const handleClick = () => {
   emit('click', props.item)
 }

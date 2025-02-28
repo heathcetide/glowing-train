@@ -8,6 +8,7 @@ import SGContainer from '@/components/SGContainer.vue'
 import SGSearchBar from '@/components/SGSearchBar.vue'
 import SGNavBar from '@/components/SGNavBar.vue'
 import SGTabs from '@/components/SGTabs.vue'
+import SGTabsSub from '@/components/SGTabsSub.vue'
 import SGMsgNotice from '@/components/SGMsgNotice.vue'
 import QiunDataCharts from '@/components/qiun-data-charts/qiun-data-charts.vue'
 import SGCateTab from '@/components/SGCateTab.vue'
@@ -26,6 +27,7 @@ declare module 'vue' {
     SGCateTab: typeof SGCateTab
     SGIconTabs: typeof SGIconTabs
     SGPopupDialog: typeof SGPopupDialog
+    SGTabsSub: typeof SGTabsSub
   }
   export interface Tabs {
     icon: string
@@ -94,10 +96,12 @@ export namespace CookModule {
     icon: string
     title: string
     desc: string
+    hot: number
+    /**份数 */
+    num: number = 0
   }
 
   export interface FoodCalcCardItem extends FoodCardItem {
-    subDesc: string
-    num: number
+    subDesc?: string
   }
 }

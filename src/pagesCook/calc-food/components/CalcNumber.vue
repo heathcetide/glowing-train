@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-const value = defineModel<number>('value', { type: Number, default: 1 })
+const value = defineModel<number>('value', { type: Number, default: 0 })
 </script>
 
 <style scoped></style>

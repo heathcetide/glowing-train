@@ -10,7 +10,7 @@ import { http } from '@/utils/request'
  */
 export const getPostsByCursorAPI = (cursorId: number, pageSize: number) => {
   const url = `/api/posts/page/cursor?cursorId=${cursorId}&pageSize=${pageSize}`
-  return http<unknown>({
+  return http<Post.PostItem[]>({
     url: url,
     method: 'GET',
   })

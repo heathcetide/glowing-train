@@ -2,7 +2,7 @@
   <view>
     <iframe
       src="https://try2.fit2cloud.cn/ui/chat/1555b0e647572a4d"
-      style="width: 100%; height: 80vh"
+      :style="{ width: '100%', height: `calc(100vh - ${safeAreaInsets.top + 30}px)` }"
       frameborder="0"
       allow="microphone"
     >
@@ -12,6 +12,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
+const { safeAreaInsets } = uni.getWindowInfo()
 
 onMounted(async () => {
   try {

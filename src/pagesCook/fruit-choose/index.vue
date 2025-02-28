@@ -28,7 +28,7 @@
     <view
       class="bg-#fff center pos-fixed bottom-20rpx w-100% px-40rpx py-20rpx shadow-0_-20rpx_5rxp_0_#333 flex justify-between"
     >
-      <view> 已选择 {{ selectedDielt }} 道菜 | 预估{{ totalCalorie }} kcal </view>
+      <view> 已选择 {{ cookStore.totalNum }} 道菜 | 预估{{ cookStore.totalHot }} kcal </view>
       <view> <button class="bg-#5DBE8A text-#fff px-20rpx py-10rpx" @click="goToCalc">结算</button></view>
     </view>
   </view>
@@ -42,15 +42,17 @@ import MainFood from './components/main-food/index.vue'
 import SmallFood from './components/small-food/index.vue'
 import SoupFood from './components/soup-food/index.vue'
 import CookNavBar from '../common/CookNavBar.vue'
-import { provide } from 'vue'
 import Utils from '@/utils'
 import { ref } from 'vue'
 
+import useCookStore from '@/stores/modules/cook'
+
+const cookStore = useCookStore()
 const { safeAreaInsets } = uni.getWindowInfo()
 const tabs = ['全部', '热菜', '凉菜', '主食', '汤类', '小菜']
 const keyword = ref()
-const selectedDielt = ref(0)
-const totalCalorie = ref(0)
+// const selectedDielt =
+// const totalCalorie =
 
 // 跳转到结算页面
 const goToCalc = () => {
@@ -59,14 +61,6 @@ const goToCalc = () => {
 const handleSearch = () => {
   console.log(keyword.value)
 }
-
-const handleSelect = (num: number, hot: number) => {
-  console.log('num_ hot: ', num, hot)
-
-  selectedDielt.value += num
-  totalCalorie.value += hot
-}
-provide('handleSelect', handleSelect)
 </script>
 
 <style scoped></style>

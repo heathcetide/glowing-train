@@ -2,7 +2,7 @@
   <scroll-view scroll-y class="scroll-view" :style="{ height: hetght }">
     <up-waterfall v-model="flowList" ref="uWaterfallRef">
       <template v-slot:left="{ leftList }">
-        <view class="demo-warter" v-for="(item, index) in leftList" :key="item.id">
+        <view class="demo-warter" v-for="(item, index) in leftList" :key="item.id" @click="lookDetials(item.id)">
           <RecommendCard
             :image="item.image"
             :index="index"
@@ -16,7 +16,7 @@
         </view>
       </template>
       <template v-slot:right="{ rightList }">
-        <view class="demo-warter" v-for="(item, index) in rightList" :key="item.id">
+        <view class="demo-warter" v-for="(item, index) in rightList" :key="item.id" @click="lookDetials(item.id)">
           <RecommendCard
             :image="item.image"
             :index="index"
@@ -59,9 +59,9 @@ let cursorId = ref(0)
 const pageSize = 10
 
 // 请求帖子数据
-const fetchPosts = async (cursorId: number, pageSize: number) => {
+const fetchPosts = async (cursd: number, pageSize: number) => {
   try {
-    const response = await getPostsByCursorAPI(cursorId, pageSize)
+    const response = await getPostsByCursorAPI(cursd, pageSize)
     if (response && response.data) {
       const posts = (response.data as any[]).map((item: any) => ({
         id: item.id,
@@ -84,6 +84,11 @@ const fetchPosts = async (cursorId: number, pageSize: number) => {
   }
 }
 
+const lookDetials = (id: number) => {
+  uni.navigateTo({
+    url: `/pages/post-details/post-details?id=${id}`,
+  })
+}
 const addRandomData = () => {
   fetchPosts(cursorId.value, pageSize)
 }

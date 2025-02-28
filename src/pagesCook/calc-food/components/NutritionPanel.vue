@@ -13,22 +13,19 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    list: Array<AnyObject>
-  }>(),
-  {
-    list: () => {
-      return [
-        { title: '总计菜品', value: 3, op: '道' },
-        { title: '总热量', value: 850, op: 'kcal' },
-        { title: '蛋白质', value: 49, op: 'g' },
-        { title: '碳水化合物', value: 62, op: 'g' },
-        { title: '脂肪', value: 86, op: 'g' },
-      ]
-    },
-  },
-)
+import { computed, ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import useCookStore from '@/stores/modules/cook'
+const cookStore = useCookStore()
+const { totalHot, totalNum } = storeToRefs(cookStore)
+
+const list = ref([
+  { title: '总计菜品', value: totalNum, op: '道' },
+  { title: '总热量', value: totalHot, op: 'kcal' },
+  { title: '蛋白质', value: 49, op: 'g' },
+  { title: '碳水化合物', value: 62, op: 'g' },
+  { title: '脂肪', value: 86, op: 'g' },
+])
 </script>
 
 <style scoped></style>

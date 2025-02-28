@@ -2,7 +2,6 @@
   <view class="card">
     <view class="card-image">
       <up-lazy-load threshold="-450" border-radius="10" :image="image" :index="index"></up-lazy-load>
-      <!-- <up-image :src="image" mode="aspectFill" :lazy-load="true" width="360rpx" class="image" /> -->
     </view>
     <view class="content">
       <view class="title">{{ title }}</view>
@@ -22,17 +21,8 @@
 </template>
 
 <script setup lang="ts">
+import type { RecommendCardProps } from '@/types/community'
 import { withDefaults } from 'vue'
-interface RecommendCardProps {
-  id: number
-  image: string
-  title: string
-  avatar: string
-  nickName: string
-  number: string
-  index?: number
-  isComment?: boolean
-}
 
 const props = withDefaults(defineProps<RecommendCardProps>(), {
   id: 1,

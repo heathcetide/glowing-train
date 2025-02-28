@@ -31,14 +31,12 @@
 import CalcNumber from '@/pagesCook/calc-food/components/CalcNumber.vue'
 import type { CookModule } from '@/types/component'
 import { computed, ref } from 'vue'
-const value = defineModel('value', { type: Number, default: 1 })
-const alertDialog = ref()
 
+const alertDialog = ref()
+const value = defineModel('value', { type: Number, default: 1 })
 interface Props {
   /**菜谱信息 */
-  item: Pick<CookModule.FoodCardItem, 'title' | 'icon'>
-  /**热量 */
-  hot: number
+  item: CookModule.FoodCardItem
 }
 const props = defineProps<Props>()
 
@@ -47,7 +45,7 @@ const emits = defineEmits<{
 }>()
 
 const hotCounter = computed(() => {
-  return props.hot * value.value
+  return props.item.hot * (value.value as number)
 })
 const dialogConfirm = () => {
   emits('confirm')
