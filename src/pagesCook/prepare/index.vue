@@ -7,14 +7,12 @@
         <!-- 食材准备 -->
         <view>
           <view class="text-31.5rpx font-600 mb-28rpx">食材准备</view>
-          <view class="content flex flex-col gap-20rpx">
-            <PrepareCard title="五花肉" :num="300" :icon="IconMet" />
-            <PrepareCard title="五花肉" :num="200" :icon="IconMet" />
-            <PrepareCard title="五花肉" :num="100" :icon="IconMet" />
+          <view class="content flex flex-col gap-20rpx" v-for="(item, index) in foodList" :key="item.id">
+            <PrepareCard :index="index + ''" :num="300" :icon="IconMet" />
           </view>
         </view>
 
-        <!-- 工具准备 -->
+        <!-- 工具准备
         <view class="mt-42rpx">
           <view class="text-31.5rpx font-600 mb-28rpx">工具准备</view>
           <view class="content flex flex-col gap-20rpx">
@@ -23,7 +21,7 @@
             <PrepareCard title="炒锅" :icon="iconTool" />
             <PrepareCard title="炒锅" :icon="iconTool" />
           </view>
-        </view>
+        </view> -->
       </scroll-view>
 
       <view class="p-15rpx flex w-100% mt-20rpx jsustify-between items-center bg-white shadow1">
@@ -43,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import CookNavBar from '../common/CookNavBar.vue'
 import PrepareCard from './components/PrepareCard.vue'
 import IconMet from '@/static/image/cook/met.svg'
@@ -56,6 +54,27 @@ const { safeAreaInsets } = uni.getWindowInfo()
 const handleStartCook = () => {
   Utils.navigateTo('/pagesCook/process/index')
 }
+
+// 定义一个 foodList 存储食物列表
+const foodList = ref<any[]>([])
+
+onMounted(() => {
+  // 从本地存储获取推荐食物
+  uni.getStorage({
+    key: 'recommendedFoods',
+    success: (res) => {
+      if (res.data && Array.isArray(res.data)) {
+        // 如果从存储中获取到推荐食物数据，赋值给 foodList
+        foodList.value = res.data
+      } else {
+        console.log('没有找到推荐食物数据')
+      }
+    },
+    fail: () => {
+      console.log('无法获取推荐食物数据')
+    },
+  })
+})
 </script>
 
 <style scoped></style>

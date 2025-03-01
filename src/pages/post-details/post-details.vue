@@ -16,7 +16,8 @@ import CustomNavBar from './components/CustomNavBar.vue'
 import PostContaint from './components/PostContaint.vue'
 // 新增状态管理
 import { ref, watch } from 'vue'
-
+import usePostStore from '@/stores/modules/post'
+const postStore = usePostStore()
 const value = ref('')
 
 const list = ref<Post.CardItem[]>([
@@ -57,10 +58,13 @@ watch(value, (newValue) => {
     list.value.unshift(item)
   }
 })
-const getDetials = () => {}
+const getDetials = (id: number) => {
+  postStore.getPostDetailsById(id)
+}
 
-onLoad((id) => {
-  console.log('@@:', id)
+onLoad((data) => {
+  const id = data?.id
+  getDetials(id)
 })
 </script>
 

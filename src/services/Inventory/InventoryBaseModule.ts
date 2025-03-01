@@ -38,3 +38,13 @@ export interface UserInventory {
   updated_at: string
   deleted: boolean
 }
+
+/**
+ * @description 获取用户库存推荐食物
+ */
+export const getUserInventoryMakeFoodAPI = () => {
+  return http({
+    url: '/api/recommendations/user/foods', // 调用获取用户库存的接口
+    method: 'GET',
+  })
+}

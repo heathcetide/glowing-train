@@ -15,6 +15,7 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import Utils from '@/utils'
 import FoodCalcCard from './components/FoodCalcCard.vue'
 import NutritionPanel from './components/NutritionPanel.vue'
@@ -28,6 +29,26 @@ const { safeAreaInsets } = uni.getWindowInfo()
 const onBack = () => {
   Utils.navigateBack()
 }
+// 定义一个 foodList 存储食物列表
+const foodList = ref<any[]>([])
+
+onMounted(() => {
+  // 从本地存储获取推荐食物
+  uni.getStorage({
+    key: 'recommendedFoods',
+    success: (res) => {
+      if (res.data && Array.isArray(res.data)) {
+        // 如果从存储中获取到推荐食物数据，赋值给 foodList
+        foodList.value = res.data
+      } else {
+        console.log('没有找到推荐食物数据')
+      }
+    },
+    fail: () => {
+      console.log('无法获取推荐食物数据')
+    },
+  })
+})
 
 const onStart = () => {
   Utils.navigateTo('/pagesCook/prepare/index')

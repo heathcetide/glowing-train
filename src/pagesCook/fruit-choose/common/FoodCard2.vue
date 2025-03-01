@@ -1,10 +1,16 @@
 <template>
   <view class="card shadow1 rounded-0_20rpx_20rpx-0 flex w-100%">
-    <up-image :src="item.icon" width="168rpx" radius="20rpx 0  0 20rpx" height="168rpx" mode="scaleToFill"></up-image>
+    <up-image
+      :src="item.foodUrl"
+      width="168rpx"
+      radius="20rpx 0  0 20rpx"
+      height="168rpx"
+      mode="scaleToFill"
+    ></up-image>
     <view class="flex justify-between gap-8rpx px-22rpx items-center w-100%">
       <view class="flex flex-col gap-8rpx">
-        <text>{{ item.title }}</text>
-        <text class="text-#333333 text-21rpx ellipsis">{{ item.desc }}</text>
+        <text>{{ item.name }}</text>
+        <text class="text-#333333 text-21rpx ellipsis">热量 {{ item.kcal }}</text>
       </view>
       <view>
         <button class="bg-#5DBE8A text-#fff" @click="handleClick" size="mini">选择</button>

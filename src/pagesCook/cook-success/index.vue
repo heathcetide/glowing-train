@@ -49,7 +49,7 @@
           <image :src="IconDielt" mode="scaleToFill" class="size-24.5rpx" />
           一键记录到今日饮食
         </button>
-        <button class="flex-1 text-#fff bg-#5DBE8A items-center">
+        <button class="flex-1 text-#fff bg-#5DBE8A items-center" @click="goTurnMain()">
           <uni-icons type="arrow-right" color="#fff" size="20" />
           下一道菜
         </button>
@@ -82,6 +82,12 @@ const list = [
     value: '16 g',
   },
 ]
+
+const goTurnMain = () => {
+  uni.switchTab({
+    url: '/pages/index/index', // 这里改成 TabBar 页面路径
+  })
+}
 </script>
 
 <style scoped></style>

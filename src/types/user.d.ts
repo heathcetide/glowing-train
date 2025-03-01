@@ -5,18 +5,18 @@ import type { FoodUnit } from '@/enum/FoodEnum'
 import type { PlanStatus, PlanCategory, GoalCategory } from '@/enum/PlanEnum'
 
 export declare namespace User {
+  export interface GetLoginToken {
+    token: string
+    profile: Info
+  }
+
   /**完整用户信息*/
   export interface Info extends UserInfo {
-    createdAt: string
-    deleted: number
-    id: number
-    password: string
-    permissions: string
-    phone: number
-    role: UserRole
-    status: UserStatus
-    updatedAt: string
-    username: string
+    lastLoginTime: string
+    levelName: string
+    levelPoints: number
+    maxPoints: number
+    minPoints: number
   }
 
   /**部分用户信息 */

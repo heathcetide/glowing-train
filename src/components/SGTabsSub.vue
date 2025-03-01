@@ -42,7 +42,6 @@ const props = withDefaults(
     showBorder: true,
     fontSize: '28rpx',
     showBorderButtom: true,
-    // fontWeight: 'bold',
   },
 )
 
@@ -50,8 +49,6 @@ const activeTab = ref(0)
 
 const handleTabClick = (index: number) => {
   activeTab.value = index
-  // changeStore.changeTabType('main')
-  // changeStore.changeTab(index)
 }
 </script>
 

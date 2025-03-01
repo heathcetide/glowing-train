@@ -6,38 +6,38 @@ import icon2 from '@/static/image/cook/food-pic2.svg'
 const useCookStore = defineStore('cook', () => {
   const chosedDietList = ref<CookModule.FoodCardItem[]>([])
 
-  const defaultList = ref([
+  const defaultList = ref<CookModule.FoodCardItem[]>([
     {
       id: 1,
-      icon: icon1,
+      foodUrl: icon1,
       title: '烤鱼',
       desc: '烤鱼',
-      hot: 100,
+      kcal: 100,
       num: 1,
     },
     {
       id: 2,
-      icon: icon2,
+      foodUrl: icon2,
       title: '烤鱼',
       desc: '烤鱼',
-      hot: 200,
+      kcal: 200,
       num: 1,
     },
 
     {
       id: 3,
-      icon: icon1,
+      foodUrl: icon1,
       title: '烤鱼',
       desc: '烤鱼',
       num: 1,
-      hot: 100,
+      kcal: 100,
     },
     {
       id: 4,
-      icon: icon2,
+      foodUrl: icon2,
       title: '烤鱼',
       desc: '烤鱼',
-      hot: 100,
+      kcal: 100,
       num: 1,
     },
   ])
@@ -60,8 +60,8 @@ const useCookStore = defineStore('cook', () => {
     chosedDietList.value = chosedDietList.value.filter((a) => a.id !== id)
   }
 
-  const totalHot = computed(() => {
-    return chosedDietList.value.reduce((a, b) => a + b.num * b.hot, 0)
+  const totalkcal = computed(() => {
+    return chosedDietList.value.reduce((a, b) => a + b.num * b.kcal, 0)
   })
   const totalNum = computed(() => {
     const count = chosedDietList.value.reduce((a, b) => a + b.num, 0)
@@ -76,7 +76,7 @@ const useCookStore = defineStore('cook', () => {
     defaultList,
     addDiet,
     deleteDiet,
-    totalHot,
+    totalkcal,
     totalNum,
     clear,
   }

@@ -2,15 +2,7 @@
   <view :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <CookNavBar title="菜品选择" />
     <view class="contain px-28rpx py-32rpx">
-      <uni-search-bar
-        bg-color="#fff"
-        placeholder="搜索菜品"
-        class="rounded-20rpx"
-        v-model="keyword"
-        @confirm="handleSearch"
-      />
-
-      <SGTabs font-size="24.5rpx" :tabs="tabs" :show-border="false" padding="0rpx">
+      <SGTabsSub font-size="24.5rpx" :tabs="tabs" :show-border="false" padding="0rpx">
         <template #tabs="{ tab, isActive }">
           <view v-if="!isActive" class="bg-#fff py-14rpx px-28rpx text-#333333 text-24.5rpx">{{ tab }} </view>
           <view v-else class="bg-#5DBE8A text-#fff py-14rpx px-28rpx text-24.5rpx">{{ tab }}</view>
@@ -22,13 +14,13 @@
         <template #tab-3><MainFood /></template>
         <template #tab-4><SoupFood /></template>
         <template #tab-5><SmallFood /></template>
-      </SGTabs>
+      </SGTabsSub>
     </view>
 
     <view
       class="bg-#fff center pos-fixed bottom-20rpx w-100% px-40rpx py-20rpx shadow-0_-20rpx_5rxp_0_#333 flex justify-between"
     >
-      <view> 已选择 {{ cookStore.totalNum }} 道菜 | 预估{{ cookStore.totalHot }} kcal </view>
+      <view> 已选择 {{ cookStore.totalNum }} 道菜 | 预估{{ cookStore.totalkcal }} kcal </view>
       <view> <button class="bg-#5DBE8A text-#fff px-20rpx py-10rpx" @click="goToCalc">结算</button></view>
     </view>
   </view>

@@ -65,7 +65,7 @@ export const enable2faAPI = () =>
  *
  */
 export const loginAPI = (data: User.LoginParams) =>
-  http<unknown>({
+  http<User.GetLoginToken>({
     url: '/api/users/login',
     method: 'POST',
     data,
@@ -202,10 +202,10 @@ export const getUserInfoAPI = (username: string) =>
     method: 'GET',
   })
 
-  /**
-   *
-   * @returns {User.Info}
-   */
+/**
+ *
+ * @returns {User.Info}
+ */
 export const getUserInfoAndLevel = () =>
   http<User.Info>({
     url: '/api/users/info/level',

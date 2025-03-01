@@ -93,12 +93,13 @@ export namespace HomeIndex {
 export namespace CookModule {
   export interface FoodCardItem {
     id: number
-    icon: string
+    foodUrl: string
     title: string
     desc: string
-    hot: number
+    kcal: number
     /**份数 */
     num: number = 0
+    ingredients?: string[]
   }
 
   export interface FoodCalcCardItem extends FoodCardItem {

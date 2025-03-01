@@ -40,57 +40,29 @@ import { onLoad } from '@dcloudio/uni-app'
 import RecommendCard from './components/RecommendCard.vue'
 import { computed, ref } from 'vue'
 
-import { getPostsByCursorAPI } from '@/services/post/postBaseModule' // 引入API请求
 import type { RecommendCardProps } from '@/types/community'
-
+import usePostStore from '@/stores/modules/post'
+const postStore = usePostStore()
 const { safeAreaInsets } = uni.getWindowInfo()
+
+const loadStatus = postStore.loadStatus
 
 const hetght = computed(() => {
   return `calc(100vh - 50rpx - ${safeAreaInsets.bottom + safeAreaInsets.top}px)`
 })
-const tabs = ref<string[]>(['推荐', '视频', '直播', '图文'])
 
 const uWaterfallRef = ref()
-const loadStatus = ref<'loadmore' | 'loading' | 'nomore'>()
-const flowList = ref<Array<RecommendCardProps>>([]) // 存储从接口获取的帖子数据
 
-// 游标和分页设置
-let cursorId = ref(0)
-const pageSize = 10
-
-// 请求帖子数据
-const fetchPosts = async (cursd: number, pageSize: number) => {
-  try {
-    const response = await getPostsByCursorAPI(cursd, pageSize)
-    if (response && response.data) {
-      const posts = (response.data as any[]).map((item: any) => ({
-        id: item.id,
-        title: item.content, // 显示内容作为标题
-        image: item.mediaUrl, // 使用媒体链接作为图片
-        avatarUrl: item.avatarUrl, // 默认没有头像字段
-        nickName: item.nickname.toString(), // 使用 userId 作为用户名
-        number: item.likeCount.toString(), // 显示点赞数
-        isComment: item.commentsCount > 0, // 是否有评论
-        tags: JSON.parse(item.tags || '[]'),
-      }))
-
-      flowList.value = [...flowList.value, ...posts] // 添加新获取的数据到流列表
-      cursorId.value = posts[posts.length - 1]?.id || cursorId.value // 更新游标ID
-      loadStatus.value = posts.length < pageSize ? 'nomore' : 'loadmore' // 判断是否有更多数据
-    }
-  } catch (error) {
-    console.error('Failed to fetch posts:', error)
-    loadStatus.value = 'nomore'
-  }
-}
+const flowList = ref<RecommendCardProps[]>() // 存储从接口获取的帖子数据
 
 const lookDetials = (id: number) => {
   uni.navigateTo({
     url: `/pages/post-details/post-details?id=${id}`,
   })
 }
-const addRandomData = () => {
-  fetchPosts(cursorId.value, pageSize)
+const addRandomData = async () => {
+  await postStore.fetchPosts()
+  flowList.value = postStore.postList
 }
 
 onLoad(() => {

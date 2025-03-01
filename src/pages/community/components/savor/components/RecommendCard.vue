@@ -4,7 +4,7 @@
       <up-lazy-load threshold="-450" border-radius="10" :image="image" :index="index"></up-lazy-load>
     </view>
     <view class="content">
-      <view class="title">{{ title }}</view>
+      <view class="title line-clamp-3 ellipsis line-clamp-3">{{ title }}</view>
       <view class="info">
         <view class="userinfo">
           <image :src="avatar" class="avatar" />

@@ -35,6 +35,7 @@ import CalorieIntake from './components/CalorieIntake.vue'
 import NutrientDistribution from './components/NutrientDistribution.vue'
 import icon from '@/static/image/community/icon-ranke1.svg'
 import Utils from '@/utils'
+import { getUserInventoryMakeFoodAPI } from '@/services/Inventory/InventoryBaseModule'
 
 const { safeAreaInsets } = uni.getWindowInfo()
 const handleClickRight = () => {

@@ -1,3 +1,4 @@
+import type { User } from '@/types/user'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -6,7 +7,7 @@ export const useMemberStore = defineStore(
   'member',
   () => {
     // 会员信息
-    const profile = ref<any>()
+    const profile = ref<User.Info>()
     const token = ref<string | null>(null) // 保存 JWT 令牌
 
     // 保存会员信息，登录时使用

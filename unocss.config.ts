@@ -4,13 +4,8 @@ import { extractorAttributify, transformerClass } from 'unocss-preset-weapp/tran
 const { presetWeappAttributify, transformerAttributify } = extractorAttributify()
 
 export default {
-  presets: [
-    // https://github.com/MellowCo/unocss-preset-weapp
-    presetWeapp(),
-    // attributify autocomplete
-    presetWeappAttributify(),
-  ],
-  rules: [[/^shadow-(.+)$/, ([, d]) => ({ boxShadow: d })]],
+  presets: [presetWeapp(), presetWeappAttributify()],
+
   shortcuts: [
     {
       'border-base': 'border border-gray-500_10',
@@ -20,14 +15,21 @@ export default {
       col: 'flex flex-col items-center justify-center',
       'text-0': 'text-#333333',
       'text-1': 'text-#6B7280',
+      ellipsis: 'text-ellipsis whitespace-nowrap overflow-hidden t',
     },
   ],
 
-  transformers: [
-    // https://github.com/MellowCo/unocss-preset-weapp/tree/main/src/transformer/transformerAttributify
-    transformerAttributify(),
-
-    // https://github.com/MellowCo/unocss-preset-weapp/tree/main/src/transformer/transformerClass
-    transformerClass(),
+  rules: [
+    [
+      /^lines-(\d+)$/,
+      ([, n]) => ({
+        display: '-webkit-box',
+        '-webkit-box-orient': 'vertical',
+        '-webkit-line-clamp': n,
+        overflow: 'hidden',
+      }),
+    ],
   ],
+
+  transformers: [transformerAttributify(), transformerClass()],
 }

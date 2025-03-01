@@ -12,7 +12,7 @@ declare global {
 
   // 响应数据结果类型
   interface Data<T> {
-    code: string
+    code: number
     message: string
     data: T
   }

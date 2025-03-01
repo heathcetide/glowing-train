@@ -1,7 +1,7 @@
 <template>
   <view class="wrap" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <view class="container">
-      <SGTabs :tabs fontWeight="bold">
+      <SGTabsSub :tabs fontWeight="bold">
         <template #tab-0><Recommend /> </template>
         <template #tab-1><Diet /> </template>
         <template #tab-2><Move /> </template>
@@ -11,7 +11,7 @@
             <text>{{ tab }}</text>
           </view>
         </template>
-      </SGTabs>
+      </SGTabsSub>
 
       <up-float-button :isMenu="false" bottom="100rpx" @click="goToChoose">
         <template #default>
