@@ -1,6 +1,6 @@
 <template>
   <view class="wrap">
-    <SGTabs :tabs>
+    <SGTabs :tabs="tabs">
       <template #prevIcon><uni-icons type="list" color="#4B5563" size="24" /> </template>
       <template #nextIcon> <uni-icons type="search" color="#4B5563" size="24" @click="goToSearch" /></template>
       <template #tab-0><Savor /> </template>
@@ -20,7 +20,7 @@ import Answer from './components/answer/index.vue'
 import RankingList from './components/ranking-list/index.vue'
 import Activity from './components/activity/index.vue'
 import { ref } from 'vue'
-
+import SGTabs from '@/components/SGTabs.vue'
 const tabs = ref<string[]>(['寻味', '榜单', '活动', '问答'])
 
 const goToSearch = () => {

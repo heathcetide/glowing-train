@@ -46,7 +46,7 @@
       </template>
     </SGCateTab>
 
-    <PoupCard :type :show="isShowPopup" @open="onOpenPopup" @close="onClosePopup" :item="selectedItem" />
+    <PoupCard :type="type" :show="isShowPopup" @open="onOpenPopup" @close="onClosePopup" :item="selectedItem" />
   </view>
 </template>
 
@@ -161,7 +161,7 @@ onMounted(async () => {
       if (!acc[category]) {
         acc[category] = {
           title: category,
-          children: []
+          children: [],
         }
       }
       acc[category].children.push({
@@ -173,16 +173,14 @@ onMounted(async () => {
         latestDate: item.expirationDate,
       })
       return acc
-    }, {} as Record<string, { title: string, children: any[] }>)
+    }, {} as Record<string, { title: string; children: any[] }>)
 
     // 转换成数组并赋值给tabList
     tabList.value = Object.values(categorizedData)
-
   } catch (error) {
     console.error('获取库存数据失败:', error)
   }
 })
-
 </script>
 
 <style scoped lang="scss">

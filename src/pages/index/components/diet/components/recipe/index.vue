@@ -1,7 +1,7 @@
 <template>
   <view class="wrap">
     <CustomSearch />
-    <SGIconTabs :tabs>
+    <SGIconTabs :tabs="tabs">
       <template #tab-0><Nutrition /></template>
       <template #tab-1><Quick /></template>
       <template #tab-2><Family /></template>

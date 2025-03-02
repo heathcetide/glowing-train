@@ -6,6 +6,12 @@ export default defineConfig(async () => {
 
   return {
     plugins: [uni(), UnoCss()],
+    resolve: {
+      alias: {
+        '@': '/src',
+        '@image': '/src/static/image',
+      },
+    },
     server: {
       port: 8888,
       proxy: {

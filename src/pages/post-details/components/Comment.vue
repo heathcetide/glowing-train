@@ -3,7 +3,7 @@
     <view class="flex justify-between px-28rpx items-center py-30rpx">
       <view class="title" @click="handleComment">评论 {{ 20 }}</view>
       <view class="">
-        <select id="sortSelect" :style="{ border: 'none' }" v-model="selectedSortOption" @change="handleSortChange">
+        <select id="sortSelect" :style="{ border: 'none' }" @change="handleSortChange">
           <option value="all">全部</option>
           <option value="latest">最新</option>
         </select>
@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import ChatCard from './ChatCard.vue'
-const selectedSortOption = ref<'all' | 'latest'>('all') // 处理排序变化的方法
+const selectedSortOption = ref('') // 处理排序变化的方法
 
 const props = defineProps<{
   list?: Post.CardItem[]

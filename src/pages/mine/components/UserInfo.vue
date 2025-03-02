@@ -23,7 +23,7 @@
           </view>
           <progress
             class="progress-bar"
-            :percent="(memberStore.profile?.levelPoints / memberStore.profile?.maxPoints) * 100"
+            :percent="(memberStore.profile?.levelPoints || memberStore.profile?.maxPoints)! * 100"
             :stroke-width="3"
             backgroundColor="#108981"
             activeColor="#ffffff"

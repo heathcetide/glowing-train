@@ -1,5 +1,5 @@
 <template>
-  <SGIconTabs ref="tabRef" :tabs padding="0 50rpx" :show-border="false">
+  <SGIconTabs ref="tabRef" :tabs="tabs" padding="0 50rpx" :show-border="false">
     <template #tab-0><HealthyChange /></template>
     <template #tab-1><SocialShare /></template>
     <template #tab-2><OnlineSpeach /></template>

@@ -1,7 +1,7 @@
 <template>
   <scroll-view scroll-y class="scroll-view" :style="{ height: hetght }">
     <view class="px-28rpx flex gap-28rpx flex-col">
-      <RecipeListCard v-for="(item, index) in list" :key="index" :item />
+      <RecipeListCard v-for="(item, index) in list" :key="index" :item="item" />
     </view>
   </scroll-view>
 </template>

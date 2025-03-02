@@ -2,7 +2,7 @@
   <CustomNavBar />
   <scroll-view scroll-y>
     <PostContaint />
-    <Comment :list />
+    <Comment :list="list" />
   </scroll-view>
   <CommentInput v-model:value="value" />
 </template>

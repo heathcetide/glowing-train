@@ -7,7 +7,7 @@
       </view>
     </view>
     <view class="img my-24rpx w-100%">
-      <up-image :src="xx" width="100%" height="160rpx" mode="scaleToFill" />
+      <up-image :src="image" width="100%" height="160rpx" mode="scaleToFill" />
     </view>
     <text class="text-21rpx text-0">{{ subTitle }}</text>
   </view>

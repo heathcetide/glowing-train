@@ -13,7 +13,7 @@
       <slot name="prevIcon"></slot>
       <view v-for="(tab, index) in tabs" :key="index" class="tab-item" @click="handleTabClick(index)">
         <view class="text mx-5rpx" :class="{ active: activeTab === index }" :style="{ padding: padding }">
-          <slot name="tabs" :tab :index :isActive="activeTab === index ? true : false"></slot>
+          <slot name="tabs" :tab="tab" :index="index" :isActive="activeTab === index ? true : false"></slot>
         </view>
       </view>
       <slot name="nextIcon"></slot>

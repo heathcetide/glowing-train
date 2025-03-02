@@ -1,7 +1,7 @@
 <template>
   <view class="wrap" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <view class="container">
-      <SGTabsSub :tabs fontWeight="bold">
+      <SGTabsSub :tabs="tabs" fontWeight="bold">
         <template #tab-0><Recommend /> </template>
         <template #tab-1><Diet /> </template>
         <template #tab-2><Move /> </template>
@@ -13,7 +13,7 @@
         </template>
       </SGTabsSub>
 
-      <up-float-button :isMenu="false" bottom="100rpx" @click="goToChoose">
+      <up-float-button backgroundColor="#5DBE8A" :isMenu="false" bottom="100rpx" @click="goToChoose">
         <template #default>
           <view class="text-60rpx text-center flex items-center justify-center">+</view>
         </template>
@@ -66,11 +66,12 @@ import icon3 from '@/static/image/home/icon-stack.svg'
 import icon4 from '@/static/image/home/share-icon.svg'
 import icon5 from '@/static/image/home/icon-ai.svg'
 import Utils from '@/utils'
-
+import SGTabsSub from '@/components/SGTabsSub.vue'
 import useChangeStore from '@/stores/modules/change'
 
 const changeStore = useChangeStore()
 const { safeAreaInsets } = uni.getWindowInfo()
+
 const list = [
   {
     title: '饮食记录',

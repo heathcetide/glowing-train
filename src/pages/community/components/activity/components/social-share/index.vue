@@ -1,12 +1,10 @@
 <template>
   <scroll-view scroll-y class="scroll-view" :style="{ height: hetght }">
     <view class="px-28rpx h-100% flex flex-col gap-28rpx">
-      <ActivityCard :item />
-      <ActivityCard :item />
-      <ActivityCard :item />
-      <ActivityCard :item />
-      <ActivityCard :item />
-      <ActivityCard :item />
+      <ActivityCard :item="item" />
+      <ActivityCard :item="item" />
+      <ActivityCard :item="item" />
+      <ActivityCard :item="item" />
     </view>
   </scroll-view>
 </template>

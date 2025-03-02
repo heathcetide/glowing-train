@@ -2,7 +2,7 @@
   <view class="u-cate-tab">
     <view class="u-cate-tab__wrap">
       <scroll-view
-        class="u-cate-tab__view u-cate-tab__menu-scroll-view"
+        class="u-cate-tab__view u-cate-tab__menu-scroll-view col gap-10rpx"
         scroll-y
         scroll-with-animation
         :scroll-top="scrollTop"
@@ -11,7 +11,7 @@
         <view
           v-for="(item, index) in tabList"
           :key="index"
-          class="u-cate-tab__item w-168rpx"
+          class="u-cate-tab__item w-168rpx flex flex-col gap120rpx"
           :class="[current == index ? 'u-cate-tab__item-active' : '']"
           @tap.stop="swichMenu(index)"
         >

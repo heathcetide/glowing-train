@@ -1,6 +1,6 @@
 <template>
   <view class="wrap">
-    <SGTabs :tabs :showBorder="false" font-size="24rpx">
+    <SGTabs :tabs="tabs" :showBorder="false" font-size="24rpx">
       <template #tab-0><Note /> </template>
       <template #tab-1><Stack /> </template>
       <template #tab-2><Recipe /> </template>

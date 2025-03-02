@@ -1,5 +1,5 @@
 <template>
-  <SGTabsSub :tabs :show-border="false" :show-border-buttom="false" padding="0rpx">
+  <SGTabsSub :tabs="tabs" :show-border="false" :show-border-buttom="false" padding="0rpx">
     <template #tabs="{ tab, index, isActive }">
       <view
         v-if="!isActive"
