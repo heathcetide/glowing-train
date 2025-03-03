@@ -1,7 +1,7 @@
 <template>
   <view class="" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <CustomNavBar title="启动健康焕新计划" :step="1" :totalStep="4" />
-    <view class="p-28rpx">
+    <view class="p-24rpx">
       <view class="goal w-100% col gap-24rpx">
         <text class="text-48rpx font-700">你的目标是什么？</text>
         <text class="text-24rpx text-0">选择你的主要目标，我们会为你定制专属计划</text>
@@ -15,14 +15,7 @@
           :subTitle="item.subTitle"
           :icon="item.icon"
         />
-
-        <view class="flex-row flex justify-center w-100% text-21rpx text-0">
-          <text>你可以随时在设置中修改目标</text>
-        </view>
-
-        <button class="bg-#5DBE8A text-#fff w-100%" @click="onNext">
-          下一步 <uni-icons type="arrow-right" color="#fff" size="24" />
-        </button>
+        <NextButton url="leader_two" />
       </view>
     </view>
   </view>
@@ -30,11 +23,12 @@
 
 <script lang="ts" setup>
 import CustomNavBar from '../../pages/resign/components/CustomNavBar.vue'
-import PlanLeaderCard from './components/PlanLeaderCard.vue'
+import PlanLeaderCard from '../components/PlanLeaderCard.vue'
 import PicSec1 from '@/static/image/plan-leader/icon-planleader-sec-1.svg'
 import PicSec2 from '@/static/image/plan-leader/icon-planleader-sec-2.svg'
 import PicSec3 from '@/static/image/plan-leader/icon-planleader-sec-3.svg'
 import PicSec4 from '@/static/image/plan-leader/icon-planleader-sec-4.svg'
+import NextButton from '../components/NextButton.vue'
 import Utils from '@/utils'
 
 const { safeAreaInsets } = uni.getWindowInfo()
@@ -66,4 +60,8 @@ const onNext = () => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+page {
+  background: #fff;
+}
+</style>

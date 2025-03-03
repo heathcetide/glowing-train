@@ -91,6 +91,7 @@ const activeIndex = ref(0)
 const activeTag = ref(0)
 
 const value = ref('')
+
 const tabs: { type: UniHelper.UniIconsType; name: string }[] = [
   {
     type: 'image',

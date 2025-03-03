@@ -22,6 +22,7 @@ export default {
       borderb: 'border-b-2rpx border-b-#F5F5F5 border-b-solid',
       activeBorder: 'border-b-2rpx border-b-#5DBE8A border-b-solid',
       borderDashed: 'border-5rpx border-#F5F5f5 border-dashed',
+      border2: 'border-2rpx border-#F5F5F5 border-solid',
     },
   ],
 

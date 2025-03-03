@@ -94,4 +94,8 @@ const goBack = () => {
     }
   }
 }
+
+page {
+  background: #fff;
+}
 </style>

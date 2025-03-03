@@ -1,5 +1,5 @@
 <template>
-  <view class="card">
+  <view class="card px-28rpx">
     <view class="title mb-28rpx">{{ title }}</view>
     <view class="containt flex justify-between gap-21rpx">
       <slot></slot>

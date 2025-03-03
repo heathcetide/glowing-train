@@ -2,9 +2,12 @@
   <uni-nav-bar shadow statusBar class="navbar" :border="false" rightWidth="180rpx" leftWidth="180rpx">
     <template #left>
       <view class="nav-icons">
-        <view class="item-icon" :class="{ active: activeIndex === 0 }"></view>
-        <view class="item-icon" :class="{ active: activeIndex === 1 }"></view>
-        <view class="item-icon" :class="{ active: activeIndex === 2 }"></view>
+        <view
+          class="item-icon"
+          v-for="(item, index) in totalStep"
+          :key="item"
+          :class="{ active: activeIndex >= index }"
+        ></view>
       </view>
     </template>
     <template #default>
@@ -14,7 +17,7 @@
     </template>
     <template #right>
       <view class="rightTitle">
-        <text>第 {{ step }} 步 / 共 3 步</text>
+        <text>第 {{ step }} 步 / 共 {{ totalStep }} 步</text>
       </view>
     </template>
   </uni-nav-bar>
@@ -28,12 +31,14 @@ interface Props {
   title: string
   step: number
   activeIndex: number
+  totalStep: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
   title: '',
   step: 1,
   activeIndex: 0,
+  totalStep: 3,
 })
 </script>
 
