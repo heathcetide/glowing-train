@@ -106,7 +106,7 @@ const list = [
 // 创建响应式数据
 const show = ref(false)
 
-const tabs = ref(['推荐', '饮食', '运动', '计划'])
+const tabs = ref(['推荐', '饮食', '健康', '计划'])
 
 const goToAiService = () => {
   changeStore.changeTabType('main')
