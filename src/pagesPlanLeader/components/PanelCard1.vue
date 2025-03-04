@@ -7,12 +7,10 @@
         class="flex-1 items-center"
         @click="defaultEatTime = index"
       >
-        <view v-if="index == defaultEatTime">
-          <view class="border-2rpx b-#5DBE8A b-solid p-24rpx text-#5DBE8A center bg-#5DBE8A10">
-            {{ item }}
-          </view>
-        </view>
-        <view v-else class="border-2rpx b-#E5E5E5 b-solid p-24rpx center">
+        <view
+          :class="{ active: index === defaultEatTime }"
+          class="transition-300 border-2rpx b-solid b-#5DBE8A10 p-24rpx text-#5DBE8A center bg-#5DBE8A10"
+        >
           {{ item }}
         </view>
       </view>
@@ -33,4 +31,9 @@ watch(defaultEatTime, () => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.active {
+  background-color: #5dbe8a;
+  color: #fff;
+}
+</style>

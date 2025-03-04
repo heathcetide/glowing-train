@@ -6,8 +6,12 @@
       <CustomCard title="饮食偏好">
         <template #default>
           <uni-row :gutter="20">
-            <uni-col :span="12" v-for="item in foodListFaver" :key="item.text">
-              <view class="item-favor">
+            <uni-col :span="12" v-for="(item, index) in foodListFaver" :key="item.text">
+              <view
+                class="item-favor transition-300"
+                :class="{ active: activeFavorDiet.includes(index) }"
+                @click="handleChange(index, 'favor')"
+              >
                 <image class="img" :src="item.icon"></image>
                 <text class="text">{{ item.text }}</text>
               </view>
@@ -19,8 +23,12 @@
         <CustomCard title="过敏原信息" subTitle="如果您对某些食物过敏，请选择相应选项">
           <template #default>
             <uni-row :gutter="20">
-              <uni-col :span="8" v-for="item in foodListSensitive" :key="item.text">
-                <view class="item-favor">
+              <uni-col :span="8" v-for="(item, index) in foodListSensitive" :key="item.text">
+                <view
+                  class="item-favor transition-300"
+                  :class="{ active: activeSensitiveOrigin.includes(index) }"
+                  @click="handleChange(index, 'sensitive')"
+                >
                   <image class="img" :src="item.icon"></image>
                   <text class="text senstive">{{ item.text }}</text>
                 </view>
@@ -49,7 +57,10 @@ import IconSensitiveOrigin3 from '@/static/image/regist/icon-sensitive-origin3.s
 import IconSensitiveOrigin4 from '@/static/image/regist/icon-sensitive-origin4.svg'
 import IconSensitiveOrigin5 from '@/static/image/regist/icon-sensitive-origin5.svg'
 import IconSensitiveOrigin6 from '@/static/image/regist/icon-sensitive-origin6.svg'
+import { ref } from 'vue'
 
+const activeFavorDiet = ref<number[]>([0])
+const activeSensitiveOrigin = ref<number[]>([-1])
 const foodListFaver = [
   {
     icon: IconVegetable,
@@ -96,9 +107,28 @@ const foodListSensitive = [
     text: '坚果',
   },
 ]
+
+const handleChange = (item: number, type: 'sensitive' | 'favor') => {
+  if (type === 'sensitive') {
+    if (activeSensitiveOrigin.value.includes(item)) {
+      activeSensitiveOrigin.value = activeSensitiveOrigin.value.filter((i) => i !== item)
+    }
+    activeSensitiveOrigin.value.push(item)
+    return
+  }
+  if (activeFavorDiet.value.includes(item)) {
+    activeFavorDiet.value = activeFavorDiet.value.filter((i) => i !== item)
+  } else {
+    activeFavorDiet.value.push(item)
+  }
+}
 </script>
 
 <style scoped lang="scss">
+.active {
+  box-shadow: 0 0 15rpx 4rpx #5dbe8a;
+}
+
 .content {
   padding: 48rpx 28rpx 0 28rpx;
 

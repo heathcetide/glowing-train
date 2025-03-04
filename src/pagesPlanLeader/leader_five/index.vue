@@ -50,6 +50,7 @@ import IconRun from '@image/plan-leader/icon-run.svg'
 import IconDate from '@image/plan-leader/icon-date.svg'
 import IconZhong from '@image/plan-leader/icon-zhong.svg'
 import IconTool from '@image/plan-leader/icon-tool.svg'
+import Utils from '@/utils'
 const { safeAreaInsets } = uni.getWindowInfo()
 
 const list = [
@@ -59,8 +60,12 @@ const list = [
   { icon: IconZhong, title: '每周运动安排', desc: '4天有氧+2天力量训练' },
   { icon: IconDate, title: '目标达成时间', desc: '预计3个月' },
 ]
-const onNext = () => {}
-const onBack = () => {}
+const onNext = () => {
+  Utils.switchTab('/pages/index/index')
+}
+const onBack = () => {
+  Utils.navigateTo('/pagesPlanLeader/index/index')
+}
 </script>
 
 <style scoped>

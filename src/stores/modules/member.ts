@@ -1,4 +1,4 @@
-import type { User } from '@/types/user'
+import type { Plan, User } from '@/types/user'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -10,6 +10,16 @@ export const useMemberStore = defineStore(
     const profile = ref<User.Info>()
     const token = ref<string | null>(null) // 保存 JWT 令牌
 
+    const panInfo = ref<Plan.PlanInfo>()
+    const setPanInfo = (val: Plan.PlanInfo) => {
+      panInfo.value = val
+    }
+    const clearPanInfo = () => {
+      panInfo.value = undefined
+    }
+    const getPanInfo = () => {
+      return panInfo.value
+    }
     // 保存会员信息，登录时使用
     const setProfile = (val: any) => {
       profile.value = val
@@ -28,6 +38,10 @@ export const useMemberStore = defineStore(
 
     // 记得 return
     return {
+      panInfo,
+      setPanInfo,
+      clearPanInfo,
+      getPanInfo,
       profile,
       setProfile,
       clearProfile,

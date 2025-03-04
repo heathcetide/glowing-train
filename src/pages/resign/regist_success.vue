@@ -56,8 +56,9 @@
         </view>
       </view>
 
-      <view class="footer">
-        <button class="btn" @click="onSuccess">完成<uni-icons type="arrow-right" color="#fff" size="21" /></button>
+      <view class="footer w-100% gap20rpx flex-col-nocenter">
+        <!-- <button class="btn" @click="onSuccess">完成<uni-icons type="arrow-right" color="#fff" size="21" /></button> -->
+        <button class="btn" @click="onMakePlan">制定计划<uni-icons type="arrow-right" color="#fff" size="21" /></button>
       </view>
     </view>
   </view>
@@ -83,6 +84,11 @@ const list: Array<{ icon: string; title: string; desc: string }> = [
 const onSuccess = () => {
   uni.switchTab({
     url: '/pages/index/index',
+  })
+}
+const onMakePlan = () => {
+  uni.navigateTo({
+    url: '/pagesPlanLeader/index/index',
   })
 }
 </script>
@@ -206,7 +212,7 @@ const onSuccess = () => {
   .footer {
     margin-top: 50rpx;
     width: 100%;
-    height: 105rpx;
+    // height: 105rpx;
     .btn {
       width: 100%;
       line-height: 105rpx;

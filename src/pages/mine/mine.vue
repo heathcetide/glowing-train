@@ -1,6 +1,7 @@
 <template>
-  <scroll-view scroll-y class="container">
-    <UserInfo />
+  <UserInfo />
+  <scroll-view scroll-y>
+    <MySuccess />
     <MeanList />
   </scroll-view>
 </template>
@@ -9,6 +10,7 @@
 import { onMounted } from 'vue'
 import { getUserInfoAndLevel } from '@/services/user/userBaseModule'
 import MeanList from './components/MeanList.vue'
+import MySuccess from './components/MySuccess.vue'
 import UserInfo from './components/UserInfo.vue'
 import { useMemberStore } from '@/stores/modules/member' // 引入 Pinia store
 // 使用 Pinia store
@@ -36,5 +38,9 @@ onMounted(async () => {
 .container {
   height: calc(100vh - 120rpx);
   background-color: $uni-bg-color;
+}
+
+page {
+  // background-color: #f3f4f6;
 }
 </style>

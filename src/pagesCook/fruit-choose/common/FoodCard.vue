@@ -1,10 +1,16 @@
 <template>
   <view class="card shadow1 rounded-20rpx">
-    <up-image :src="item.foodUrl" width="100%" radius="20rpx 20rpx 0 0" height="224rpx" mode="scaleToFill"></up-image>
+    <up-image
+      :src="item.foodUrl"
+      @click="goToDetail"
+      width="100%"
+      radius="20rpx 20rpx 0 0"
+      height="224rpx"
+      mode="scaleToFill"
+    ></up-image>
     <view class="flex flex-col gap-8rpx p-22rpx">
       <text>{{ item.title }}</text>
       <text class="text-#333333 text-21rpx ellipsis">热量 {{ item.kcal }}</text>
-
       <view class="ingredients">
         <view v-for="(ingredient, index) in item.ingredients!.slice(0, 3)" :key="index" class="ingredient-tag">
           {{ ingredient }}
@@ -58,7 +64,7 @@
 
 <script setup lang="ts">
 import icon1 from '@/static/image/cook/food-pic1.svg'
-import type { CookModule, SGPopupDialogPlusInstance } from '@/types/component'
+import type { CookModule } from '@/types/component'
 import { computed, inject, ref } from 'vue'
 
 interface Props {
@@ -89,6 +95,12 @@ const hotCounter = computed(() => {
 const dialogConfirm = () => {
   const item = props.item
   emit('click', item)
+}
+
+const goToDetail = () => {
+  uni.navigateTo({
+    url: '/pages/dietDetails/dietDetails',
+  })
 }
 
 const dialogClose = () => {

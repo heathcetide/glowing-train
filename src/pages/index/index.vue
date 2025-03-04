@@ -20,32 +20,39 @@
       </up-float-button>
     </view>
 
-    <up-popup :show="show" :round="30" mode="bottom" @close="close" @open="open">
-      <view class="h-1104rpx bg-#F5F5F5 rounded-30rpx p-10rpx">
-        <view class="center text-40rpx text-0 py-20rpx">
-          <text>坚持记录，迈向更健康的自己！</text>
-        </view>
-        <uni-row :gutter="10">
-          <uni-col :span="12" v-for="item in list" :key="item.title" class="mb-14rpx">
-            <PoupCard :icon="item.icon" :image="item.image" :title="item.title" :subTitle="item.subTitle" />
-          </uni-col>
-          <uni-row>
-            <view class="p-42rpx flex justify-between bg-#fff" @click="goToAiService">
-              <view class="image size-84rpx rounded-full bg-#ECFDF5">
-                <image :src="icon5" class="size-84rpx" mode="scaleToFill" />
-              </view>
-              <view class="flex flex-col">
-                <text>AI营养助手</text>
-                <text>智能记录并分析饮食建议</text>
-              </view>
-              <view class="w-56rpx">
-                <uni-icons type="mic-filled" color="#5DBE8A" size="21" />
-              </view>
+    <SGPoup v-model:show="show" ref="popup">
+      <template #default>
+        <view class="bg-#F5F5F5 rounded-30rpx p-10rpx">
+          <view class="center text-40rpx text-0 py-20rpx">
+            <text>坚持记录，迈向更健康的自己！</text>
+          </view>
+          <view class="flex flex-wrap justify-between gap-10rpx">
+            <view v-for="item in list" :key="item.title" class="mb-14rpx w48%">
+              <PoupCard
+                @click="handleClick(item.url)"
+                :image="item.image"
+                :title="item.title"
+                :subTitle="item.subTitle"
+              />
             </view>
-          </uni-row>
-        </uni-row>
-      </view>
-    </up-popup>
+            <uni-row class="w-100%">
+              <view class="p-42rpx flex justify-between bg-#fff" @click="goToAiService">
+                <view class="image size-84rpx rounded-full bg-#ECFDF5">
+                  <image :src="icon5" class="size-84rpx" mode="scaleToFill" />
+                </view>
+                <view class="flex flex-col">
+                  <text>AI营养助手</text>
+                  <text>智能记录并分析饮食建议</text>
+                </view>
+                <view class="w-56rpx">
+                  <uni-icons type="mic-filled" color="#5DBE8A" size="21" />
+                </view>
+              </view>
+            </uni-row>
+          </view>
+        </view>
+      </template>
+    </SGPoup>
   </view>
 </template>
 
@@ -69,6 +76,7 @@ import Utils from '@/utils'
 import SGTabsSub from '@/components/SGTabsSub.vue'
 import useChangeStore from '@/stores/modules/change'
 
+const popup = ref()
 const changeStore = useChangeStore()
 const { safeAreaInsets } = uni.getWindowInfo()
 
@@ -78,7 +86,7 @@ const list = [
     image: image1,
     icon: icon1,
     subTitle: '已记录 3 餐',
-    url: '',
+    url: '/pages/note/note',
   },
   {
     title: '运动记录',
@@ -92,14 +100,14 @@ const list = [
     image: image3,
     icon: icon3,
     subTitle: '库存 15 种食材',
-    url: '',
+    url: '/pages/add-food/index',
   },
   {
     title: '社区分享',
     image: image4,
     icon: icon4,
     subTitle: '已分享 8 条动态',
-    url: '',
+    url: '/pages/upload/upload',
   },
 ]
 
@@ -111,24 +119,21 @@ const tabs = ref(['推荐', '饮食', '健康', '计划'])
 const goToAiService = () => {
   changeStore.changeTabType('main')
   changeStore.changeTab(3)
+  popup.value.close()
   setTimeout(() => {
     Utils.switchTab('/pages/community/community')
   }, 500)
 }
-// 定义方法
-function open() {
-  // 打开逻辑，比如设置 show 为 true
-  show.value = true
-  // console.log('open');
-}
-
-function close() {
-  // 关闭逻辑，设置 show 为 false
-  show.value = false
-  // console.log('close');
+const handleClick = (url: string) => {
+  // console.log(props.url)
+  console.log('sss')
+  popup.value.close()
+  if (url) {
+    Utils.navigateTo(url)
+  }
 }
 const goToChoose = () => {
-  open()
+  popup.value.open()
 }
 </script>
 <style lang="scss" scoped>

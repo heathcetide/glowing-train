@@ -9,7 +9,7 @@ import { http } from '@/utils/request'
  * @description 获取用户所有库存
  */
 export const getUserInventoryAPI = () => {
-  return http<UserInventory[]>({
+  return http<any[]>({
     url: '/api/inventory/owner', // 调用获取用户库存的接口
     method: 'GET',
   })

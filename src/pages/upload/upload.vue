@@ -2,7 +2,7 @@
   <view class="shadow1">
     <up-navbar safeAreaInsetTop title="发布动态">
       <template #left>
-        <uni-icons type="arrow-left" color="#333333" size="20" />
+        <uni-icons type="arrow-left" color="#333333" size="20" @click="left" />
       </template>
       <template #right>
         <view class="flex items-center">
@@ -13,24 +13,25 @@
   </view>
 
   <view class="container p-28rpx w-100% mt-88rpx">
-    <view>
-      <uni-row>
-        <uni-col :span="6" v-for="(item, index) in tabs" :key="item.type" @click="activeIndex = index">
-          <view class="col fb py-20rpx text-#5DBE8A" v-show="index === activeIndex">
-            <uni-icons :type="item.type" color="#5DBE8A" size="24" />
-            <text>{{ item.name }}</text>
-          </view>
-          <view class="col fb py-20rpx" v-show="index !== activeIndex">
-            <uni-icons :type="item.type" size="24" />
-            <text>{{ item.name }}</text>
-          </view>
+    <up-sticky class="z-10" :z-index="1000">
+      <view class="bg-#fff">
+        <uni-row>
+          <uni-col :span="6" v-for="(item, index) in tabs" :key="item.type" @click="onChangeActive(index, item)">
+            <view class="col fb py-20rpx text-#5DBE8A" v-show="index === activeIndex">
+              <uni-icons :type="item.icon" color="#5DBE8A" size="24" />
+              <text>{{ item.name }}</text>
+            </view>
+            <view class="col fb py-20rpx" v-show="index !== activeIndex">
+              <uni-icons :type="item.icon" size="24" />
+              <text>{{ item.name }}</text>
+            </view>
+          </uni-col>
+        </uni-row>
+        <uni-col :span="6" :offset="activeIndex * 6" class="pos-relative transition-all">
+          <view class="coursor pos-absolute w-100% h2rpx bg-#5DBE8A"></view>
         </uni-col>
-      </uni-row>
-      <uni-col :span="6" :offset="activeIndex * 6" class="pos-relative transition-all">
-        <view class="coursor pos-absolute w-100% h2rpx bg-#5DBE8A"></view>
-      </uni-col>
-    </view>
-
+      </view>
+    </up-sticky>
     <view class="mt-28rpx mb-82rpx">
       <up-textarea
         v-model="value"
@@ -42,15 +43,15 @@
       ></up-textarea>
     </view>
 
-    <UploadFile />
+    <UploadFile :type="upLoadFileTpye" />
 
     <view class="mt-56rpx p-14rpx">
       <view class="flex gap-10rpx text-0 fb">
         <view
           v-for="(item, index) in tags"
           :key="index"
-          @click="activeTag = index"
-          :class="{ active: activeTag === index }"
+          @click="handleTagChange(index)"
+          :class="{ active: activeTag.includes(index) }"
           class="px-28rpx py-10rpx text flex-shrink-0 bg-#f5f5f5 rounded-10rpx"
         >
           {{ item }}</view
@@ -77,6 +78,7 @@
       >
         <template #footer>
           <view class="flex center">公开</view>
+          <uni-data-select v-model="value" :localdata="range" @change="change"></uni-data-select>
         </template>
       </uni-list-item>
     </uni-list>
@@ -84,38 +86,85 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import UploadFile from './components/UploadFile.vue'
-
+import Utils from '@/utils'
+interface Tab {
+  type?: 'image' | 'video'
+  icon: UniHelper.UniIconsType
+  name: string
+}
 const activeIndex = ref(0)
-const activeTag = ref(0)
+const activeTag = ref<number[]>([0])
+const upLoadFileTpye = ref<'image' | 'video'>('image')
 
 const value = ref('')
+const tags = ['#美食', '#生活', '#美好时光', '#探店', '#探店']
 
-const tabs: { type: UniHelper.UniIconsType; name: string }[] = [
+const tabs: Tab[] = [
   {
     type: 'image',
+    icon: 'image',
     name: '图文',
   },
   {
-    type: 'videocam-filled',
+    type: 'video',
+    icon: 'videocam-filled',
     name: '视频',
   },
   {
-    type: 'mic-filled',
+    icon: 'mic-filled',
     name: '直播',
   },
   {
-    type: 'tune',
+    icon: 'tune',
     name: '模版',
   },
 ]
 
-const tags = ['#美食', '#生活', '#美好时光', '#探店', '#探店']
+const range = [
+  {
+    text: '公开',
+    value: 0,
+  },
+  {
+    text: '好友',
+    value: 1,
+  },
+  {
+    text: '私密',
+    value: 2,
+  },
+]
 
+const cselectedTags = computed(() => {
+  return activeTag.value.map((item) => tags[item])
+})
+
+const handleTagChange = (index: number) => {
+  if (activeTag.value.includes(index)) {
+    activeTag.value = activeTag.value.filter((item) => item !== index)
+  } else {
+    activeTag.value.push(index)
+  }
+}
+const onChangeActive = (index: number, item: Tab) => {
+  if (item?.type) {
+    upLoadFileTpye.value = item.type
+  } else {
+    upLoadFileTpye.value = 'image'
+  }
+  console.log('upload type:', item.type)
+
+  activeIndex.value = index
+}
+
+const change = (e: any) => {
+  console.log(e)
+}
 // 方法
 function left() {
-  console.log('left')
+  Utils.navigateBack()
 }
 
 function right() {

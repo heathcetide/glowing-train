@@ -13,11 +13,21 @@
         <LeaderCard title="运动频率">
           <template #default>
             <view class="flex flex-col gap-20rpx w-100%">
-              <view v-for="item in list" :key="item.title" class="flex gap-20rpx bg-#fff w-100% p-23rpx rounded-16rpx">
+              <view
+                v-for="(item, index) in list"
+                :key="item.title"
+                :class="{ active: activeIndex === index }"
+                @click="activeIndex = index"
+                class="flex gap-20rpx bg-#fff w-100% p-23rpx rounded-16rpx transition-300"
+              >
                 <text class="text-40rpx">{{ item.icon }}</text>
                 <view>
-                  <view class="title fb text-black">{{ item.title }}</view>
-                  <view class="title text-21rpx text-0">{{ item.desc }}</view>
+                  <view class="title fb text-black" :class="{ activeColor: activeIndex === index }">{{
+                    item.title
+                  }}</view>
+                  <view class="title text-21rpx text-0" :class="{ activeColor: activeIndex === index }">{{
+                    item.desc
+                  }}</view>
                 </view>
               </view>
             </view>
@@ -33,6 +43,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 import CustomNavBar from '../../pages/resign/components/CustomNavBar.vue'
 import LeaderCard from '../components/LeaderCard.vue'
 import NextButton from '../components/NextButton.vue'
@@ -40,6 +51,7 @@ import PanelCard3 from '../components/PanelCard3.vue'
 
 const { safeAreaInsets } = uni.getWindowInfo()
 
+const activeIndex = ref(0)
 const list = [
   { icon: '🚶', title: '几乎不运动', desc: '久坐党，运动量极低' },
   { icon: '🚶', title: '偶尔运动', desc: '一周 1-2 次轻量运动，如散步、瑜伽' },
@@ -63,5 +75,12 @@ const handleTaste = (item: string) => {
 <style scoped>
 page {
   background: #fff;
+}
+
+.active {
+  background-color: #5dbe8a;
+}
+.activeColor {
+  color: #fff;
 }
 </style>

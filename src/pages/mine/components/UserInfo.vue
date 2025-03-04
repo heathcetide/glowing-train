@@ -1,34 +1,37 @@
 <template>
   <view class="wrap" :style="{ paddingTop: safeAreaInsets?.top + 30 + 'px' }">
-    <uni-row class="top">
-      <uni-col :span="10">
-        <text class="nickName">{{ memberStore.profile?.levelName || '萌新' }}</text>
-      </uni-col>
-      <uni-col :span="2" :offset="10">
-        <uni-icons type="gear" size="30" color="#fff" />
-        <uni-icons type="email" size="30" color="#fff" />
-      </uni-col>
-    </uni-row>
     <view class="profit">
       <view class="victor" @click="handleLogin">
-        <image :src="memberStore.profile?.avatarUrl" mode="scaleToFill" class="image" />
+        <image
+          v-if="memberStore.profile?.avatarUrl"
+          :src="memberStore.profile?.avatarUrl"
+          mode="scaleToFill"
+          class="image"
+        />
+        <view v-else class="size-112rpx rounded-full bg-red"> </view>
       </view>
-      <view class="nickName_progress">
+      <view class="nickName_progress ml-10rpx">
         <view class="progress">
           <view class="info-box">
             <view>
-              <text class="num">{{ memberStore.profile?.nickname || '绿色食物分享家' }}</text>
+              <text class="text-31.5px">{{ memberStore.profile?.nickname || '陈思远' }}</text>
             </view>
-            <text class="info">距离升级积分</text>
+            <text class="info center px-18rpx py-2rpx w-100rpx h-50rpx text-#fff rounded-50rpx bg-#20C05B">
+              <uni-icons type="vip-filled" color="yellow" size="20"></uni-icons>
+              <text>Lv6.0</text>
+            </text>
           </view>
           <progress
-            class="progress-bar"
-            :percent="(memberStore.profile?.levelPoints || memberStore.profile?.maxPoints)! * 100"
-            :stroke-width="3"
-            backgroundColor="#108981"
-            activeColor="#ffffff"
+            class="progress-bar rounded-14rpx"
+            :percent="(memberStore.profile?.levelPoints || memberStore.profile?.maxPoints)! * 100||50"
+            :stroke-width="14"
+            backgroundColor="#F3F4F6"
+            activeColor="#30CD69"
           />
-          <text class="num">{{ memberStore.profile?.levelPoints }}/{{ memberStore.profile?.maxPoints || '999' }}</text>
+          <view class="text-#6B7280 text-21rpx juslr">
+            <text>成长值</text>
+            <text>25/50</text>
+          </view>
         </view>
       </view>
     </view>
@@ -50,7 +53,7 @@ const handleLogin = () => {
 </script>
 <style lang="scss" scoped>
 .wrap {
-  background-color: #10b981;
+  // background-color: #10b981;
   padding: 28rpx 28rpx 42rpx 28rpx;
   /*   height: 259rpx; */
   border-radius: 0 0 42rpx 42rpx;

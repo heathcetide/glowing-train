@@ -1,57 +1,42 @@
 <template>
   <view class="upload p-28rpx bg-white">
-    <up-upload
-      :fileList="fileList1"
-      @afterRead="afterRead"
-      @delete="deletePic"
-      name="1"
-      multiple
-      :maxCount="9"
-      show-upload-list
-    >
-      <template #default>
-        <view class="size-203.31rpx center borderDashed rounded-2xl">
-          <uni-icons type="upload" color="#F5F5f5" size="24" />
-        </view>
-      </template>
-    </up-upload>
+    <uni-file-picker
+      v-model="imageList"
+      :file-mediatype="type"
+      mode="grid"
+      :limit="9"
+      @select="handleSelect"
+      @success="handleSuccess"
+      @fail="handleFail"
+    />
   </view>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+interface Props {
+  // Define props here
+  type: 'image' | 'video'
+}
+const imageList = ref<string[]>([])
 
-const fileList1 = ref<any[]>([]) // 删除图片
-const deletePic = (event: any) => {
-  fileList1.value.splice(event.index, 1)
+withDefaults(defineProps<Props>(), {
+  type: 'image',
+})
+const handleSelect = (e: UniHelper.UniFilePickerOnSelectEvent) => {
+  console.log('Selected files:', e.tempFiles)
 }
 
-// 新增图片
-const afterRead = async (event: any) => {
-  // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-  let lists = [].concat(event)
-  let fileListLen = fileList1.value.length
-  lists.map((item: object) => {
-    fileList1.value.push({
-      ...item,
-      status: 'uploading',
-      message: '上传中',
-    })
-  })
-  for (let i = 0; i < lists.length; i++) {
-    const result = await uploadFilePromise(lists[i].url)
-    let item = fileList1.value[fileListLen]
-    fileList1.value.splice(fileListLen, 1, {
-      ...item,
-      status: 'success',
-      message: '',
-      url: result,
-    })
-    fileListLen++
-  }
+const handleSuccess = (e: UniHelper.UniFilePickerOnSuccessEvent) => {
+  console.log('Upload success:', e)
+  // 这里可以处理上传成功后的逻辑，比如更新图片列表
+  imageList.value = e.tempFiles.map((file: UniHelper.UniFilePickerCallbackFile) => file.url)
 }
 
-const uploadFilePromise = (url: any) => {}
+const handleFail = (e: UniHelper.UniFilePickerOnFailEvent) => {
+  console.log('Upload failed:', e)
+  // 这里可以处理上传失败后的逻辑
+}
 </script>
 
 <style scoped></style>

@@ -8,12 +8,12 @@
       :statusBar="true"
       :border="false"
       right-icon="heart"
-      fixed
+      :fixed="true"
       @clickLeft="onClickLeft"
       @clickRight="onClickRight"
     />
 
-    <scroll-view scroll-y>
+    <scroll-view scroll-y class="scroll-view">
       <view class="picture">
         <image src="@/static/image/common/food.png" mode="scaleToFill" />
       </view>
@@ -56,13 +56,6 @@ interface FoodDetallProps {
   unit: string
 }
 
-interface FoodDetailParams {
-  image: string
-  nutritionDetails: FoodDetallProps[]
-  foodIntroduce: string
-  healthyAdvice: string
-}
-
 const construction_list = ref<FoodDetallProps[]>([
   {
     title: '热量',
@@ -95,6 +88,10 @@ const onClickRight = () => {}
 $image_border: 5rpx dashed #c4c8c4;
 $content_bg_color: #f0fdf4;
 $content_color: #4b5563;
+
+.scroll-view {
+  height: calc(100vh - 150rpx);
+}
 .image {
   width: 31rpx;
   height: 50rpx;

@@ -161,7 +161,7 @@ import cfu from '@/components/u-charts/config-ucharts.js'
 // #ifdef APP-VUE || H5
 import cfe from '@/components/u-charts/config-echarts.js'
 // #endif
-import QiunLoading from '../qiun-loading/qiun-loading.vue'
+import QiunLoading from '@/components/qiun-loading/qiun-loading.vue'
 function deepCloneAssign(origin = {}, ...args) {
   for (let i in args) {
     for (let key in args[i]) {

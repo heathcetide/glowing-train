@@ -3,12 +3,17 @@ import { defineStore } from 'pinia'
 import type { RecommendCardProps } from '@/types/community'
 import { ref } from 'vue'
 const usePostStore = defineStore('post', () => {
+  const isLoading = ref(false)
   const postList = ref<RecommendCardProps[]>([])
   const loadStatus = ref<'loadmore' | 'loading' | 'nomore'>()
   const cursorId = ref(0)
   const pageSize = ref(10)
 
   const fetchPosts = async () => {
+    if (!isLoading.value) {
+      return postList.value
+    }
+
     try {
       const response = await getPostsByCursorAPI(cursorId.value, pageSize.value)
       if (response && response.data) {
@@ -32,18 +37,22 @@ const usePostStore = defineStore('post', () => {
       loadStatus.value = 'nomore'
     }
   }
-
+  const setIsLoading = (value: boolean) => {
+    isLoading.value = value
+  }
   const getPostDetailsById = (id: number) => {
     const post = postList.value.find((item) => item.id === id)
     return post
   }
 
   return {
+    isLoading,
     postList,
     loadStatus,
     cursorId,
     pageSize,
     fetchPosts,
+    setIsLoading,
     getPostDetailsById,
   }
 })

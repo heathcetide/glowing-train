@@ -10,7 +10,7 @@
     >
       <view class="flex justify-between w-100% gap-30rpx">
         <view class="iamg">
-          <up-image :src="item.icon" width="168rpx" height="168rpx" radius="20rpx" />
+          <up-image :src="item.foodUrl" width="168rpx" height="168rpx" radius="20rpx" />
         </view>
         <view class="flex-col flex w-100%">
           <view>
@@ -45,7 +45,7 @@ const emits = defineEmits<{
 }>()
 
 const hotCounter = computed(() => {
-  return props.item.hot * (value.value as number)
+  return props.item.kcal * (value.value as number)
 })
 const dialogConfirm = () => {
   emits('confirm')

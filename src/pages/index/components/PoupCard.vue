@@ -1,5 +1,5 @@
 <template>
-  <view class="p-28rpx flex bg-#fff flex-col rounded-21rpx shadow1" @clic="handleClick">
+  <view class="p-28rpx flex bg-#fff flex-col rounded-21rpx shadow1">
     <view class="title flex justify-between">
       <text>{{ title }}</text>
       <view class="img size-28rpx bg-#ECFDF5">
@@ -34,10 +34,8 @@ const props = withDefaults(
   },
 )
 
-const handleClick = () => {
-  if (props.url) {
-    Utils.navigateTo(props.url)
-  }
+const handleTouchStart = () => {
+  console.log('touchstart')
 }
 </script>
 

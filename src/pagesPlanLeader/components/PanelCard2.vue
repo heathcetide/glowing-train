@@ -10,13 +10,9 @@
           @click="hanleClick(index)"
         >
           <view
-            v-if="activeIndex.includes(index)"
-            class="flex gap-10rpx w-100% bg-emerald text-#fff rounded-8rpx border2 text-24.5rpx px-28rpx py-21rpx"
+            :class="{ active: activeIndex.includes(index) }"
+            class="transition-300 flex gap-10rpx w-100% bg-#fff rounded-8rpx border2 text-24.5rpx px-28rpx py-21rpx"
           >
-            <text class="text-40rpx">{{ item.icon }}</text>
-            <text>{{ item.value }}</text>
-          </view>
-          <view v-else class="flex gap-10rpx w-100% bg-#fff border2 rounded-8rpx text-24.5rpx px-28rpx py-21rpx">
             <text class="text-40rpx">{{ item.icon }}</text>
             <text>{{ item.value }}</text>
           </view>
@@ -49,4 +45,9 @@ const hanleClick = (index: number) => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.active {
+  background-color: #5dbe8a;
+  color: #fff;
+}
+</style>

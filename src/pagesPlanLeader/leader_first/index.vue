@@ -7,8 +7,11 @@
         <text class="text-24rpx text-0">选择你的主要目标，我们会为你定制专属计划</text>
       </view>
 
-      <view class="containt flex flex-col gap-22rpx">
+      <view class="containt flex flex-col gap-22rpx mt-20rpx">
         <PlanLeaderCard
+          :class="{ active: activeIndex == index }"
+          @click="activeIndex = index"
+          class="transition-300"
           v-for="(item, index) in options"
           :key="index"
           :title="item.title"
@@ -29,8 +32,10 @@ import PicSec2 from '@/static/image/plan-leader/icon-planleader-sec-2.svg'
 import PicSec3 from '@/static/image/plan-leader/icon-planleader-sec-3.svg'
 import PicSec4 from '@/static/image/plan-leader/icon-planleader-sec-4.svg'
 import NextButton from '../components/NextButton.vue'
-import Utils from '@/utils'
 
+import { ref } from 'vue'
+
+const activeIndex = ref(0)
 const { safeAreaInsets } = uni.getWindowInfo()
 const options = [
   {
@@ -54,14 +59,14 @@ const options = [
     subTitle: '提高耐力和心肺功能',
   },
 ]
-
-const onNext = () => {
-  Utils.navigateTo('/pagesPlanLeader/leader_two/index')
-}
 </script>
 
 <style scoped>
 page {
   background: #fff;
+}
+
+.active {
+  box-shadow: 0 0 20rpx 4rpx #5dbe8a;
 }
 </style>

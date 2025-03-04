@@ -61,12 +61,18 @@ const lookDetials = (id: number) => {
   })
 }
 const addRandomData = async () => {
+  postStore.isLoading = true
   await postStore.fetchPosts()
   flowList.value = postStore.postList
+  postStore.isLoading = false
 }
 
-onLoad(() => {
-  addRandomData() // 初始加载数据
+onLoad(async () => {
+  if (postStore.postList.length) {
+    flowList.value = postStore.postList
+    return
+  }
+  await addRandomData() // 初始加载数据
 })
 </script>
 

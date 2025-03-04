@@ -6,7 +6,7 @@
       </template>
       <template #pageItem="{ pageItem }">
         <view class="w-full flex gap-20rpx py-22rpx border-b-#E5E7EB border-b-2rpx border-b-solid">
-          <up-image :src="pageItem.cover" width="168rpx" height="168rpx"></up-image>
+          <up-image :src="pageItem.cover" width="168rpx" height="168rpx" @click="goToDetial"></up-image>
           <view class="info flex flex-col gap-6rpx">
             <view class="title-group text-24.5rpx gap-10rpx flex justify-between">
               <text class="name">{{ pageItem.title }}</text>
@@ -138,6 +138,11 @@ const onClosePopup = () => {
   isShowPopup.value = false
 }
 
+const goToDetial = () => {
+  uni.navigateTo({
+    url: '/pages/food/food',
+  })
+}
 const handleAddStack = (item: HomeIndex.Stack.StackItem) => {
   selectedItem.value = item
   isShowPopup.value = true
@@ -155,7 +160,7 @@ onMounted(async () => {
     const userInventory = await getUserInventoryAPI()
 
     // 根据usageCategory进行分组，生成tabList
-    const categorizedData = userInventory.reduce((acc, item) => {
+    const categorizedData = userInventory.data.reduce((acc, item) => {
       // 检查是否已有该分类
       const category = item.usageCategory || '全部分类'
       if (!acc[category]) {

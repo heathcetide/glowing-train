@@ -1,342 +1,382 @@
 {
-  "easycom": {
-    "autoscan": true,
-    "custom": {
-      "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue",
-      "^SG(.*)": "@/components/SG$1.vue",
-      "^u--(.*)": "uview-plus/components/u-$1/u-$1.vue",
-      "^up-(.*)": "uview-plus/components/u-$1/u-$1.vue",
-      "^u-([^-].*)": "uview-plus/components/u-$1/u-$1.vue"
-    }
-  },
-  "pages": [
-    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-    {
-      "path": "pages/entry/entry",
-      "style": {
-        "navigationBarTitleText": "入口",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/index/index",
-      "style": {
-        "navigationBarTitleText": "首页",
-        "enablePullDownRefresh": false,
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/mine/mine",
-      "style": {
-        "navigationBarTitleText": "我的",
-        "enablePullDownRefresh": false,
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/community/community",
-      "style": {
-        "navigationBarTitleText": "社区中心"
-        /*     "navigationStyle": "custom" */
-      }
-    },
-    {
-      "path": "pages/center/center",
-      "style": {
-        "navigationBarTitleText": "健康中心",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/note/note",
-      "style": {
-        "navigationBarTitleText": "记录",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/login/login",
-      "style": {
-        "navigationBarTitleText": "登录",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/resign/regist_leader_one",
-      "style": {
-        "navigationBarTitleText": "",
-        "enablePullDownRefresh": false,
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/dietDetails/dietDetails",
-      "style": {
-        "navigationBarTitleText": "食谱",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/food/food",
-      "style": {
-        "navigationBarTitleText": "食材详情",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/message/comfrim",
-      "style": {
-        "navigationBarTitleText": "comfrim"
-      }
-    },
-    {
-      "path": "pages/message/fail",
-      "style": {
-        "navigationBarTitleText": "fail"
-      }
-    },
-    {
-      "path": "pages/message/success",
-      "style": {
-        "navigationBarTitleText": "success"
-      }
-    },
-    {
-      "path": "pages/login/forget_pwd",
-      "style": {
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/resign/regist_success",
-      "style": {
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/resign/regist_leader_two",
-      "style": {
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/resign/regist_leader_three",
-      "style": {
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/resign/regist_leader_four",
-      "style": {
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/search/search",
-      "style": {
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pagesCook/fruit-choose/index",
-      "style": {
-        "navigationBarTitleText": "index",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pagesCook/calc-food/index",
-      "style": {
-        "navigationBarTitleText": "index",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pagesCook/prepare/index",
-      "style": {
-        "navigationBarTitleText": "index",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pagesCook/process/index",
-      "style": {
-        "navigationBarTitleText": "index",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pagesCook/cook-success/index",
-      "style": {
-        "navigationBarTitleText": "index",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/add-food/index",
-      "style": {
-        "navigationBarTitleText": "index",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/post-details/post-details",
-      "style": {
-        "navigationBarTitleText": "",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/text/text",
-      "style": {
-        "navigationBarTitleText": "测试"
-      }
-    },
-    {
-      "path": "pages/note/dielt-note",
-      "style": {
-        "navigationBarTitleText": "dielt-note",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/upload/upload",
-      "style": {
-        "navigationBarTitleText": "upload",
-        "navigationStyle": "custom"
-      }
-    }
-  ],
-  "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
-  },
-  // 设置 TabBar
-  "tabBar": {
-    "color": "#333",
-    "selectedColor": "#27ba9b",
-    "backgroundColor": "#fff",
-    "borderStyle": "white",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "/static/image/tabbar/icon-tabbar-home-default.png",
-        "selectedIconPath": "/static/image/tabbar/icon-tabbar-home-active.png"
-      },
-      {
-        "pagePath": "pages/community/community",
-        "text": "社区中心",
-        "iconPath": "/static/image/tabbar/icon-tabbar-community-default.png",
-        "selectedIconPath": "/static/image/tabbar/icon-tabbar-community-active.png"
-      },
-      {
-        "pagePath": "pages/mine/mine",
-        "text": "我的",
-        "iconPath": "/static/image/tabbar/icon-tabbar-center-default.png",
-        "selectedIconPath": "/static/image/tabbar/icon-tabbar-center-active.png"
-      }
-    ]
-  },
-  "subPackages": [
-    {
-      "root": "pagesUser",
-      "pages": [
-        {
-          "path": "info/info",
-          "style": {
-            "navigationBarTitleText": "个人信息"
-          }
-        },
-        {
-          "path": "help/help",
-          "style": {
-            "navigationBarTitleText": "帮助与反馈"
-          }
-        }
-      ]
-    },
-    {
-      "root": "pagesCommunity",
-      "pages": [
-        {
-          "path": "message/message",
-          "style": {
-            "navigationBarTitleText": "通知中心"
-          }
-        }
-      ]
-    },
-    {
-      "root": "pagesCook",
-      "pages": [
-        {
-          "path": "index/index",
-          "style": {
-            "navigationStyle": "custom"
-          }
-        }
-      ]
-    },
-    {
-      "root": "pagesPlanLeader",
-      "pages": [
-        {
-          "path": "index/index",
-          "style": {
-            "navigationStyle": "custom"
-          }
-        },
-        {
-          "path": "leader_first/index",
-          "style": {
-            "navigationBarTitleText": "index",
-            "navigationStyle": "custom"
-          }
-        },
-        {
-          "path": "leader_two/index",
-          "style": {
-            "navigationBarTitleText": "index",
-            "navigationStyle": "custom"
-          }
-        },
-        {
-          "path": "leader_three/index",
-          "style": {
-            "navigationBarTitleText": "index",
-            "navigationStyle": "custom"
-          }
-        },
-        {
-          "path": "leader_four/index",
-          "style": {
-            "navigationBarTitleText": "index",
-            "navigationStyle": "custom"
-          }
-        },
-        {
-          "path": "leader_five/index",
-          "style": {
-            "navigationBarTitleText": "index",
-            "navigationStyle": "custom"
-          }
-        }
-      ]
-    }
-  ],
-  "preloadRule": {
-    /* 预加载规则 */
-    "pages/mine/mine": {
-      "network": "all",
-      "packages": ["pagesUser"]
-    },
-    "pages/community/community": {
-      "network": "all",
-      "packages": ["pagesCommunity"]
-    }
-  }
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue",
+			"^SG(.*)": "@/components/SG$1.vue",
+			"^u--(.*)": "uview-plus/components/u-$1/u-$1.vue",
+			"^up-(.*)": "uview-plus/components/u-$1/u-$1.vue",
+			"^u-([^-].*)": "uview-plus/components/u-$1/u-$1.vue"
+		}
+	},
+	"pages": [
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/entry/entry",
+			"style": {
+				"navigationBarTitleText": "入口",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/community/community",
+			"style": {
+				"navigationBarTitleText": "社区中心"
+				/*     "navigationStyle": "custom" */
+			}
+		},
+		{
+			"path": "pages/center/center",
+			"style": {
+				"navigationBarTitleText": "健康中心",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/note/note",
+			"style": {
+				"navigationBarTitleText": "记录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/resign/regist_leader_one",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/dietDetails/dietDetails",
+			"style": {
+				"navigationBarTitleText": "食谱",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/food/food",
+			"style": {
+				"navigationBarTitleText": "食材详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/message/comfrim",
+			"style": {
+				"navigationBarTitleText": "comfrim"
+			}
+		},
+		{
+			"path": "pages/message/fail",
+			"style": {
+				"navigationBarTitleText": "fail"
+			}
+		},
+		{
+			"path": "pages/message/success",
+			"style": {
+				"navigationBarTitleText": "success"
+			}
+		},
+		{
+			"path": "pages/login/forget_pwd",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/resign/regist_success",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/resign/regist_leader_two",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/resign/regist_leader_three",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/resign/regist_leader_four",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/search/search",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pagesCook/fruit-choose/index",
+			"style": {
+				"navigationBarTitleText": "index",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pagesCook/calc-food/index",
+			"style": {
+				"navigationBarTitleText": "index",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pagesCook/prepare/index",
+			"style": {
+				"navigationBarTitleText": "index",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pagesCook/process/index",
+			"style": {
+				"navigationBarTitleText": "index",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pagesCook/cook-success/index",
+			"style": {
+				"navigationBarTitleText": "index",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/add-food/index",
+			"style": {
+				"navigationBarTitleText": "index",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/post-details/post-details",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/text/text",
+			"style": {
+				"navigationBarTitleText": "测试"
+			}
+		},
+		{
+			"path": "pages/note/dielt-note",
+			"style": {
+				"navigationBarTitleText": "dielt-note",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/upload/upload",
+			"style": {
+				"navigationBarTitleText": "upload",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pagesUser/msg/msg",
+			"style": {
+				"navigationBarTitleText": "消息中心"
+			}
+		},
+		{
+			"path": "pagesUser/data/data",
+			"style": {
+				"navigationBarTitleText": "数据分析"
+			}
+		},
+		{
+			"path": "pagesUser/saveStore/saveStore",
+			"style": {
+				"navigationBarTitleText": "我的收藏"
+			}
+		},
+		{
+			"path": "pagesUser/smart/smart",
+			"style": {
+				"navigationBarTitleText": "智能设备"
+			}
+		},
+		{
+			"path": "pagesUser/point/point",
+			"style": {
+				"navigationBarTitleText": "积分兑换"
+			}
+		},
+		{
+			"path": "pagesUser/settings/settings",
+			"style": {
+				"navigationBarTitleText": "系统设置"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	// 设置 TabBar
+	"tabBar": {
+		"color": "#333",
+		"selectedColor": "#27ba9b",
+		"backgroundColor": "#fff",
+		"borderStyle": "white",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "/static/image/tabbar/icon-tabbar-home-default.png",
+				"selectedIconPath": "/static/image/tabbar/icon-tabbar-home-active.png"
+			},
+			{
+				"pagePath": "pages/community/community",
+				"text": "社区中心",
+				"iconPath": "/static/image/tabbar/icon-tabbar-community-default.png",
+				"selectedIconPath": "/static/image/tabbar/icon-tabbar-community-active.png"
+			},
+			{
+				"pagePath": "pages/mine/mine",
+				"text": "我的",
+				"iconPath": "/static/image/tabbar/icon-tabbar-center-default.png",
+				"selectedIconPath": "/static/image/tabbar/icon-tabbar-center-active.png"
+			}
+		]
+	},
+	"subPackages": [
+		{
+			"root": "pagesUser",
+			"pages": [
+				{
+					"path": "info/info",
+					"style": {
+						"navigationBarTitleText": "个人信息"
+					}
+				},
+				{
+					"path": "help/help",
+					"style": {
+						"navigationBarTitleText": "帮助与反馈"
+					}
+				}
+			]
+		},
+		{
+			"root": "pagesCommunity",
+			"pages": [
+				{
+					"path": "message/message",
+					"style": {
+						"navigationBarTitleText": "通知中心"
+					}
+				}
+			]
+		},
+		{
+			"root": "pagesCook",
+			"pages": [
+				{
+					"path": "index/index",
+					"style": {
+						"navigationStyle": "custom"
+					}
+				}
+			]
+		},
+		{
+			"root": "pagesPlanLeader",
+			"pages": [
+				{
+					"path": "index/index",
+					"style": {
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "leader_first/index",
+					"style": {
+						"navigationBarTitleText": "index",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "leader_two/index",
+					"style": {
+						"navigationBarTitleText": "index",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "leader_three/index",
+					"style": {
+						"navigationBarTitleText": "index",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "leader_four/index",
+					"style": {
+						"navigationBarTitleText": "index",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "leader_five/index",
+					"style": {
+						"navigationBarTitleText": "index",
+						"navigationStyle": "custom"
+					}
+				}
+			]
+		}
+	],
+	"preloadRule": {
+		/* 预加载规则 */
+		"pages/mine/mine": {
+			"network": "all",
+			"packages": [
+				"pagesUser"
+			]
+		},
+		"pages/community/community": {
+			"network": "all",
+			"packages": [
+				"pagesCommunity"
+			]
+		}
+	}
 }

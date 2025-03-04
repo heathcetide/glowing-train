@@ -13,13 +13,21 @@
         <LeaderCard title="作息习惯">
           <template #default>
             <view class="flex flex-col gap-21rpx w-100%">
-              <view v-for="item in list" :key="item.title" class="flex gap-20rpx bg-#fff w-100% p-23rpx rounded-16rpx">
+              <view
+                v-for="(item, index) in list"
+                :key="item.title"
+                :class="{ active: activeHabiteIndex === index }"
+                class="flex gap-20rpx bg-#fff w-100% p-23rpx rounded-16rpx transition-300"
+                @click="handleChoseHabite(item, index)"
+              >
                 <view class="center">
                   <image :src="item.icon" class="size-40rpx"></image>
                 </view>
                 <view>
-                  <view class="title text-black">{{ item.title }}</view>
-                  <view class="title fb text-0">{{ item.desc }}</view>
+                  <view class="title text-black" :class="{ txColor: activeHabiteIndex === index }">{{
+                    item.title
+                  }}</view>
+                  <view class="title fb text-0" :class="{ txColor: activeHabiteIndex === index }">{{ item.desc }}</view>
                 </view>
               </view>
             </view>
@@ -30,17 +38,20 @@
           <template #default>
             <view class="flex flex-col gap-21rpx w-100%">
               <view
-                v-for="item in stress"
+                v-for="(item, index) in stress"
                 :key="item.title"
-                class="flex gap-20rpx bg-#fff w-100% p-23rpx rounded-16rpx"
-                @click="handleChoseStress(item)"
+                :class="{ active: activeStressIndex === index }"
+                class="flex gap-20rpx bg-#fff w-100% p-23rpx rounded-16rpx transition-300"
+                @click="handleChoseStress(item, index)"
               >
                 <view class="center">
                   <image :src="item.icon" class="w-35rpx h-49rpx"></image>
                 </view>
                 <view>
-                  <view class="title text-black">{{ item.title }}</view>
-                  <view class="title fb text-0">{{ item.desc }}</view>
+                  <view class="title text-black" :class="{ txColor: activeStressIndex === index }">{{
+                    item.title
+                  }}</view>
+                  <view class="title fb text-0" :class="{ txColor: activeStressIndex === index }">{{ item.desc }}</view>
                 </view>
               </view>
             </view>
@@ -63,9 +74,11 @@ import IconUpset from '@image/plan-leader/icon-upset.svg'
 import IconRegular from '@image/plan-leader/icon-regular.svg'
 import IconFrequntly from '@image/plan-leader/icon-frequntly.svg'
 import IconSometime from '@image/plan-leader/icon-sometime.svg'
+import { ref } from 'vue'
 
 const { safeAreaInsets } = uni.getWindowInfo()
-
+const activeHabiteIndex = ref(0)
+const activeStressIndex = ref(0)
 const list = [
   { icon: IconRegular, title: '规律作息', desc: '23:00 前入睡' },
   { icon: IconSometime, title: '偶尔熬夜', desc: '23:30 - 01:00' },
@@ -77,7 +90,12 @@ const stress = [
   { icon: IconUpset, title: '高压力', desc: '工作学习繁忙、焦虑' },
 ]
 
-const handleChoseStress = (item: any) => {
+const handleChoseStress = (item: any, index: number) => {
+  activeStressIndex.value = index
+  console.log(item)
+}
+const handleChoseHabite = (item: any, index: number) => {
+  activeHabiteIndex.value = index
   console.log(item)
 }
 </script>
@@ -85,5 +103,13 @@ const handleChoseStress = (item: any) => {
 <style scoped>
 page {
   background: #fff;
+}
+
+.active {
+  background-color: #5dbe8a;
+}
+
+.txColor {
+  color: #fff;
 }
 </style>
