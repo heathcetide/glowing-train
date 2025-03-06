@@ -1,5 +1,5 @@
 <template>
-  <view class="" :style="{ paddingTop: safeAreaInsets.top + 'px' }">
+  <view class="">
     <CustomNavBar title="启动健康焕新计划" :step="4" :totalStep="4" :activeIndex="3" />
 
     <view class="p-24rpx">
@@ -76,9 +76,8 @@ import IconFrequntly from '@image/plan-leader/icon-frequntly.svg'
 import IconSometime from '@image/plan-leader/icon-sometime.svg'
 import { ref } from 'vue'
 
-const { safeAreaInsets } = uni.getWindowInfo()
-const activeHabiteIndex = ref(0)
-const activeStressIndex = ref(0)
+const activeHabiteIndex = ref(-1)
+const activeStressIndex = ref(-1)
 const list = [
   { icon: IconRegular, title: '规律作息', desc: '23:00 前入睡' },
   { icon: IconSometime, title: '偶尔熬夜', desc: '23:30 - 01:00' },

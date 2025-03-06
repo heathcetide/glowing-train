@@ -12,7 +12,7 @@
     </view>
     <view class="flex justify-between items-center">
       <view>保质期</view>
-      <view class="w-254rpx">
+      <view class="w-400rpx">
         <uni-datetime-picker type="datetime" v-model="datetimesingle" @change="changeLog" />
       </view>
     </view>

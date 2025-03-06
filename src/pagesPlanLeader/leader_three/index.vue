@@ -1,5 +1,5 @@
 <template>
-  <view class="" :style="{ paddingTop: safeAreaInsets.top + 'px' }">
+  <view class="">
     <CustomNavBar title="启动健康焕新计划" :step="3" :totalStep="4" :activeIndex="2" />
 
     <view class="p-24rpx">
@@ -49,9 +49,7 @@ import LeaderCard from '../components/LeaderCard.vue'
 import NextButton from '../components/NextButton.vue'
 import PanelCard3 from '../components/PanelCard3.vue'
 
-const { safeAreaInsets } = uni.getWindowInfo()
-
-const activeIndex = ref(0)
+const activeIndex = ref(-1)
 const list = [
   { icon: '🚶', title: '几乎不运动', desc: '久坐党，运动量极低' },
   { icon: '🚶', title: '偶尔运动', desc: '一周 1-2 次轻量运动，如散步、瑜伽' },

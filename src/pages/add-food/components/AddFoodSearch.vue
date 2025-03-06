@@ -5,6 +5,8 @@
     shadow
     left-width="200rpx"
     :border="false"
+    :fixed="true"
+    :status-bar="true"
     left-icon="arrow-left"
   >
     <template #right>

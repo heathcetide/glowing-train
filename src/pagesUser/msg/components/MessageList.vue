@@ -1,6 +1,6 @@
 <template>
   <view class="list">
-    <view class="list-item" v-for="item in list" :key="item.title">
+    <view class="item" v-for="item in list" :key="item.title">
       <NoticeCard :title="item.title" :content="item.content" :time="item.time" :isRead="item.isRead" />
     </view>
   </view>

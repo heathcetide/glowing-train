@@ -35,7 +35,7 @@
 
       <view class="flex gap-22rpx w-100%">
         <button class="flex-1 text-#fff bg-#5DBE8A center gap-8rpx">
-          <image class="size-24.5rpx" :src="IconShare" mode="scaleToFill" />
+          <image class="size-24.5rpx" :src="IconShare" mode="scaleToFill" @click="onShare()" />
           分享美食
         </button>
         <button class="flex-1 text-#5DBE8A bg-#fff center gap-8rpx">
@@ -65,6 +65,7 @@ import IconShare from '@/static/image/cook/icon-share.svg'
 import IconSave from '@/static/image/cook/icon-save.svg'
 import IconDielt from '@/static/image//community/icon-diet.svg'
 import { ref } from 'vue'
+import Utils from '@/utils'
 const { safeAreaInsets } = uni.getWindowInfo()
 
 const rateValue = ref(0)
@@ -83,6 +84,9 @@ const list = [
   },
 ]
 
+const onShare = () => {
+  Utils.navigateTo('/pages/upload/upload')
+}
 const goTurnMain = () => {
   uni.switchTab({
     url: '/pages/index/index', // 这里改成 TabBar 页面路径

@@ -27,7 +27,7 @@ import { ref, watch } from 'vue'
 import LeaderCard from './LeaderCard.vue'
 
 const emit = defineEmits(['style'])
-const activeIndex = ref<number[]>([0])
+const activeIndex = ref<number[]>([-1])
 const hibits = [
   { icon: '🍚', value: '均衡饮食' },
   { icon: '🥗', value: '低碳水饮食' },

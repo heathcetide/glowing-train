@@ -10,9 +10,9 @@
     ></up-image>
     <view class="flex flex-col gap-8rpx p-22rpx">
       <text>{{ item.title }}</text>
-      <text class="text-#333333 text-21rpx ellipsis">热量 {{ item.kcal }}</text>
+      <text class="text-#333333 text-21rpx ellipsis">热量 {{ item.kcal }}kcal</text>
       <view class="ingredients">
-        <view v-for="(ingredient, index) in item.ingredients!.slice(0, 3)" :key="index" class="ingredient-tag">
+        <view v-for="(ingredient, index) in item.ingredients?.slice(0, 3)" :key="index" class="ingredient-tag">
           {{ ingredient }}
         </view>
       </view>
@@ -65,7 +65,7 @@
 <script setup lang="ts">
 import icon1 from '@/static/image/cook/food-pic1.svg'
 import type { CookModule } from '@/types/component'
-import { computed, inject, ref } from 'vue'
+import { ref } from 'vue'
 
 interface Props {
   item: CookModule.FoodCardItem
@@ -86,10 +86,6 @@ const props = withDefaults(defineProps<Props>(), {
       kcal: 0,
       ingredients: ['土豆', '牛肉', '小葱'], // 示例食材数据
     } as CookModule.FoodCardItem),
-})
-
-const hotCounter = computed(() => {
-  return props.item.kcal! * props.item.num!
 })
 
 const dialogConfirm = () => {

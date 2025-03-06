@@ -1,6 +1,6 @@
 <template>
-  <view class="" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
-    <CustomNavBar title="启动健康焕新计划" :step="1" :totalStep="4" />
+  <CustomNavBar title="启动健康焕新计划" :step="1" :totalStep="4" />
+  <view class="">
     <view class="p-24rpx">
       <view class="goal w-100% col gap-24rpx">
         <text class="text-48rpx font-700">你的目标是什么？</text>
@@ -18,9 +18,9 @@
           :subTitle="item.subTitle"
           :icon="item.icon"
         />
-        <NextButton url="leader_two" />
       </view>
     </view>
+    <NextButton url="leader_two" />
   </view>
 </template>
 
@@ -35,8 +35,8 @@ import NextButton from '../components/NextButton.vue'
 
 import { ref } from 'vue'
 
-const activeIndex = ref(0)
-const { safeAreaInsets } = uni.getWindowInfo()
+const activeIndex = ref(-1)
+
 const options = [
   {
     icon: PicSec1,

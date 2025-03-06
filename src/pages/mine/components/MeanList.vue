@@ -32,7 +32,12 @@ const menus = ref<Array<Menu>>([
   { id: nanoid(), image: '/static/image/center/user.png', title: '个人信息', to: '/pagesUser/info/info' },
   { id: nanoid(), image: '/static/image/center/data.svg', title: '消息中心', to: '/pagesUser/msg/msg' },
   { id: nanoid(), image: '/static/image/center/food.svg', title: '数据分析', to: '/pagesUser/data/data' },
-  { id: nanoid(), image: '/static/image/center/foodpanel.svg', title: '我的收藏', to: '/pagesUser/saveStore' },
+  {
+    id: nanoid(),
+    image: '/static/image/center/foodpanel.svg',
+    title: '我的收藏',
+    to: '/pagesUser/saveStore/saveStore',
+  },
   { id: nanoid(), image: '/static/image/center/general.svg', title: '智能设备', to: '/pagesUser/smart/smart' },
   { id: nanoid(), image: '/static/image/center/activity.svg', title: '积分兑换', to: '/pagesUser/point/point' },
   { id: nanoid(), image: '/static/image/center/security.svg', title: '系统设置', to: '/pagesUser/settings/settings' },

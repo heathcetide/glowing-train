@@ -15,6 +15,7 @@ import SGCateTab from '@/components/SGCateTab.vue'
 import SGIconTabs from '@/components/SGIconTabs.vue'
 import SGPopupDialog from '@/components/SGPopupDialog.vue'
 import SGPoup from '@/components/SGPoup.vue'
+import SGCalender from '@/components/SGCalender.vue'
 declare module 'vue' {
   export interface GlobalComponents {
     QiunDataCharts: typeof import('@/components/qiun-data-charts/qiun-data-charts.vue')['default']
@@ -30,6 +31,7 @@ declare module 'vue' {
     SGPopupDialog: typeof SGPopupDialog
     SGTabsSub: typeof SGTabsSub
     SGPoup: typeof SGPoup
+    SGCalender: typeof SGCalender
   }
   export interface Tabs {
     icon: string
@@ -43,7 +45,7 @@ export type SGSearchBarInstance = InstanceType<typeof SGSearchBar>
 export type SGNavBarInstance = InstanceType<typeof SGNavBar>
 export type SGTabsInstance = InstanceType<typeof SGTabs>
 export type SGWaterfallPlusInstance = InstanceType<typeof SGWaterfallPlus>
-export type SGPoupPlusInstance = InstanceType<typeof SGPopupDialog>
+export type SGPopupDialogPlusInstance = InstanceType<typeof SGPopupDialog>
 export type SGPoupInstance = InstanceType<typeof SGPoup>
 
 export namespace Community {

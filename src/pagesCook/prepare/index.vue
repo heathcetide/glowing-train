@@ -8,20 +8,18 @@
         <view>
           <view class="text-31.5rpx font-600 mb-28rpx">食材准备</view>
           <view class="content flex flex-col gap-20rpx" v-for="(item, index) in foodList" :key="item.id">
-            <PrepareCard :index="index + ''" :num="300" :icon="IconMet" />
+            <PrepareCard :index="index + ''" :num="300" :icon="IconMet" :title="item.title" />
           </view>
         </view>
 
-        <!-- 工具准备
+        <!-- 工具准备 -->
         <view class="mt-42rpx">
           <view class="text-31.5rpx font-600 mb-28rpx">工具准备</view>
           <view class="content flex flex-col gap-20rpx">
-            <PrepareCard title="炒锅" :icon="iconTool" />
-            <PrepareCard title="炒锅" :icon="iconTool" />
-            <PrepareCard title="炒锅" :icon="iconTool" />
-            <PrepareCard title="炒锅" :icon="iconTool" />
+            <PrepareCard title="炒锅" :icon="iconTool" index="0" />
+            <PrepareCard title="炒锅" :icon="iconTool" index="1" />
           </view>
-        </view> -->
+        </view>
       </scroll-view>
 
       <view class="p-15rpx flex w-100% mt-20rpx jsustify-between items-center bg-white shadow1">
@@ -56,24 +54,43 @@ const handleStartCook = () => {
 }
 
 // 定义一个 foodList 存储食物列表
-const foodList = ref<any[]>([])
+const foodList = ref<any[]>([
+  {
+    id: 1,
+    title: '猪肉',
+    desc: '猪肉',
+    cover: 'https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/uni-ui/uni-list-item/uni-list-item.png',
+    kcal: 300,
+    num: 0,
+    ingredients: [],
+  },
+  {
+    id: 1,
+    title: '猪肉',
+    desc: '猪肉',
+    cover: 'https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/uni-ui/uni-list-item/uni-list-item.png',
+    kcal: 300,
+    num: 0,
+    ingredients: [],
+  },
+])
 
 onMounted(() => {
   // 从本地存储获取推荐食物
-  uni.getStorage({
-    key: 'recommendedFoods',
-    success: (res) => {
-      if (res.data && Array.isArray(res.data)) {
-        // 如果从存储中获取到推荐食物数据，赋值给 foodList
-        foodList.value = res.data
-      } else {
-        console.log('没有找到推荐食物数据')
-      }
-    },
-    fail: () => {
-      console.log('无法获取推荐食物数据')
-    },
-  })
+  // uni.getStorage({
+  //   key: 'recommendedFoods',
+  //   success: (res) => {
+  //     if (res.data && Array.isArray(res.data)) {
+  //       // 如果从存储中获取到推荐食物数据，赋值给 foodList
+  //       foodList.value = res.data
+  //     } else {
+  //       console.log('没有找到推荐食物数据')
+  //     }
+  //   },
+  //   fail: () => {
+  //     console.log('无法获取推荐食物数据')
+  //   },
+  // })
 })
 </script>
 

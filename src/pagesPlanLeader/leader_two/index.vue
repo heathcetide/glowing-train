@@ -1,5 +1,5 @@
 <template>
-  <view class="" :style="{ paddingTop: safeAreaInsets.top + 'px' }">
+  <view class="">
     <CustomNavBar title="启动健康焕新计划" :step="2" :totalStep="4" :activeIndex="1" />
 
     <view class="p-24rpx">
@@ -30,8 +30,6 @@ import PanelCard3 from '../components/PanelCard3.vue'
 
 import NextButton from '../components/NextButton.vue'
 import Utils from '@/utils'
-
-const { safeAreaInsets } = uni.getWindowInfo()
 
 const handleCount = (item: string) => {
   console.log('@', item)

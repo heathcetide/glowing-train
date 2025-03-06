@@ -33,7 +33,7 @@ interface Props {
   activeIndex: number
   totalStep: number
 }
-
+const { safeAreaInsets } = uni.getWindowInfo()
 const props = withDefaults(defineProps<Props>(), {
   title: '',
   step: 1,

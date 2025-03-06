@@ -1,7 +1,6 @@
 <template>
-  <view class="" :style="{ paddingTop: safeAreaInsets.top + 'px' }">
+  <view>
     <CustomNavBar title="启动健康焕新计划" :step="4" :totalStep="4" :activeIndex="3" />
-
     <view class="p-24rpx">
       <view class="goal w-100% col gap-24rpx">
         <text class="text-48rpx font-700">恭喜，用户！</text>
@@ -51,7 +50,6 @@ import IconDate from '@image/plan-leader/icon-date.svg'
 import IconZhong from '@image/plan-leader/icon-zhong.svg'
 import IconTool from '@image/plan-leader/icon-tool.svg'
 import Utils from '@/utils'
-const { safeAreaInsets } = uni.getWindowInfo()
 
 const list = [
   { icon: IconRun, title: '每日运动时长', desc: '45分钟（中等强度)' },

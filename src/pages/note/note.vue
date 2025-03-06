@@ -1,5 +1,12 @@
 <template>
-  <uni-nav-bar title="食材记录" left-icon="back" :border="false" @clickLeft="handleClickLeft"></uni-nav-bar>
+  <uni-nav-bar
+    title="食材记录"
+    left-icon="back"
+    :status-bar="true"
+    :border="false"
+    :fixed="true"
+    @clickLeft="handleClickLeft"
+  ></uni-nav-bar>
   <view :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <view class="wrap px-28rpx py-22rpx text-24.5rpx">
       <uni-row :gutter="20">

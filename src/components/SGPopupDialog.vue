@@ -5,7 +5,7 @@
       cancelText="取消"
       confirmText="确定"
       :title="item.title"
-      @confirm="dialogConfirm!"
+      @confirm="dialogConfirm"
       @close="dialogClose"
     >
       <view class="flex justify-between w-100% gap-30rpx">
@@ -19,7 +19,7 @@
           </view>
           <view class="flex">
             <text>热量:</text>
-            <text>{{ hotCounter }}</text>
+            <text>{{ hotCounter }}kcal</text>
           </view>
         </view>
       </view>
@@ -47,7 +47,7 @@ const emits = defineEmits<{
 const hotCounter = computed(() => {
   return props.item.kcal * (value.value as number)
 })
-const dialogConfirm = () => {
+const dialogConfirm: UniHelper.UniPopupDialogOnConfirm = () => {
   emits('confirm')
   alertDialog.value.close()
 }

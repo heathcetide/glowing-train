@@ -1,5 +1,5 @@
 <template>
-  <uni-nav-bar left-width="200rpx">
+  <uni-nav-bar left-width="200rpx" status-bar>
     <template #left>
       <view class="flex gap-10rpx items-center" @click="onBack">
         <uni-icons type="left" color="" size="20" />

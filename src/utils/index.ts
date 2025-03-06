@@ -66,5 +66,20 @@ class Utils {
   static getUuid(): string {
     return uni.$uv.uuid()
   }
+
+  getDayOfWeek(dateString: string): string {
+    const daysOfWeek = ['日', '一', '二', '三', '四', '五', '六']
+
+    // 解析输入的日期字符串
+    const [yearStr, monthStr, dayStr] = dateString.split('-')
+    const year = parseInt(yearStr, 10) + 2000 // 假设年份在21世纪
+    const month = parseInt(monthStr, 10) - 1 // 月份是从0开始的，所以需要减1
+    const day = parseInt(dayStr, 10)
+
+    const date = new Date(year, month, day)
+    const dayOfWeek = date.getDay()
+
+    return daysOfWeek[dayOfWeek]
+  }
 }
 export default Utils

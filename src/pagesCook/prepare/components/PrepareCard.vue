@@ -1,8 +1,8 @@
 <template>
   <view class="item py-22rpx shadow1 px-24rpx flex justify-between items-center bg-white">
-    <image :src="item.foodUrl" class="size-112rpx" mode="scaleToFill" />
+    <image :src="icon" class="size-112rpx" mode="scaleToFill" />
     <view class="desc flex flex-col flex-1 pl-15rpx">
-      <text class="title">{{ item.name }}</text>
+      <text class="title">{{ title }}</text>
       <text class="" v-if="num">{{ num }}g</text>
     </view>
     <view>
@@ -47,12 +47,15 @@ const handleChecked = () => {
 }
 interface Props {
   index: string
+  icon: string
+  title: string
+  num?: number
 }
 const props = defineProps<Props>()
 // 根据传递的 index 获取 foodList 中的对应项
-const item = computed(() => {
-  return foodList.value[props.index] || {} // 根据 index 从 foodList 中获取对应的项
-})
+// const item = computed(() => {
+//   return foodList.value[Number(props.index)] || {} // 根据 index 从 foodList 中获取对应的项
+// })
 </script>
 
 <style scoped></style>

@@ -19,7 +19,7 @@
   <view class="chartsview" :id="'ChartBoxId' + cid">
     <view v-if="mixinDatacomLoading">
       <!-- 自定义加载状态，请改这里 -->
-      <QiunLoading :loadingType="loadingType" />
+      <!-- <QiunLoading :loadingType="loadingType" /> -->
     </view>
     <view v-if="mixinDatacomErrorMessage && errorShow" @tap="reloading">
       <!-- 自定义错误提示，请改这里 -->
@@ -161,7 +161,7 @@ import cfu from '@/components/u-charts/config-ucharts.js'
 // #ifdef APP-VUE || H5
 import cfe from '@/components/u-charts/config-echarts.js'
 // #endif
-import QiunLoading from '@/components/qiun-loading/qiun-loading.vue'
+import QiunLoading from '../qiun-loading/qiun-loading.vue'
 function deepCloneAssign(origin = {}, ...args) {
   for (let i in args) {
     for (let key in args[i]) {

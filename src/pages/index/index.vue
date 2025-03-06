@@ -141,9 +141,6 @@ const goToChoose = () => {
   height: 80rpx;
 }
 
-.scroll-view {
-  height: 500px;
-}
 .container {
   display: flex;
   flex-direction: column;

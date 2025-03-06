@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import uni from '@dcloudio/vite-plugin-uni'
-
+import vueDevTools from 'vite-plugin-vue-devtools'
 export default defineConfig(async () => {
   const UnoCss = await import('unocss/vite').then((i) => i.default)
 
   return {
-    plugins: [uni(), UnoCss()],
+    plugins: [uni(), UnoCss(), vueDevTools()],
     resolve: {
       alias: {
         '@': '/src',

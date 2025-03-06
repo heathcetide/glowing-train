@@ -33,7 +33,7 @@ withDefaults(defineProps<NoticeCardProps>(), {
 })
 </script>
 <style lang="scss" scoped>
-@import '@/styles/color.scss';
+// @import '@/styles/color.scss';
 .card {
   display: flex;
   padding: 28rpx;

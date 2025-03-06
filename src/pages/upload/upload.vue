@@ -12,26 +12,24 @@
     </up-navbar>
   </view>
 
-  <view class="container p-28rpx w-100% mt-88rpx">
-    <up-sticky class="z-10" :z-index="1000">
-      <view class="bg-#fff">
-        <uni-row>
-          <uni-col :span="6" v-for="(item, index) in tabs" :key="item.type" @click="onChangeActive(index, item)">
-            <view class="col fb py-20rpx text-#5DBE8A" v-show="index === activeIndex">
-              <uni-icons :type="item.icon" color="#5DBE8A" size="24" />
-              <text>{{ item.name }}</text>
-            </view>
-            <view class="col fb py-20rpx" v-show="index !== activeIndex">
-              <uni-icons :type="item.icon" size="24" />
-              <text>{{ item.name }}</text>
-            </view>
-          </uni-col>
-        </uni-row>
-        <uni-col :span="6" :offset="activeIndex * 6" class="pos-relative transition-all">
-          <view class="coursor pos-absolute w-100% h2rpx bg-#5DBE8A"></view>
+  <view class="container p-28rpx w-100% mt-120rpx">
+    <view class="bg-#fff">
+      <uni-row>
+        <uni-col :span="6" v-for="(item, index) in tabs" :key="item.type" @click="onChangeActive(index, item)">
+          <view class="col fb py-20rpx text-#5DBE8A" v-show="index === activeIndex">
+            <uni-icons :type="item.icon" color="#5DBE8A" size="24" />
+            <text>{{ item.name }}</text>
+          </view>
+          <view class="col fb py-20rpx" v-show="index !== activeIndex">
+            <uni-icons :type="item.icon" size="24" />
+            <text>{{ item.name }}</text>
+          </view>
         </uni-col>
-      </view>
-    </up-sticky>
+      </uni-row>
+      <uni-col :span="6" :offset="activeIndex * 6" class="pos-relative transition-all">
+        <view class="coursor pos-absolute w-100% h2rpx bg-#5DBE8A"></view>
+      </uni-col>
+    </view>
     <view class="mt-28rpx mb-82rpx">
       <up-textarea
         v-model="value"
@@ -77,8 +75,11 @@
         :extraIcon="{ color: '#333333', size: '24', type: 'eye-filled' }"
       >
         <template #footer>
-          <view class="flex center">公开</view>
-          <uni-data-select v-model="value" :localdata="range" @change="change"></uni-data-select>
+          <select class="select border-0">
+            <option value="0">公开</option>
+            <option value="1">好友</option>
+            <option value="2">私密</option>
+          </select>
         </template>
       </uni-list-item>
     </uni-list>

@@ -23,6 +23,7 @@ export default {
       activeBorder: 'border-b-2rpx border-b-#5DBE8A border-b-solid',
       borderDashed: 'border-5rpx border-#F5F5f5 border-dashed',
       border2: 'border-2rpx border-#F5F5F5 border-solid',
+      tags: 'px-21rpx py-7rpx rounded-full',
     },
   ],
 

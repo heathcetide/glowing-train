@@ -45,7 +45,7 @@ const list = computed(() => {
   return props.lists || likes
 })
 
-const activeIndex = ref<number[]>([0])
+const activeIndex = ref<number[]>([-1])
 
 const emit = defineEmits(['taste'])
 

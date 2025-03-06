@@ -50,9 +50,6 @@ const keyword = ref()
 const goToCalc = () => {
   Utils.navigateTo('/pagesCook/calc-food/index')
 }
-const handleSearch = () => {
-  console.log(keyword.value)
-}
 </script>
 
 <style scoped></style>
