@@ -72,7 +72,7 @@
 import Logo from '@/static/image/logo/logo.png'
 import { ref } from 'vue'
 import { onReady } from '@dcloudio/uni-app'
-import { loginAPI } from '@/services/user/userBaseModule'
+import { getUserInfoAndLevel, loginAPI } from '@/services/user/userBaseModule'
 import { useMemberStore } from '@/stores/modules/member' // 导入 pinia store
 import Utils from '@/utils'
 const form = ref()
@@ -135,12 +135,13 @@ const submit = () => {
     .then(async (res: { username: string; password: string; agree: boolean }) => {
       // TODO 登录
       const result = await loginAPI({ username: res.username, password: res.password })
-      console.log(result)
+      const { data } = await getUserInfoAndLevel()
+
       if (result.code == 200) {
         const memberStore = useMemberStore()
-        const { token, profile } = result.data
+        const { token } = result.data
         memberStore.setToken(token) // 保存令牌到 store
-        memberStore.setProfile(profile) // 保存用户信息
+        memberStore.setProfile(data) // 保存用户信息
         console.log('Stored token:', memberStore.token)
         uni.switchTab({
           url: '/pages/mine/mine',

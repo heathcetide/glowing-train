@@ -23,14 +23,14 @@
           </view>
           <progress
             class="progress-bar rounded-14rpx"
-            :percent="(memberStore.profile?.levelPoints || memberStore.profile?.maxPoints)! * 100||50"
+            :percent="present"
             :stroke-width="14"
             backgroundColor="#F3F4F6"
             activeColor="#30CD69"
           />
           <view class="text-#6B7280 text-21rpx juslr">
             <text>成长值</text>
-            <text>25/50</text>
+            <text>{{ profile?.levelPoints }} / {{ profile?.maxPoints }}</text>
           </view>
         </view>
       </view>
@@ -40,11 +40,16 @@
 
 <script setup lang="ts">
 import { useMemberStore } from '@/stores/modules/member' // 引入 Pinia store
+import { computed } from 'vue'
 const { safeAreaInsets } = uni.getWindowInfo()
 
 // 使用 Pinia store
 const memberStore = useMemberStore()
+const profile = memberStore.profile
 
+const present = computed(() => {
+  return (memberStore.profile?.levelPoints! / memberStore.profile?.maxPoints!) * 100 || 50
+})
 const handleLogin = () => {
   uni.navigateTo({
     url: '/pages/login/login',

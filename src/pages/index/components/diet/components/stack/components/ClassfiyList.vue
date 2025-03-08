@@ -45,7 +45,6 @@
         </view>
       </template>
     </SGCateTab>
-
     <PoupCard :type="type" :show="isShowPopup" @open="onOpenPopup" @close="onClosePopup" :item="selectedItem" />
   </view>
 </template>
@@ -57,6 +56,7 @@ import Utils from '@/utils'
 import PoupCard from './PoupCard.vue'
 import { getUserInventoryAPI } from '@/services/Inventory/InventoryBaseModule' // 假设 API 在这里
 import type { HomeIndex } from '@/types/component'
+import { getUserInfoAndLevel } from '@/services/user/userBaseModule'
 
 const isShowPopup = ref(false)
 const selectedItem = ref<HomeIndex.Stack.StackItem>({} as HomeIndex.Stack.StackItem)
@@ -157,10 +157,10 @@ const handleRemoveStack = (item: HomeIndex.Stack.StackItem) => {
 onMounted(async () => {
   try {
     // 获取用户库存数据
-    const userInventory = await getUserInventoryAPI()
+    const userInventory = (await getUserInventoryAPI()) as unknown as any[]
 
-    // 根据usageCategory进行分组，生成tabList
-    const categorizedData = userInventory.data.reduce((acc, item) => {
+    // 根据usageCategory进行分组，  生成tabList
+    const categorizedData = userInventory.reduce((acc, item) => {
       // 检查是否已有该分类
       const category = item.usageCategory || '全部分类'
       if (!acc[category]) {

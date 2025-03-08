@@ -6,11 +6,19 @@
       <text class="" v-if="num">{{ num }}g</text>
     </view>
     <view>
-      <up-checkbox :checked="isChecked" @click="handleChecked">
-        <template #icon>
-          <uni-icons v-show="isChecked" type="checkmarkempty" color="#fff" size="20" />
-        </template>
-      </up-checkbox>
+      <up-checkbox-group>
+        <up-checkbox
+          active-color="#5DBE8A"
+          :icon-size="5"
+          icon-color="#5DBE8A"
+          :checked="isChecked"
+          @click="handleChecked"
+        >
+          <template #icon>
+            <uni-icons v-show="isChecked" type="checkmarkempty" color="#f00" size="10" />
+          </template>
+        </up-checkbox>
+      </up-checkbox-group>
     </view>
   </view>
 </template>
@@ -43,7 +51,7 @@ onMounted(() => {
 
 const isChecked = ref(false)
 const handleChecked = () => {
-  isChecked.value = !isChecked.value
+  isChecked.value = true
 }
 interface Props {
   index: string

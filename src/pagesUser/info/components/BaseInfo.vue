@@ -6,7 +6,7 @@
         <text>账号等级</text>
         <view class="flex items-center">
           <image src="/static/icons/level.png" class="w-28rpx h-28rpx mr-8rpx" />
-          <text class="text-#1890FF">LV 6</text>
+          <text class="text-#1890FF">{{ profile?.levelName }}</text>
           <uni-icons type="right" color="#9CA3AF" size="24" />
         </view>
       </view>
@@ -17,7 +17,7 @@
           <view class="gender-icon bg-#1890FF rounded-full p-8rpx mr-8rpx">
             <image src="/static/icons/male.png" class="w-24rpx h-24rpx" />
           </view>
-          <text>男</text>
+          <text>{{ getSex }}</text>
           <uni-icons type="right" color="#9CA3AF" size="24" />
         </view>
       </view>
@@ -27,7 +27,7 @@
       <view class="info-item flex justify-between items-center">
         <text>生日</text>
         <view class="flex items-center">
-          <text>1995年12月5日</text>
+          <text>{{ dayjs(profile?.birthday).format('YYYY-MM-DD') }}</text>
           <uni-icons type="right" color="#9CA3AF" size="24" />
         </view>
       </view>
@@ -42,7 +42,17 @@
   </view>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useMemberStore } from '@/stores'
+import dayjs from 'dayjs'
+import { computed } from 'vue'
+const { profile } = storeToRefs(useMemberStore())
+
+const getSex = computed(() => {
+  return profile.value?.gender == 0 ? '男' : '女'
+})
+</script>
 
 <style scoped></style>
 \

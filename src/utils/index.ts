@@ -67,19 +67,37 @@ class Utils {
     return uni.$uv.uuid()
   }
 
-  getDayOfWeek(dateString: string): string {
-    const daysOfWeek = ['日', '一', '二', '三', '四', '五', '六']
+  /**
+   * 将对象参数转换为URL查询字符串
+   * @param params 参数对象，支持字符串、数字、布尔值及数组类型
+   * @returns 编码后的查询字符串，如 "key1=value1&key2=value2"
+   */
+  static objectToQueryString(params: {
+    [key: string]: string | string[] | number | boolean | (string | number | boolean)[]
+  }): string {
+    const queryParts: string[] = []
 
-    // 解析输入的日期字符串
-    const [yearStr, monthStr, dayStr] = dateString.split('-')
-    const year = parseInt(yearStr, 10) + 2000 // 假设年份在21世纪
-    const month = parseInt(monthStr, 10) - 1 // 月份是从0开始的，所以需要减1
-    const day = parseInt(dayStr, 10)
+    // 遍历对象属性
+    for (const [key, value] of Object.entries(params)) {
+      // 跳过空值
+      if (value === null || value === undefined) continue
 
-    const date = new Date(year, month, day)
-    const dayOfWeek = date.getDay()
+      // 处理数组类型（如 tags: ['js', 'ts'] → tags=js&tags=ts）
+      if (Array.isArray(value)) {
+        value.forEach((item) => {
+          // 跳过数组中的空元素
+          if (item !== null && item !== undefined) {
+            queryParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(item)}`)
+          }
+        })
+      } else {
+        // 处理基本类型（自动转换布尔值/数字为字符串）
+        queryParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      }
+    }
 
-    return daysOfWeek[dayOfWeek]
+    // 拼接所有参数并用 & 连接
+    return queryParts.join('&')
   }
 }
 export default Utils

@@ -15,3 +15,7 @@ export const getPostsByCursorAPI = (cursorId: number, pageSize: number) => {
     method: 'GET',
   })
 }
+
+/**
+ *
+ */

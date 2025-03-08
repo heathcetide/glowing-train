@@ -207,7 +207,7 @@ export const getUserInfoAPI = (username: string) =>
  * @returns {User.Info}
  */
 export const getUserInfoAndLevel = () =>
-  http<User.Info>({
+  http<User.UserInfo>({
     url: '/api/users/info/level',
     method: 'GET',
   })

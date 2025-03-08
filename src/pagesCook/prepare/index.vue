@@ -11,7 +11,7 @@
             <PrepareCard :index="index + ''" :num="300" :icon="IconMet" :title="item.title" />
           </view>
         </view>
-
+        <up-icon name="arrow-right" label=""></up-icon>
         <!-- 工具准备 -->
         <view class="mt-42rpx">
           <view class="text-31.5rpx font-600 mb-28rpx">工具准备</view>

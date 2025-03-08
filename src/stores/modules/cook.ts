@@ -41,6 +41,8 @@ const useCookStore = defineStore('cook', () => {
       num: 1,
     },
   ])
+
+  const getTodayRecommends = async () => {}
   const addDiet = (item: CookModule.FoodCardItem) => {
     const target: CookModule.FoodCardItem | undefined = chosedDietList.value.find((a) => a.id === item.id)
     if (target) {

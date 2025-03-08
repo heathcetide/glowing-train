@@ -1,10 +1,12 @@
 <template>
-  <CustomNavBar />
-  <scroll-view scroll-y>
-    <PostContaint />
-    <Comment :list="list" />
-  </scroll-view>
-  <CommentInput v-model:value="value" />
+  <view>
+    <CustomNavBar :src="detials?.avatarUrl" :name="detials?.nickName" />
+    <scroll-view scroll-y>
+      <PostContaint :item="{ tags: detials.tags, image: detials?.image, conduct: detials?.title, title: getTitle }" />
+      <Comment :list="list" />
+    </scroll-view>
+    <CommentInput v-model:value="value" />
+  </view>
 </template>
 
 <script setup lang="ts">
@@ -15,11 +17,13 @@ import Comment from './components/Comment.vue'
 import CustomNavBar from './components/CustomNavBar.vue'
 import PostContaint from './components/PostContaint.vue'
 // 新增状态管理
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import usePostStore from '@/stores/modules/post'
+import type { RecommendCardProps } from '@/types/community'
 const postStore = usePostStore()
 const value = ref('')
 
+const detials = ref<any>()
 const list = ref<Post.CardItem[]>([
   {
     name: '美食爱好者',
@@ -46,6 +50,10 @@ const list = ref<Post.CardItem[]>([
   },
 ])
 
+const getTitle = computed(() => {
+  return detials.value?.title.slice(0, 20)
+})
+
 watch(value, (newValue) => {
   const item: Post.CardItem = {
     name: '美食爱好者' + (Math.random() * 1000).toString(36),
@@ -59,11 +67,16 @@ watch(value, (newValue) => {
   }
 })
 const getDetials = (id: number) => {
-  postStore.getPostDetailsById(id)
+  const data = postStore.getPostDetailsById(id)
+  detials.value = data
+  console.log(data)
 }
 
 onLoad((data) => {
-  const id = data?.id
+  const id: number = Number(data?.id)
+
+  console.log('@@@', id, typeof id)
+
   getDetials(id)
 })
 </script>

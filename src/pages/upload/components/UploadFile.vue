@@ -5,6 +5,7 @@
       :file-mediatype="type"
       mode="grid"
       :limit="9"
+      :auto-upload="false"
       @select="handleSelect"
       @success="handleSuccess"
       @fail="handleFail"

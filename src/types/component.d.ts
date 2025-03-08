@@ -15,6 +15,7 @@ import SGCateTab from '@/components/SGCateTab.vue'
 import SGIconTabs from '@/components/SGIconTabs.vue'
 import SGPopupDialog from '@/components/SGPopupDialog.vue'
 import SGPoup from '@/components/SGPoup.vue'
+import SGSliperInput from '@/components/SGSliperInput.vue'
 import SGCalender from '@/components/SGCalender.vue'
 declare module 'vue' {
   export interface GlobalComponents {
@@ -31,6 +32,7 @@ declare module 'vue' {
     SGPopupDialog: typeof SGPopupDialog
     SGTabsSub: typeof SGTabsSub
     SGPoup: typeof SGPoup
+    SGSliperInput: typeof SGSliperInput
     SGCalender: typeof SGCalender
   }
   export interface Tabs {
