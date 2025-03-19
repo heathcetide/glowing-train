@@ -9,15 +9,21 @@
 
 <script setup lang="ts">
 interface Props {
-  url: string
+  url?: string
   margin?: string
 }
+interface Emit {
+  (e: 'onNext'): boolean
+}
 
+const emit = defineEmits<Emit>()
 defineOptions({
   name: 'CustomButton',
 })
 const props = defineProps<Props>()
 const onNext = () => {
+  emit('onNext')
+  if (!props.url) return
   uni.navigateTo({
     url: props.url,
   })

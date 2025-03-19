@@ -1,0 +1,29 @@
+{
+  "search": [
+    {
+      "icon": "@image/icon-smimi.svg",
+      "title": "小米粥",
+      "kcal": 168,
+      "weight": 100,
+      "id": 1
+    }
+  ],
+  "plan": {
+    "createdAt": "",
+    "exercises": "[\"跑步30分钟\", \"力量训练20分钟\"]",
+    "goalId": 1001,
+    "id": 1,
+    "meals": "[\"早餐: 燕麦+牛奶\", \"午餐: 鸡胸肉+蔬菜\", \"晚餐: 牛排+红酒\"]",
+    "planCategory": "饮食",
+    "planContent": "早餐吃1000千卡",
+    "planDate": "",
+    "progress": 50,
+    "status": "未开始",
+    "todayCalorieCompleted": 1500,
+    "todayCalorieTarget": 2000,
+    "todayExerciseCompleted": 30,
+    "todayExerciseTarget": 60,
+    "updatedAt": "",
+    "userId": 10001
+  }
+}

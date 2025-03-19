@@ -2,7 +2,8 @@
   <view class="wrap">
     <view class="title">
       <text class="title">今日目标进度</text>
-      <text class="date">2024年2月15日</text>
+      <!-- 动态显示今天的日期 -->
+      <text class="date">{{ currentDate }}</text>
     </view>
 
     <view class="progress">
@@ -15,6 +16,11 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+
+// 动态获取当前日期
+const currentDate = ref('')
+
 const data = [
   {
     value: '75',
@@ -32,6 +38,16 @@ const data = [
     borderColor: '#4B7BF530',
   },
 ]
+
+onMounted(() => {
+  // 获取今天的日期，并格式化为 YYYY年MM月DD日 格式
+  const today = new Date()
+  currentDate.value = today.toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+})
 </script>
 
 <style scoped lang="scss">

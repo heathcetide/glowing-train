@@ -30,7 +30,7 @@ import DrinkList from './components/drink-list/index.vue'
 import RecipeList from './components/recipe-list/index.vue'
 import ToolList from './components/tool-list/index.vue'
 const icons = [IconRanke1, IconRanke2, IconRanke3]
-const tabs = ['食谱榜单', '食谱榜单', '工具榜单']
+const tabs = ['食谱榜单', '饮品榜单', '工具榜单']
 </script>
 
 <style scoped></style>

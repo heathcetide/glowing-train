@@ -21,8 +21,8 @@ const goBack = () => {
   uni.navigateBack()
 }
 const search = (value: UniHelper.UniSearchBarOnInputEvent) => {
-  console.log('search', value.value)
   emit('search', value.value)
+  // console.log(searchValue.value)
 }
 </script>
 

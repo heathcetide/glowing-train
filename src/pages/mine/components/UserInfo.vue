@@ -16,9 +16,9 @@
             <view>
               <text class="text-31.5px">{{ memberStore.profile?.nickname || '陈思远' }}</text>
             </view>
-            <text class="info center px-18rpx py-2rpx w-100rpx h-50rpx text-#fff rounded-50rpx bg-#20C05B">
+            <text class="info center px-18rpx py-2rpx h-50rpx text-#fff rounded-50rpx bg-#20C05B">
               <uni-icons type="vip-filled" color="yellow" size="20"></uni-icons>
-              <text>Lv6.0</text>
+              <text class="">{{ memberStore.profile?.levelName || '陈思远' }}</text>
             </text>
           </view>
           <progress
@@ -30,7 +30,7 @@
           />
           <view class="text-#6B7280 text-21rpx juslr">
             <text>成长值</text>
-            <text>{{ profile?.levelPoints }} / {{ profile?.maxPoints }}</text>
+            <text>{{ memberStore.profile?.levelPoints! }} / {{ profile?.maxPoints }}</text>
           </view>
         </view>
       </view>
@@ -48,7 +48,7 @@ const memberStore = useMemberStore()
 const profile = memberStore.profile
 
 const present = computed(() => {
-  return (memberStore.profile?.levelPoints! / memberStore.profile?.maxPoints!) * 100 || 50
+  return (memberStore.profile?.levelPoints! / memberStore.profile?.maxPoints!) * 100 || 0
 })
 const handleLogin = () => {
   uni.navigateTo({

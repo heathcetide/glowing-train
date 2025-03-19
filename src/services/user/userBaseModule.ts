@@ -64,9 +64,9 @@ export const enable2faAPI = () =>
  * @description 用户密码登录功能 /api/users/login
  *
  */
-export const loginAPI = (data: User.LoginParams) =>
+export const loginAPI = (data: any) =>
   http<User.GetLoginToken>({
-    url: '/api/users/login',
+    url: '/api/users/login/email',
     method: 'POST',
     data,
   })
@@ -107,7 +107,7 @@ export const registerAPI = (data: User.RegisterParams) =>
  * @param {User.EmailLoginParams} data
  */
 export const registerByEmailAPI = (data: User.EmailLoginParams) =>
-  http<unknown>({
+  http<any>({
     url: '/api/users/register/email',
     method: 'POST',
     data,
@@ -210,4 +210,29 @@ export const getUserInfoAndLevel = () =>
   http<User.UserInfo>({
     url: '/api/users/info/level',
     method: 'GET',
+  })
+
+export const getUserHealthDataAdd = (data: any) =>
+  http<User.UserInfo>({
+    url: '/api/health-data/add',
+    method: 'POST',
+    data,
+  })
+export const getUserGeneratePlanAPI = () =>
+  http<any>({
+    url: '/api/dietary-goals/generate',
+    method: 'POST',
+  })
+
+export const addOrUpdatePlanAPI = (data: any) =>
+  http<any>({
+    url: '/api/dietary-goals/user/add',
+    method: 'POST',
+    data,
+  })
+
+export const logoutUserAPI = () =>
+  http<any>({
+    url: '/api/users/logout',
+    method: 'POST',
   })

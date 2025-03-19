@@ -3,7 +3,7 @@
     <CustomNavBar title="开启食光之旅" :step="1" :activeIndex="0" />
     <!-- 表单区域 -->
     <view class="form_area">
-      <uni-forms @submit.prevent="handleSubmit" class="form" label-position="top">
+      <uni-forms class="form" label-position="top">
         <uni-forms-item required label="邮箱">
           <uni-easyinput
             class="easy-input"
@@ -26,12 +26,29 @@
               v-model="userInfo.code"
               primary-color="#5DBE8A"
             ></uni-easyinput>
-            <button class="btn" size="mini" @click="onGetCode">获取验证码</button>
+            <button
+              :class="{ 'bg-#5dbe8a10 text-#cccc': isAdmitCode }"
+              :disabled="isAdmitCode"
+              class="bg-#5dbe8a10 text-#5DBE8A"
+              size="mini"
+              @click="onGetCode"
+            >
+              {{ textCode }}
+              <up-count-down
+                ref="countDown"
+                v-show="showCodeCountDown"
+                @change="handleCountChange"
+                @finish="handleFinish"
+                :auto-start="false"
+                :time="60 * 1000"
+                format="ss"
+              ></up-count-down>
+            </button>
           </view>
         </uni-forms-item>
 
         <uni-forms-item required label="协议" class="agree">
-          <checkbox value="1" :checked="isAgree" @click="isAgree = !isAgree" class="checkbox" />
+          <checkbox color="#5dbe8a" value="1" :checked="isAgree" @click="isAgree = !isAgree" class="checkbox" />
           我已阅读并同意 <text class="link">《用户协议》</text> 和 <text class="link">《隐私政策》</text>
         </uni-forms-item>
 
@@ -47,27 +64,68 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { User } from '@/types/user'
 import { Reglex } from '@/utils/reglex'
 import Utils from '@/utils'
-import { emailVerificationCodeAPI, registerAPI } from '@/services/user/userBaseModule'
+import { emailVerificationCodeAPI, registerAPI, registerByEmailAPI } from '@/services/user/userBaseModule'
 import CustomNavBar from './components/CustomNavBar.vue'
-const { safeAreaInsets } = uni.getWindowInfo()
+import { onLoad } from '@dcloudio/uni-app'
+
+import { useMemberStore } from '@/stores'
+const memberStore = useMemberStore()
+
+const showCodeCountDown = ref(false)
+const textCode = ref('获取验证码')
+const countDown = ref()
 
 const isAgree = ref(false)
 const userInfo = ref<User.EmailLoginParams>({
-  email: '1176048215@qq.com',
+  email: '',
   code: '',
 })
 
-const onGetCode = async () => {
-  const res = await emailVerificationCodeAPI(userInfo.value.email)
-  console.log(res)
+const isAdmitCode = computed<boolean>(() => {
+  return userInfo.value.email === '' ? true : false
+})
+
+const handleFinish = () => {
+  textCode.value = '重新获取'
+  countDown.value.reset()
+  showCodeCountDown.value = false
 }
+
+const handleCountChange = (e: any) => {
+  // textCode.value = `${e.seconds}s`
+}
+
+const onGetCode = async () => {
+  if (!validate(userInfo.value.email, 'email')) {
+    Utils.showToast('请输入正确的邮箱格式')
+    return
+  }
+
+  try {
+    const res = await emailVerificationCodeAPI(userInfo.value.email)
+    if (res.code === 200) {
+      Utils.showToast('验证码发送成功')
+
+      countDown.value.start()
+      textCode.value = '验证码获取中'
+
+      showCodeCountDown.value = true
+    } else {
+      Utils.showToast('验证码发送失败')
+    }
+  } catch (error: any) {
+    Utils.navigateTo('/pages/message/fail?msg=' + error.errMsg)
+  }
+}
+
 const goToLogin = () => {
   Utils.redirectTo('/pages/login/login')
 }
+
 const checkValueIsEmpty = (value: string) => {
   return value !== '' ? true : false
 }
@@ -80,32 +138,51 @@ const checkValueIsEmpty = (value: string) => {
  */
 const validate = (value: string, type: Reglex.ReglexType) => {
   if (!Reglex[type].test(value)) {
-    Utils.showToast('error: ' + type)
     return false
   }
   return true
 }
-const handleSubmit = async () => {
-  const res = Object.entries(userInfo.value).filter((a) => {
-    return checkValueIsEmpty(a[1])
-  })
-  if (res.length < Object.entries(userInfo.value).length) {
+
+const handleCheck = () => {
+  if (!userInfo.value.email || !userInfo.value.code) {
     Utils.showToast('必填项不能为空')
-    return
+    return false
   }
 
-  if (validate(userInfo.value.email, 'email')) {
-    Utils.showToast('注册成功')
+  if (!validate(userInfo.value.email, 'email')) {
+    Utils.showToast('请输入正确的邮箱格式')
+    return false
   }
-  console.log(userInfo.value)
-  // TODO 注册
-  // const result = await registerAPI(userInfo.value)
-  // console.log(result)
+
+  if (!isAgree.value) {
+    Utils.showToast('请先阅读并同意用户协议和隐私政策')
+    return false
+  }
+
+  return true
 }
 
-const onNext = () => {
-  Utils.redirectTo('/pages/resign/regist_leader_three')
+const onNext = async () => {
+  if (!handleCheck()) return
+
+  try {
+    const result = await registerByEmailAPI(userInfo.value)
+
+    if (result.code === 200) {
+      memberStore.setProfile(result.data)
+      memberStore.setToken(result.data?.token as string)
+      Utils.redirectTo('/pages/resign/regist_leader_three')
+    } else {
+      Utils.showToast(result.code === 300 ? '注册失败:' + result.message : (result?.data as string))
+    }
+  } catch (error: any) {
+    Utils.showToast('注册失败:' + error.errMsg)
+  }
 }
+
+onLoad(() => {
+  textCode.value = '获取验证码'
+})
 </script>
 
 <style lang="scss" scoped>
@@ -132,9 +209,6 @@ const onNext = () => {
       display: flex;
       text-align: center;
       align-items: center;
-      background-color: #5dbe8a10;
-      color: #5dbe8a;
-      // height: 80rpx;
     }
   }
 

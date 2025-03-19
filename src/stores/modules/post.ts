@@ -10,33 +10,30 @@ const usePostStore = defineStore('post', () => {
   const pageSize = ref(10)
 
   const fetchPosts = async () => {
-    if (!isLoading.value) {
-      return postList.value
-    }
-
     try {
       const response = await getPostsByCursorAPI(cursorId.value, pageSize.value)
       if (response && response.data) {
         const posts = (response.data as any[]).map((item: any) => ({
           id: item.id,
-          title: item.content, // 显示内容作为标题
-          image: item.mediaUrl, // 使用媒体链接作为图片
-          avatarUrl: item.avatarUrl, // 默认没有头像字段
-          nickName: item.nickname.toString(), // 使用 userId 作为用户名
-          number: item.likeCount.toString(), // 显示点赞数
-          isComment: item.commentsCount > 0, // 是否有评论
+          title: item.content,
+          image: item.mediaUrl,
+          avatarUrl: item.avatarUrl,
+          nickName: item.nickname.toString(),
+          number: item.likeCount.toString(),
+          isComment: item.commentsCount > 0,
           tags: JSON.parse(item.tags || '[]'),
         }))
 
-        postList.value = [...postList.value, ...posts] // 添加新获取的数据到流列表
-        cursorId.value = posts[posts.length - 1]?.id || cursorId.value // 更新游标ID
-        loadStatus.value = posts.length < pageSize.value ? 'nomore' : 'loadmore' // 判断是否有更多数据
+        postList.value = [...postList.value, ...posts]
+        cursorId.value = posts[posts.length - 1]?.id || cursorId.value
+        loadStatus.value = posts.length < pageSize.value ? 'nomore' : 'loadmore'
       }
     } catch (error) {
       console.error('Failed to fetch posts:', error)
       loadStatus.value = 'nomore'
     }
   }
+
   const setIsLoading = (value: boolean) => {
     isLoading.value = value
   }

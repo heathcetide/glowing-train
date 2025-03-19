@@ -34,11 +34,11 @@
           </template>
         </LeaderCard>
         <!-- 口味偏好（可多选） -->
-        <PanelCard3 @taste="handleTaste" title="口味偏好（可多选）" :lists="exeTypes" />
+        <PanelCard3 @taste="handleTaste" title="运动类型（可多选）" :lists="exeTypes" />
       </view>
     </view>
 
-    <NextButton url="leader_four" />
+    <NextButton url="leader_four" @onNext="onNext" />
   </view>
 </template>
 
@@ -48,6 +48,16 @@ import CustomNavBar from '../../pages/resign/components/CustomNavBar.vue'
 import LeaderCard from '../components/LeaderCard.vue'
 import NextButton from '../components/NextButton.vue'
 import PanelCard3 from '../components/PanelCard3.vue'
+import { getUserHealthDataAdd } from '@/services/user/userBaseModule'
+import Utils from '@/utils'
+
+const forms = ref<{
+  activityLevel: number
+  activityType: string[]
+}>({
+  activityLevel: 1,
+  activityType: [],
+})
 
 const activeIndex = ref(-1)
 const list = [
@@ -66,7 +76,20 @@ const exeTypes = [
   { icon: '🎯', value: '其他运动' },
 ]
 const handleTaste = (item: string) => {
-  console.log('@', item)
+  if (forms.value.activityType.includes(item)) {
+    forms.value.activityType = forms.value.activityType.filter((i) => i !== item)
+  } else {
+    forms.value.activityType.push(item)
+  }
+}
+
+const onNext = async () => {
+  forms.value.activityLevel = activeIndex.value + 1
+  const res = await getUserHealthDataAdd(forms.value)
+  if (res.code === 200) {
+    Utils.navigateTo('/pagesPlanLeader/leader_four/index')
+  }
+  // console.log(res.data)
 }
 </script>
 

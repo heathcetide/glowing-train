@@ -9,7 +9,7 @@
             <uni-col :span="12" v-for="(item, index) in foodListFaver" :key="item.text">
               <view
                 class="item-favor transition-300"
-                :class="{ active: activeFavorDiet.includes(index) }"
+                :class="{ active: activeFavorDiet === index }"
                 @click="handleChange(index, 'favor')"
               >
                 <image class="img" :src="item.icon"></image>
@@ -39,7 +39,7 @@
       </view>
     </view>
 
-    <CustomButton url="/pages/resign/regist_success" />
+    <CustomButton @on-next="onNext" />
   </view>
 </template>
 
@@ -58,9 +58,11 @@ import IconSensitiveOrigin4 from '@/static/image/regist/icon-sensitive-origin4.s
 import IconSensitiveOrigin5 from '@/static/image/regist/icon-sensitive-origin5.svg'
 import IconSensitiveOrigin6 from '@/static/image/regist/icon-sensitive-origin6.svg'
 import { ref } from 'vue'
+import { getUserHealthDataAdd } from '@/services/user/userBaseModule'
+import Utils from '@/utils'
 
-const activeFavorDiet = ref<number[]>([0])
-const activeSensitiveOrigin = ref<number[]>([-1])
+const activeFavorDiet = ref<number>(0)
+const activeSensitiveOrigin = ref<number[]>([])
 const foodListFaver = [
   {
     icon: IconVegetable,
@@ -108,19 +110,33 @@ const foodListSensitive = [
   },
 ]
 
+const onNext = async () => {
+  const favar = foodListFaver[activeFavorDiet.value].text
+  let data: string[] = []
+
+  activeSensitiveOrigin.value.forEach((item) => {
+    data.push(foodListSensitive[item].text)
+  })
+
+  const obj = { dietPreference: favar, allergen: data }
+  const res = await getUserHealthDataAdd(obj)
+
+  console.log(res.data)
+  Utils.navigateTo('/pages/resign/regist_success')
+  // /pages/resign/regist_success
+  // return true
+}
 const handleChange = (item: number, type: 'sensitive' | 'favor') => {
   if (type === 'sensitive') {
     if (activeSensitiveOrigin.value.includes(item)) {
       activeSensitiveOrigin.value = activeSensitiveOrigin.value.filter((i) => i !== item)
+    } else {
+      activeSensitiveOrigin.value.push(item)
     }
-    activeSensitiveOrigin.value.push(item)
     return
   }
-  if (activeFavorDiet.value.includes(item)) {
-    activeFavorDiet.value = activeFavorDiet.value.filter((i) => i !== item)
-  } else {
-    activeFavorDiet.value.push(item)
-  }
+  activeFavorDiet.value = item
+  console.log(item, type)
 }
 </script>
 

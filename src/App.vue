@@ -45,11 +45,11 @@ image {
 }
 
 // 两行省略
-.ellipsis {
+.ellipsis3 {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 .ellipsis1 {

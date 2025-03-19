@@ -1,4 +1,5 @@
 export namespace Food {
+  import { namespace } from './../utils/reglex'
   /**@description 创建食物请求参数 */
   interface CreateFoodParams {
     code: string
@@ -52,5 +53,23 @@ export namespace Food {
     searchCount: true
     size: number
     total: number
+  }
+}
+
+declare namespace FoodMeanu {
+  interface FoodMeanuItem {
+    applicableType: string
+    craft: string
+    duration: string
+    flavor: string
+    id: string
+    image: string
+    ingredients: string
+    intro: string
+    level: string
+    notice: string
+    steps: string
+    tags: string
+    title: string
   }
 }

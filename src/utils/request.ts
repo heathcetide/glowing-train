@@ -1,6 +1,6 @@
 import { useMemberStore } from '@/stores/modules/member' // 导入 pinia store
 
-const enableProxy = import.meta.env.VITE_PROXY_ENABLE
+const enableProxy = import.meta.env.VITE_LOCAL_ENABLE
 
 let baseUrl: string = ''
 if (enableProxy === '1') {
@@ -12,7 +12,8 @@ if (enableProxy === '1') {
 const httpInterceptor = {
   // 请求拦截器,拦截前触发
   invoke: (options: UniApp.RequestOptions) => {
-    console.log('options', options)
+    console.log('请求数据', options.data)
+
     // 1.非http开头需要拼接
     if (!options.url.startsWith('http')) {
       options.url = baseUrl + options.url

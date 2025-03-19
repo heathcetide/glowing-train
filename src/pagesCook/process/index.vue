@@ -1,78 +1,149 @@
 <template>
-  <view :style="{ paddingTop: safeAreaInsets.top + 'px' }">
+  <view :style="{ paddingTop: safeAreaInsets.top + 'px' }" class="page-container">
     <CookNavBar title="烹饪进行中" />
-    <view class="px-26rpx">
-      <up-line-progress percentage="70" activeColor="#5DBE8A" :height="5" :show-text="false" />
+    <up-line-progress percentage="70" activeColor="#5DBE8A" :height="5" :show-text="false" />
 
-      <view class="w-100% flex flex-col gap-20rpx my-22rpx text-35rpx">
-        <up-image :src="IconBg" mode="aspectFit" width="100%" height="300rpx" />
-        <text>青椒炒牛肉</text>
-      </view>
-      <scroll-view scroll-y class="h-1000rpx" :show-scrollbar="true">
-        <view class="containt flex flex-col gap-28rpx">
-          <view
-            class="item border-2rpx border-solid b-#F5F5F5 bg-#fff p-30rpx rounded-14rpx"
-            v-for="(item, index) in stepList"
-            :key="item"
-          >
-            <view class="flex items-center gap-20rpx justify-between">
-              <view class="rounded-full size-56rpx bg-#E8F5EE text-#5DBE8A center">{{ index + 1 }}</view>
-              <view>{{ item }}</view>
+    <scroll-view scroll-y class="content-scroll">
+      <view class="content-wrapper">
+        <!-- 头部信息：图片和标题 -->
+        <view class="header">
+          <up-image :src="chosedDiet.image" mode="aspectFill" width="100%" height="300rpx" />
+          <text class="diet-title">{{ chosedDiet.title }}</text>
+        </view>
+        <!-- 步骤列表 -->
+        <view class="steps">
+          <view class="step-item" v-for="item in stepList" :key="item.index">
+            <view class="step-header">
+              <view class="step-index">{{ item.index }}</view>
+              <view class="step-content">{{ item.content }}</view>
             </view>
           </view>
         </view>
-      </scroll-view>
-    </view>
-
-    <view class="text-#5DBE8A col bg-#fff p-14rpx pos-fixed pos-bottom-100rpx w-100%">
-      <text class="text-52.5rpx">
-        <up-count-down
-          ref="countDownRef"
-          :time="2 * 1000"
-          format="HH:mm:ss"
-          @finish="handleFinish"
-          :auto-start="false"
-        ></up-count-down>
-      </text>
-      <view class="flex gap-20rpx">
-        <button class="text-#FFf bg-#5DBE8A" @click="onStart">开始</button>
-        <button class="text-#5DBE8A b-#5DBE8A" @click="onStop">暂停</button>
       </view>
+    </scroll-view>
+
+    <!-- 固定底部按钮 -->
+    <view class="footer h-130rpx">
+      <button class="finish-btn" @click="onFinish">完成</button>
     </view>
   </view>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import CookNavBar from '../common/CookNavBar.vue'
-
-import IconBg from '@/static/image/cook/icon-bg-cook.svg'
 import Utils from '@/utils'
+import useCookStore from '@/stores/modules/cook'
 
+const cookStore = useCookStore()
+const chosedDiet = ref(cookStore.chosedDietList[0])
 const { safeAreaInsets } = uni.getWindowInfo()
-const countDownRef = ref()
-const stepList = [
-  '牛肉切丝，加入料酒、生抽腌制15分钟',
-  '青椒切丝，蒜切末备用',
-  '热锅下油，爆香蒜末',
-  '加入牛肉快速翻炒至七分熟',
-  '加入青椒丝翻炒均匀',
-  '最后加入适量盐调味即可',
-]
+// 假设 steps 存储的是一个 JSON 字符串
+const stepList = JSON.parse(chosedDiet.value.steps)
 
-const onStart = () => {
-  countDownRef.value.start()
-}
-const onStop = () => {
-  countDownRef.value.pause()
-}
-const handleFinish = () => {
+const onFinish = () => {
   Utils.navigateTo('/pagesCook/cook-success/index')
 }
 </script>
 
 <style scoped>
-page {
+.page-container {
   background-color: #f5f5f5;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* 内容区，底部预留空间 */
+.content-scroll {
+  padding: 20rpx;
+  /* 为底部固定按钮预留空间 */
+  margin-bottom: 90rpx;
+  height: calc(100vh - 160rpx - 44px);
+}
+
+.content-wrapper {
+  background-color: #fff;
+  border-radius: 14rpx;
+  padding: 20rpx;
+}
+
+/* 头部：图片和标题 */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+/* .diet-image {
+
+  width: 80%;
+  max-height: 300rpx;
+  border-radius: 10rpx;
+} */
+
+.diet-title {
+  margin-top: 20rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 步骤列表 */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.step-item {
+  padding: 20rpx;
+  border: 1rpx solid #eaeaea;
+  border-radius: 10rpx;
+  background-color: #fff;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 15rpx;
+}
+
+.step-index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50rpx;
+  height: 50rpx;
+  background-color: #e8f5ee;
+  color: #5dbe8a;
+  border-radius: 50%;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.step-content {
+  flex: 1;
+  font-size: 30rpx;
+  color: #555;
+}
+
+/* 底部固定按钮 */
+.footer {
+  position: fixed;
+  bottom: 10rpx;
+  left: 0;
+  right: 0;
+  padding: 10rpx 20rpx;
+  background-color: #fff;
+}
+
+.finish-btn {
+  width: 100%;
+  background-color: #5dbe8a;
+  color: #fff;
+  font-size: 32rpx;
+  padding: 15rpx;
+  border-radius: 8rpx;
 }
 </style>

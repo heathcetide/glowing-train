@@ -1,17 +1,16 @@
 <template>
   <view class="wrap" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <view class="container">
-      <SGTabsSub :tabs="tabs" fontWeight="bold">
+      <SGTabs :tabs="tabs" fontWeight="bold">
         <template #tab-0><Recommend /> </template>
         <template #tab-1><Diet /> </template>
-        <template #tab-2><Move /> </template>
-        <template #tab-3><Plan /> </template>
+        <template #tab-2><Plan /> </template>
         <template #tabs="{ tab }">
           <view class="tab">
             <text>{{ tab }}</text>
           </view>
         </template>
-      </SGTabsSub>
+      </SGTabs>
 
       <up-float-button backgroundColor="#5DBE8A" :isMenu="false" bottom="100rpx" @click="goToChoose">
         <template #default>
@@ -32,6 +31,7 @@
                 @click="handleClick(item.url)"
                 :image="item.image"
                 :title="item.title"
+                :icon="item.icon"
                 :subTitle="item.subTitle"
               />
             </view>
@@ -59,21 +59,22 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Recommend from './components/recommend/index.vue'
-import Move from './components/move/index.vue'
+
 import Plan from './components/plan/index.vue'
 import Diet from './components/diet/index.vue'
 import PoupCard from './components/PoupCard.vue'
 import image1 from '@/static/image/home/image-1.svg'
-import image2 from '@/static/image/home/image-2.svg'
+
+import image2 from '@/static/image/home/icon.svg'
 import image3 from '@/static/image/home/image-3.svg'
 import image4 from '@/static/image/home/image-4.svg'
-import icon1 from '@/static/image/home/icon-plus.svg'
-import icon2 from '@/static/image/home/icon-run-man.svg'
-import icon3 from '@/static/image/home/icon-stack.svg'
-import icon4 from '@/static/image/home/share-icon.svg'
+import icon1 from '@/static/image/home/icon1.svg'
+import icon2 from '@/static/image/home/icon2.svg'
+import icon3 from '@/static/image/home/icon3.svg'
+import icon4 from '@/static/image/home/icon4.svg'
 import icon5 from '@/static/image/home/icon-ai.svg'
 import Utils from '@/utils'
-import SGTabsSub from '@/components/SGTabsSub.vue'
+
 import useChangeStore from '@/stores/modules/change'
 
 const popup = ref()
@@ -89,11 +90,11 @@ const list = [
     url: '/pages/note/note',
   },
   {
-    title: '运动记录',
+    title: '做饭模式',
     image: image2,
     icon: icon2,
     subTitle: '今日运动 45 分钟',
-    url: '',
+    url: '/pagesCook/index/index',
   },
   {
     title: '食材库存',
@@ -114,7 +115,7 @@ const list = [
 // 创建响应式数据
 const show = ref(false)
 
-const tabs = ref(['推荐', '饮食', '健康', '计划'])
+const tabs = ref(['推荐', '饮食', '计划'])
 
 const goToAiService = () => {
   changeStore.changeTabType('main')

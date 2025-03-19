@@ -23,19 +23,14 @@
 
       <view class="search p-28rpx bg-#fff mt-42rpx rounded-16rpx flex-col-nocenter gap28rpx">
         <view class="rounded-16rpx bg-#F5F5F5 px-28rpx py-16rpx">
-          <up-input placeholder="搜索食材或菜品" border="none">
+          <up-input placeholder="搜索食材或菜品" border="none" @click="handleSearch">
             <template #prefix>
               <uni-icons type="search" color="#333333" size="20" />
             </template>
           </up-input>
         </view>
-        <view class="flex items-center">
-          <view class="rounded-16rpx bg-#F5F5F5 px-28rpx py-16rpx">
-            <up-input border="none" placeholder="请输入重量" />
-          </view>
-          <text class="text-28rpx text-center flex-1">克</text>
-        </view>
-        <button class="bg-#5DBE8A w-100% rounded-16rpx text-#fff">确认添加</button>
+        <!--
+        <button class="bg-#5DBE8A w-100% rounded-16rpx text-#fff">确认添加</button> -->
       </view>
 
       <!-- 添加的食物 -->
@@ -128,6 +123,13 @@ const nutrition = [
   },
 ]
 
+const handleSearch = () => {
+  console.log('handleSearch')
+
+  uni.navigateTo({
+    url: '/pages/search/search?type=note',
+  })
+}
 const handleClickLeft = () => {
   uni.navigateBack()
 }

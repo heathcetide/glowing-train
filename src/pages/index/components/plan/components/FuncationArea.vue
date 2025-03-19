@@ -1,7 +1,7 @@
 <template>
   <!-- 功能区 -->
   <view class="grid grid-cols-4 gap-16rpx my-32rpx">
-    <view v-for="item in list" :key="item.title">
+    <view v-for="item in list" :key="item.title" class="col">
       <view>
         <image :src="item.icon" class="size-100rpx rounded-full mx-auto" />
       </view>

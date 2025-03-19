@@ -60,7 +60,7 @@
       </view>
     </view>
 
-    <NextButton url="leader_five" />
+    <NextButton url="plan_loading" title="生成计划" @onNext="onNext" />
   </view>
 </template>
 
@@ -75,9 +75,19 @@ import IconRegular from '@image/plan-leader/icon-regular.svg'
 import IconFrequntly from '@image/plan-leader/icon-frequntly.svg'
 import IconSometime from '@image/plan-leader/icon-sometime.svg'
 import { ref } from 'vue'
+import { getUserGeneratePlanAPI, getUserHealthDataAdd } from '@/services/user/userBaseModule'
+import Utils from '@/utils'
 
 const activeHabiteIndex = ref(-1)
 const activeStressIndex = ref(-1)
+
+const forms = ref<{
+  sleepLevel: string
+  stressLevel: string
+}>({
+  sleepLevel: '',
+  stressLevel: '',
+})
 const list = [
   { icon: IconRegular, title: '规律作息', desc: '23:00 前入睡' },
   { icon: IconSometime, title: '偶尔熬夜', desc: '23:30 - 01:00' },
@@ -91,11 +101,29 @@ const stress = [
 
 const handleChoseStress = (item: any, index: number) => {
   activeStressIndex.value = index
-  console.log(item)
+  forms.value.stressLevel = item.title
 }
 const handleChoseHabite = (item: any, index: number) => {
   activeHabiteIndex.value = index
-  console.log(item)
+  forms.value.sleepLevel = item.title
+}
+
+const onNext = async () => {
+  console.log(forms.value)
+
+  getUserHealthDataAdd(forms.value)
+  const res = await getUserGeneratePlanAPI()
+  console.log(res.data)
+  if (res.code === 200) {
+    Utils.showModal({
+      title: '提示',
+      content: '计划生成成功',
+      confirm: () => {
+        Utils.navigateTo('/pagesPlanLeader/leader_five/index')
+      },
+      cancel: () => {},
+    })
+  }
 }
 </script>
 

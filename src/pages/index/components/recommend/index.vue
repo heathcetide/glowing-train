@@ -1,22 +1,38 @@
 <template>
-  <view class="notice">
-    <image class="img" :src="IconWater"></image>
-    <text class="text">该喝水啦！</text>
-  </view>
   <ProgressCard />
-  <scroll-view scroll-y class="scroll-view">
-    <TabContent />
+  <scroll-view scroll-y class="scroll-view mb-30rpx">
+    <KeyIndicators />
+    <AiSuggextion />
+    <DisplyList :list="list" />
   </scroll-view>
+
+  <up-loading-page :loading="list.length === 0"></up-loading-page>
 </template>
 
 <script setup lang="ts">
-import TabContent from './TabContent.vue'
+import AiSuggextion from './AiSuggextion.vue'
+import KeyIndicators from './KeyIndicators.vue'
+import DisplyList from '../diet/components/recipe/components/common/DisplyList.vue'
 import ProgressCard from '../ProgressCard.vue'
-import IconWater from '@/static/image/home/icon-water.svg'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { getFoodMenusAPI } from '@/services/food-menus/foodMenusBaseModule'
+import type { FoodMeanu } from '@/types/food'
+
+const list = ref<FoodMeanu.FoodMeanuItem[]>([])
+const getData = async () => {
+  const { data } = await getFoodMenusAPI('营养餐单')
+  list.value = data
+}
+
+onMounted(() => {
+  getData()
+})
 </script>
 
 <style scoped lang="scss">
+.scroll-view {
+  height: calc(100vh - var(--status-bar-height));
+}
 .notice {
   display: flex;
   background-color: #eff6ff;

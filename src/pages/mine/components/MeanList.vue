@@ -36,12 +36,13 @@ const menus = ref<Array<Menu>>([
     id: nanoid(),
     image: '/static/image/center/foodpanel.svg',
     title: '我的收藏',
-    to: '/pagesUser/saveStore/saveStore',
+    to: '',
   },
   { id: nanoid(), image: '/static/image/center/general.svg', title: '智能设备', to: '/pagesUser/smart/smart' },
   { id: nanoid(), image: '/static/image/center/activity.svg', title: '积分兑换', to: '/pagesUser/point/point' },
   { id: nanoid(), image: '/static/image/center/security.svg', title: '系统设置', to: '/pagesUser/settings/settings' },
   { id: nanoid(), image: '/static/image/center/help.svg', title: '帮助与反馈', to: '/pagesUser/help/help' },
+  { id: nanoid(), image: '/static/image/center/help.svg', title: '账号与安全', to: '/pagesUser/saveStore/saveStore' },
 ])
 
 const handleGoTo = (url: string) => {

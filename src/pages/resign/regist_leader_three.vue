@@ -1,13 +1,12 @@
 <template>
   <view class="container">
     <CustomNavBar title="完善个人信息" :step="2" :activeIndex="1" />
-
     <view class="content">
       <CustomCard title="性别">
         <template #default>
           <view class="wrap">
-            <uni-row class="sex" :gutter="20">
-              <uni-col :span="8" v-for="(item, index) in sex" :key="item.text">
+            <uni-row class="gender" :gutter="20">
+              <uni-col :span="8" v-for="(item, index) in gender" :key="item.text">
                 <view class="item" @click="activeIndex = index" :class="{ active: activeIndex === index }">
                   <image class="icon" :src="item.icon" mode="scaleToFill" />
                   <text>{{ item.text }}</text>
@@ -37,7 +36,21 @@
               <text class="title"></text>
             </view>
             <view class="select">
-              <uni-easyinput v-model="height" type="text" placeholder="请输入身高" @confirm="onChangeHeight!" />
+              <!-- <uni-easyinput v-model="height" type="number" placeholder="请输入身高" @confirm="onChangeHeight!" /> -->
+              <up-number-box v-model="height" :min="100" :max="250" :step="1" integer></up-number-box>
+            </view>
+          </view>
+        </template>
+      </CustomCard>
+      <CustomCard title="体重(kg)">
+        <template #default>
+          <view class="wrap">
+            <view>
+              <text class="title"></text>
+            </view>
+            <view class="select">
+              <!-- <uni-easyinput v-model="weight" type="number" placeholder="请输入体重" @confirm="onChangeWeight!" /> -->
+              <up-number-box type="number" v-model="weight" :min="50" :max="250" :step="1" integer></up-number-box>
             </view>
           </view>
         </template>
@@ -62,7 +75,7 @@
       </CustomCard>
     </view>
 
-    <CustomButton url="/pages/resign/regist_leader_four" />
+    <CustomButton @on-next="onNext" />
   </view>
 </template>
 
@@ -70,7 +83,6 @@
 import { reactive, ref } from 'vue'
 import CustomNavBar from './components/CustomNavBar.vue'
 import CustomButton from './components/CustomButton.vue'
-
 import ManIcon from '@/static/image/regist/man.svg'
 import FemaleIcon from '@/static/image/regist/female.svg'
 import UnkownIcon from '@/static/image/regist/unkown.svg'
@@ -80,12 +92,15 @@ import IconKeepWeight from '@/static/image/regist/icon_keep_weight.svg'
 import IconHealthyWeight from '@/static/image/regist/icon_healthy_diet.svg'
 import { UserGender } from '@/enum/UserEnum'
 import CustomCard from './components/CustomCard.vue'
+import { getUserHealthDataAdd } from '@/services/user/userBaseModule'
 
 const activeIndex = ref(-1)
 const currentTargetIndex = ref(-1)
 const birthday = ref('')
-const height = ref(120)
-const sex = [
+const height = ref(170)
+const weight = ref(60)
+
+const gender = [
   { icon: ManIcon, text: '男' },
   { icon: FemaleIcon, text: '女' },
   { icon: UnkownIcon, text: '保密' },
@@ -96,11 +111,12 @@ const healthyTarget = [
   { icon: IconKeepWeight, text: '维持' },
   { icon: IconHealthyWeight, text: '健康饮食' },
 ]
-const userInfo = reactive<{ birthday: string; sex: UserGender; height: number; target: string }>({
-  birthday: '',
-  sex: 0,
+const userInfo = reactive<AnyObject>({
+  gender: 0,
   height: 120,
-  target: '',
+  healthGoal: '',
+  age: 0,
+  weight: 0,
 })
 const maskClick = () => {
   uni.showToast({
@@ -108,25 +124,31 @@ const maskClick = () => {
     icon: 'none',
   })
 }
-const onNext = () => {
-  const choosedSex: UserGender = sex[activeIndex.value].text === '男' ? UserGender.MALE : UserGender.FEMALE
+const onNext = async () => {
+  const choosedSex: UserGender = gender[activeIndex.value].text === '男' ? UserGender.MALE : UserGender.FEMALE
   const target: string = healthyTarget[currentTargetIndex.value].text
+
+  const age = new Date().getFullYear() - new Date(birthday.value).getFullYear()
   Object.assign(userInfo, {
-    birthday: birthday.value,
-    sex: choosedSex,
+    gender: choosedSex,
     height: height.value,
-    target,
+    healthGoal: target,
+    age,
+    weight: weight.value,
   })
-  uni.navigateTo({
-    url: '/pages/resign/regist_leader_four',
-  })
+
+  const res = await getUserHealthDataAdd(userInfo)
+  console.log('res:', res)
+
+  if (res.code === 200) {
+    uni.navigateTo({
+      url: '/pages/resign/regist_leader_four',
+    })
+  }
 }
 
 const onChange = (value: UniHelper.UniDatetimePickerOnChange) => {
   birthday.value = value + ''
-}
-const onChangeHeight = (value: UniHelper.UniEasyinputOnConfirm) => {
-  height.value = Number(value)
 }
 </script>
 
@@ -145,7 +167,7 @@ const onChangeHeight = (value: UniHelper.UniEasyinputOnConfirm) => {
   margin-bottom: 50rpx;
   gap: 15rpx;
 }
-.sex {
+.gender {
   width: 100%;
 }
 .item {

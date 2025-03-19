@@ -6,7 +6,7 @@
       </template>
       <template #right>
         <view class="flex items-center">
-          <text class="text-#5DBE8A">发布</text>
+          <text class="text-#5DBE8A" @click="hanledSubscribe">发布</text>
         </view>
       </template>
     </up-navbar>
@@ -30,6 +30,7 @@
         <view class="coursor pos-absolute w-100% h2rpx bg-#5DBE8A"></view>
       </uni-col>
     </view>
+
     <view class="mt-28rpx mb-82rpx">
       <up-textarea
         v-model="value"
@@ -41,7 +42,8 @@
       ></up-textarea>
     </view>
 
-    <UploadFile :type="upLoadFileTpye" />
+    <!-- 上传文件组件，上传成功后会返回图片 URL -->
+    <UploadFile @msg="onUploaldSuccess" :type="upLoadFileTpye" />
 
     <view class="mt-56rpx p-14rpx">
       <view class="flex gap-10rpx text-0 fb">
@@ -52,8 +54,8 @@
           :class="{ active: activeTag.includes(index) }"
           class="px-28rpx py-10rpx text flex-shrink-0 bg-#f5f5f5 rounded-10rpx"
         >
-          {{ item }}</view
-        >
+          {{ item }}
+        </view>
       </view>
     </view>
 
@@ -64,8 +66,7 @@
         showExtraIcon
         link="navigateTo"
         :extraIcon="{ color: '#333333', size: '24', type: 'location-filled' }"
-      >
-      </uni-list-item>
+      ></uni-list-item>
       <uni-list-item
         :border="false"
         title="谁可以看 "
@@ -90,53 +91,60 @@
 import { computed, ref } from 'vue'
 import UploadFile from './components/UploadFile.vue'
 import Utils from '@/utils'
+import { createPostAPI } from '@/services/activity/postBaseModule' // 创建帖子的接口
+
 interface Tab {
   type?: 'image' | 'video'
   icon: UniHelper.UniIconsType
   name: string
 }
+
 const activeIndex = ref(0)
 const activeTag = ref<number[]>([0])
 const upLoadFileTpye = ref<'image' | 'video'>('image')
-
-const value = ref('')
+const value = ref('') // 帖子内容
+const postMediaUrl = ref('') // 存储上传成功后的媒体 URL
 const tags = ['#美食', '#生活', '#美好时光', '#探店', '#探店']
 
 const tabs: Tab[] = [
-  {
-    type: 'image',
-    icon: 'image',
-    name: '图文',
-  },
-  {
-    type: 'video',
-    icon: 'videocam-filled',
-    name: '视频',
-  },
-  {
-    icon: 'mic-filled',
-    name: '直播',
-  },
-  {
-    icon: 'tune',
-    name: '模版',
-  },
+  { type: 'image', icon: 'image', name: '图文' },
+  { type: 'video', icon: 'videocam-filled', name: '视频' },
+  { icon: 'mic-filled', name: '直播' },
+  { icon: 'tune', name: '模版' },
 ]
 
-const range = [
-  {
-    text: '公开',
-    value: 0,
-  },
-  {
-    text: '好友',
-    value: 1,
-  },
-  {
-    text: '私密',
-    value: 2,
-  },
-]
+const onUploaldSuccess = (url: string) => {
+  console.log('onUploaldSuccess--', url)
+  postMediaUrl.value = url.data
+}
+
+const hanledSubscribe = async () => {
+  // 验证帖子内容不能为空
+  if (!value.value.trim()) {
+    Utils.showToast('帖子内容不能为空')
+    return
+  }
+  // 构造帖子DTO对象
+  const postDTO = {
+    content: value.value,
+    mediaUrl: postMediaUrl.value,
+  }
+  try {
+    const res = await createPostAPI(postDTO)
+    if (res && res.code === 200) {
+      Utils.showToast('发布成功')
+      // 发布成功后可选择清空输入或跳转
+      value.value = ''
+      postMediaUrl.value = ''
+      Utils.navigateBack()
+    } else {
+      Utils.showToast('发布失败')
+    }
+  } catch (error) {
+    console.error(error)
+    Utils.showToast('发布失败')
+  }
+}
 
 const cselectedTags = computed(() => {
   return activeTag.value.map((item) => tags[item])
@@ -149,27 +157,15 @@ const handleTagChange = (index: number) => {
     activeTag.value.push(index)
   }
 }
-const onChangeActive = (index: number, item: Tab) => {
-  if (item?.type) {
-    upLoadFileTpye.value = item.type
-  } else {
-    upLoadFileTpye.value = 'image'
-  }
-  console.log('upload type:', item.type)
 
+const onChangeActive = (index: number, item: Tab) => {
+  upLoadFileTpye.value = item?.type || 'image'
+  console.log('upload type:', item.type)
   activeIndex.value = index
 }
 
-const change = (e: any) => {
-  console.log(e)
-}
-// 方法
 function left() {
   Utils.navigateBack()
-}
-
-function right() {
-  console.log('right')
 }
 </script>
 

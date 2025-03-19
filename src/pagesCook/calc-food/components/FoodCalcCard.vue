@@ -11,23 +11,21 @@
       absolute="leftTop"
       type="success"
     >
-      <up-image :src="item.foodUrl" width="168rpx" radius="14rpx" height="168rpx" mode="scaleToFill" />
+      <up-image :src="item.image" width="168rpx" radius="14rpx" height="168rpx" mode="scaleToFill" />
     </uni-badge>
-
     <view class="px-22rpx items-center w-100%">
       <view class="flex flex-col w-100%">
         <view class="justify-between flex w-100%">
           <text>{{ item.title }}</text>
           <uni-icons type="trash-filled" color="" @click="handleDelete" size="20" />
         </view>
-        <text class="text-#333333 text-21rpx ellipsis mt-8rpx mb-20rpx">热量 {{ item.kcal }}</text>
+        <text class="text-#333333 text-21rpx ellipsis mt-8rpx mb-20rpx">预估时间: {{ item.duration }}</text>
         <view class="ingredients">
-          <view v-for="(ingredient, index) in item.ingredients" :key="index" class="ingredient-tag">
-            {{ ingredient }}
+          <view class="ingredient-tag">
+            {{ item.level }}
           </view>
         </view>
       </view>
-
       <view class="mt-22rpx">
         <up-number-box v-model="item.num!">
           <template #minus>

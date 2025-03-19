@@ -71,6 +71,10 @@ const change = (e: any) => {
   value1.value = e[0]
   show.value = false
 }
+
+defineExpose({
+  data: value1,
+})
 </script>
 
 <style scoped></style>

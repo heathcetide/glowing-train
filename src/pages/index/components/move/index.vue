@@ -1,7 +1,6 @@
 <template>
   <scroll-view scroll-y class="scroll-view">
     <view class="wrap">
-      <WeightData />
       <KeyIndicators />
       <AiSuggestion />
     </view>
@@ -11,7 +10,7 @@
 <script setup lang="ts">
 import AiSuggestion from './components/AiSuggextion.vue'
 import KeyIndicators from './components/KeyIndicators.vue'
-import WeightData from './components/WeightData.vue'
+// import WeightData from './components/WeightData.vue'
 </script>
 
 <style scoped lang="scss">

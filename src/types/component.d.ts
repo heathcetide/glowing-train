@@ -17,6 +17,8 @@ import SGPopupDialog from '@/components/SGPopupDialog.vue'
 import SGPoup from '@/components/SGPoup.vue'
 import SGSliperInput from '@/components/SGSliperInput.vue'
 import SGCalender from '@/components/SGCalender.vue'
+import SGDraggable from '@/components/SGDraggable.vue'
+import type { FoodMeanu } from './food'
 declare module 'vue' {
   export interface GlobalComponents {
     QiunDataCharts: typeof import('@/components/qiun-data-charts/qiun-data-charts.vue')['default']
@@ -34,6 +36,7 @@ declare module 'vue' {
     SGPoup: typeof SGPoup
     SGSliperInput: typeof SGSliperInput
     SGCalender: typeof SGCalender
+    SGDraggable: typeof SGDraggable
   }
   export interface Tabs {
     icon: string
@@ -70,22 +73,43 @@ export namespace Community {
   }
 
   export interface ActivityCardProps {
-    activityTitle: string
-    cover: string
-    desc: string
-    participants: number
+    activityType: string
+    createdAt: string
+    deleted: number
+    description: string
+    endDate: number
+    id: number
+    imageUrl: string
+    location: string
+    startDate: number
+    title: string
+    updatedAt: string
   }
 }
 
 export namespace HomeIndex {
   export namespace Stack {
     export interface StackItem {
-      title: string
-      cover: string
-      number: number
-      stack: number
-      prevDate: string
-      latestDate: string
+      alertThreshold: 1
+      available: boolean | null
+      createdAt: string
+      customFoodName: string
+      deleted: boolean
+      expirationDate: string
+      foodId: number
+      foodImageUrl: string
+      foodName: string
+      id: number
+      lastUsedDate: string
+      notes: string
+      purchaseDate: string
+      quantity: number
+      source: string
+      storageLocation: string
+      unit: string
+      updatedAt: string
+      usageCategory: string
+      userId: number
     }
 
     export interface TabListItem {
@@ -98,15 +122,10 @@ export namespace HomeIndex {
 }
 
 export namespace CookModule {
-  export interface FoodCardItem {
-    id: number
-    foodUrl: string
-    title: string
-    desc: string
+  export interface FoodCardItem extends FoodMeanu.FoodMeanuItem {
     kcal: number
     /**份数 */
     num: number = 0
-    ingredients?: string[]
   }
 
   export interface FoodCalcCardItem extends FoodCardItem {

@@ -16,7 +16,6 @@
         <AdviseDielt />
         <ToolPanel />
         <CalorieIntake />
-        <NutrientDistribution />
       </view>
     </scroll-view>
     <view class="w-100% pos-fixed pos-bottom-100rpx px-28rpx">

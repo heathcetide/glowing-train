@@ -3,7 +3,10 @@
     <view class="card">
       <image :src="imageList[flag]" mode="scaleToFill" />
       <text class="flag">{{ title[flag] }}</text>
-      <text class="msg">{{ msg }} </text>
+      <text class="msg">
+        {{ msg }}
+      </text>
+      <!-- <up-text class="msg" :text="msg" word-wrap="break-word" :fontSize="28" mode="text" /> -->
       <button v-if="flag !== 'comfirm'" class="btn" @click="onBack">返回</button>
       <view v-else class="btngroup">
         <button class="reject" @click="onReject">否</button>

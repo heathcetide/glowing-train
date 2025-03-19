@@ -2,8 +2,8 @@
   <view class="p-28rpx flex bg-#fff flex-col rounded-21rpx shadow1">
     <view class="title flex justify-between">
       <text>{{ title }}</text>
-      <view class="img size-28rpx bg-#ECFDF5">
-        <image :src="icon" class="size-24.5rpx" mode="scaleToFill" />
+      <view class="img">
+        <image :src="icon" class="size-56rpx" mode="scaleToFill" />
       </view>
     </view>
     <view class="img my-24rpx w-100%">
@@ -15,7 +15,6 @@
 
 <script setup lang="ts">
 import xx from '@/static/image/home/image-1.svg'
-import Icon from '@/static/image/home/icon-run-man.svg'
 import Utils from '@/utils'
 
 const props = withDefaults(
@@ -28,7 +27,7 @@ const props = withDefaults(
   }>(),
   {
     title: '饮食记录',
-    icon: Icon,
+    icon: '',
     image: xx,
     subTitle: '已记录 3 餐',
   },

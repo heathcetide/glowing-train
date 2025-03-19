@@ -57,10 +57,34 @@
     </view>
 
     <!-- 退出登录按钮 -->
-    <button class="w-full bg-red-500 text-white py-3 rounded-lg mt-8">退出登录</button>
+    <button class="w-full bg-red-500 text-white py-3 rounded-lg mt-8" @click="logout">退出登录</button>
   </view>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { logoutUserAPI } from '@/services/user/userBaseModule'
+import { useMemberStore } from '@/stores'
+import Utils from '@/utils'
+
+const memberStore = useMemberStore()
+const logout = () => {
+  Utils.showModal({
+    title: '退出登录',
+    content: '确定退出登录',
+    cancel: () => {},
+    confirm: async () => {
+      const res = await logoutUserAPI()
+      if (res.code === 200) {
+        memberStore.token = ''
+        memberStore.clearProfile()
+        Utils.showToast('退出登录成功')
+        Utils.navigateTo('/pages/login/index')
+      } else {
+        Utils.showToast('退出登录失败')
+      }
+    },
+  })
+}
+</script>
 
 <style scoped></style>

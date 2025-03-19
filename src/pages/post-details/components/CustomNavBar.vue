@@ -27,7 +27,12 @@ const props = withDefaults(defineProps<Props>(), {
 const onBack = () => {
   uni.navigateBack()
 }
-const onLook = () => {}
+const onLook = () => {
+  uni.showToast({
+    title: '关注成功',
+    icon: 'success',
+  })
+}
 </script>
 
 <style scoped></style>

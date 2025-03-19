@@ -7,20 +7,20 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref, computed } from 'vue'
 import type { Community } from '@/types/component'
-import RecipeListCard from './components/RecipeListCard.vue'
+import RecipeListCard from '../RecipeListCard.vue'
 import IconPic1 from '@/static/image/community/icon-pic1.svg'
 import IconPic2 from '@/static/image/community/icon-pic2.svg'
 import IconPic3 from '@/static/image/community/icon-pic3.svg'
 import IconAvatar from '@/static/image/community/icon-avatar.svg'
-import { computed } from 'vue'
-
+import { getRankByTypeAPI } from '@/services/rank/rankBaseModule'
 const { safeAreaInsets } = uni.getWindowInfo()
 
 const hetght = computed(() => {
   return `calc(100vh - 50rpx - ${safeAreaInsets.bottom + safeAreaInsets.top}px)`
 })
-const list: Community.RecipeListCardItem[] = [
+const list: Community.RecipeListCardItem[] = ref([
   {
     author: '健身教练大明',
     avatar: IconAvatar,
@@ -58,7 +58,18 @@ const list: Community.RecipeListCardItem[] = [
     like: 1892,
     name: '藜麦鸡胸餐',
   },
-]
+])
+
+// 页面加载后调用接口获取数据
+onMounted(async () => {
+  try {
+    const res = await getRankByTypeAPI('POPULAR')
+    // 如果接口返回的数据在 res.data 中，则使用 res.data，否则直接使用 res
+    list.value = res.data || res
+  } catch (error) {
+    console.error('获取活动数据失败:', error)
+  }
+})
 </script>
 
 <style scoped lang="scss"></style>

@@ -188,12 +188,6 @@
       }
     },
     {
-      "path": "pages/text/text",
-      "style": {
-        "navigationBarTitleText": "测试"
-      }
-    },
-    {
       "path": "pages/note/dielt-note",
       "style": {
         "navigationBarTitleText": "dielt-note",
@@ -222,7 +216,7 @@
     {
       "path": "pagesUser/saveStore/saveStore",
       "style": {
-        "navigationBarTitleText": "我的收藏"
+        "navigationBarTitleText": "账号与安全"
       }
     },
     {
@@ -241,6 +235,58 @@
       "path": "pagesUser/settings/settings",
       "style": {
         "navigationBarTitleText": "系统设置"
+      }
+    },
+    {
+      "path": "pagesPlanLeader/plan_loading/index",
+      "style": {
+        "navigationBarTitleText": "计划生成界面"
+      }
+    },
+    {
+      "path": "pages/activity-detials/index",
+      "style": {
+        "navigationBarTitleText": "活动详情"
+      }
+    },
+    {
+      "path": "pages/stack-detials/index",
+      "style": {
+        "navigationBarTitleText": "食物详情"
+      }
+    },
+    {
+      "path": "pages/add-new-food/index",
+      "style": {
+        "navigationBarTitleText": "添加新菜品"
+      }
+    },
+    {
+      "path": "pages/note/edit",
+      "style": {
+        "navigationBarTitleText": "edit",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pagesHealthyData/healthy-sleep",
+      "style": {
+        "navigationBarTitleText": "healthy-sleep",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pagesHealthyData/heart-rate",
+      "style": {
+        "navigationBarTitleText": "心率",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pagesHealthyData/kcal-data",
+      "style": {
+        "navigationBarTitleText": "卡路里",
+        "navigationStyle": "custom"
       }
     }
   ],
@@ -301,7 +347,8 @@
         {
           "path": "index/index",
           "style": {
-            "navigationStyle": "custom"
+            "navigationStyle": "custom",
+            "enablePullDownRefresh": true
           }
         }
       ]
@@ -347,6 +394,18 @@
           "path": "leader_five/index",
           "style": {
             "navigationBarTitleText": "index",
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pagesHealthyData",
+      "pages": [
+        {
+          "path": "healthy-data",
+          "style": {
+            "navigationBarTitleText": "healthy-data",
             "navigationStyle": "custom"
           }
         }

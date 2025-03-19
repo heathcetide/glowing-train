@@ -5,8 +5,8 @@
       <view class="goal w-100% col gap-24rpx">
         <text class="text-48rpx font-700">恭喜，用户！</text>
         <view class="col">
-          <text class="text-24rpx text-0"> 您的定制化健康计划已就绪</text>
-          <text class="text-24rpx text-0"> 从饮食到作息，一步步轻松改善生活！</text>
+          <text class="text-24rpx text-0">您的定制化健康计划已就绪</text>
+          <text class="text-24rpx text-0">从饮食到作息，一步步轻松改善生活！</text>
         </view>
       </view>
     </view>
@@ -50,6 +50,8 @@ import IconDate from '@image/plan-leader/icon-date.svg'
 import IconZhong from '@image/plan-leader/icon-zhong.svg'
 import IconTool from '@image/plan-leader/icon-tool.svg'
 import Utils from '@/utils'
+import useChangeStore from '@/stores/modules/change'
+const changeStore = useChangeStore()
 
 const list = [
   { icon: IconRun, title: '每日运动时长', desc: '45分钟（中等强度)' },
@@ -59,7 +61,10 @@ const list = [
   { icon: IconDate, title: '目标达成时间', desc: '预计3个月' },
 ]
 const onNext = () => {
-  Utils.switchTab('/pages/index/index')
+  changeStore.changeTab(0)
+  setTimeout(() => {
+    Utils.switchTab('/pages/index/index')
+  }, 1)
 }
 const onBack = () => {
   Utils.navigateTo('/pagesPlanLeader/index/index')

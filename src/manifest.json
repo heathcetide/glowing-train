@@ -2,7 +2,7 @@
     "name" : "食光烙记",
     "appid" : "__UNI__7B90E03",
     "description" : "",
-    "versionName" : "1.0.3",
+    "versionName" : "1.0.4",
     "versionCode" : 2,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -15,7 +15,9 @@
             "autoclose" : true
         },
         /* 模块配置 */
-        "modules" : {},
+        "modules" : {
+            "Push" : {}
+        },
         /* 应用发布信息 */
         "distribute" : {
             /* android打包配置 */
@@ -51,7 +53,12 @@
                 "push" : {
                     "unipush" : {
                         "version" : "2",
-                        "offline" : false
+                        "offline" : false,
+                        "icons" : {
+                            "small" : {
+                                "ldpi" : "src/static/image/logo/logo.png"
+                            }
+                        }
                     }
                 },
                 "payment" : {}

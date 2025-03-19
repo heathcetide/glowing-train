@@ -1,10 +1,11 @@
 <template>
   <view class="pos-fixed center gap-10rpx h-120rpx pos-bottom-0 bg-#fff input w-100%">
-    <view>
+    <view class="w-70%">
       <uni-easyinput
         :maxlength="100"
         type="text"
         clearable
+        v-model="input"
         @confirm="handleConfirm"
         placeholder="请输入评论"
         class="rounded-full"
@@ -46,6 +47,9 @@ const isLike = defineModel<boolean>('like', { type: Boolean, default: false })
 const isSave = defineModel<boolean>('save', { type: Boolean, default: false })
 const handleConfirm = (e: UniHelper.UniEasyinputValue) => {
   comment.value = e as string
+  input.value = ''
+  console.log('ee', e)
+  // comment.value = ''
 }
 
 const handleLike = () => {

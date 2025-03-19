@@ -25,13 +25,13 @@
           <uni-list-item>
             <template v-slot:header> <text class="item-title">用户名: </text></template>
             <template v-slot:footer>
-              <text class="content"> {{ userInfo.nickName }}</text>
+              <text class="content"> {{ memberStore.profile?.nickname }}</text>
             </template>
           </uni-list-item>
           <uni-list-item>
-            <template v-slot:header><text class="item-title">手机号: </text></template>
+            <template v-slot:header><text class="item-title">邮箱: </text></template>
             <template v-slot:footer>
-              <text class="content"> {{ userInfo.phone }} </text>
+              <text class="content"> {{ memberStore.profile?.email }} </text>
             </template>
           </uni-list-item>
         </uni-list>
@@ -69,12 +69,10 @@ import IconResgistSuccess from '@/static/image/regist/icon-resgist-success.png'
 import IconResgistFoodAdmin from '@/static/image/regist/icon-regist-food-admin.png'
 import IconResgistRecommend from '@/static/image/regist/icon-regist-recommend.png'
 import IconResgistNutritionAnalyze from '@/static/image/regist/icon-resgist-nutrition-analyze.png'
-import { reactive } from 'vue'
 
-const userInfo = reactive({
-  nickName: '陈小明',
-  phone: '138****5678',
-})
+import { useMemberStore } from '@/stores'
+const memberStore = useMemberStore()
+
 const list: Array<{ icon: string; title: string; desc: string }> = [
   { icon: IconResgistFoodAdmin, desc: '个性化饮食方案', title: '智能推荐' },
   { icon: IconResgistRecommend, desc: '高效管理食材库', title: '食材管理' },

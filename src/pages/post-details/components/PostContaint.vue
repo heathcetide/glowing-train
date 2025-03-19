@@ -1,16 +1,17 @@
 <template>
   <view class="p-28rpx text-#374151 text-28rpx">
-    <up-image :src="item.image" width="100%" height="462.66rpx " />
-    <!-- <view class="title text-35rpx font700 text-#000 mt20rpx center">{{ item.title }}</view> -->
-    <rich-text :nodes="item.title"> </rich-text>
-    <up-read-more>
-      <rich-text :nodes="item.conduct"></rich-text>
+    <up-image :src="item.image" width="100%" height="462.66rpx " class="mb-20rpx" />
+    <view class="center">
+      <rich-text :nodes="item.title" class="text-40rpx font-700"> </rich-text>
+    </view>
+    <up-read-more text-indent="2rem">
+      <rich-text :nodes="item.conduct" class="line-height-60rpx"></rich-text>
     </up-read-more>
     <view>
       <!-- <view class="mb-20rpx">食材准备:</view> -->
-      <view class="flex flex-col gap10rpx">
+      <view class="flex gap10rpx">
         <view v-for="it in item.tags" :key="it">
-          <view>{{ it }}</view>
+          <up-tag bg-color="#5DBE8A" border-color="#5DBE8A">{{ it }}</up-tag>
         </view>
       </view>
     </view>

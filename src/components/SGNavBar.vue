@@ -37,8 +37,9 @@ const onClickLeft = () => {
 <style scoped lang="scss">
 .navbar {
   position: fixed;
+  z-index: 999;
   width: 750rpx;
-  min-height: 240rpx;
+  min-height: 100rpx;
   border-bottom: 1px solid #e5e5e5;
   background-color: #fff;
   .wrap {

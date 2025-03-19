@@ -7,17 +7,25 @@
         <!-- 食材准备 -->
         <view>
           <view class="text-31.5rpx font-600 mb-28rpx">食材准备</view>
-          <view class="content flex flex-col gap-20rpx" v-for="(item, index) in foodList" :key="item.id">
-            <PrepareCard :index="index + ''" :num="300" :icon="IconMet" :title="item.title" />
-          </view>
-        </view>
-        <up-icon name="arrow-right" label=""></up-icon>
-        <!-- 工具准备 -->
-        <view class="mt-42rpx">
-          <view class="text-31.5rpx font-600 mb-28rpx">工具准备</view>
-          <view class="content flex flex-col gap-20rpx">
-            <PrepareCard title="炒锅" :icon="iconTool" index="0" />
-            <PrepareCard title="炒锅" :icon="iconTool" index="1" />
+          <view class="content flex flex-col gap-20rpx" v-for="(item, index) in foodList" :key="item.title">
+            <view class="flex jsustify-between p-20rpx bg-white">
+              <view class="desc flex flex-col flex-1 pl-15rpx">
+                <text class="title">{{ item.title }}</text>
+                <text class="">{{ item.num }}</text>
+              </view>
+              <view class="">
+                <up-checkbox-group>
+                  <checkbox
+                    active-color="#5DBE8A"
+                    :icon-size="5"
+                    icon-color="#5DBE8A"
+                    :checked="item.isChecked"
+                    @click="handleChecked(index)"
+                  >
+                  </checkbox>
+                </up-checkbox-group>
+              </view>
+            </view>
           </view>
         </view>
       </scroll-view>
@@ -46,51 +54,48 @@ import IconMet from '@/static/image/cook/met.svg'
 import iconTool from '@/static/image/cook/tool.svg'
 import IconTime from '@/static/image/cook/icon-time2.svg'
 import Utils from '@/utils'
+import useCookStore from '@/stores/modules/cook'
 
+const cookStore = useCookStore()
+const chosedDiet = ref(cookStore.chosedDietList[0])
 const rateValue = ref(3)
 const { safeAreaInsets } = uni.getWindowInfo()
-const handleStartCook = () => {
-  Utils.navigateTo('/pagesCook/process/index')
-}
 
 // 定义一个 foodList 存储食物列表
-const foodList = ref<any[]>([
-  {
-    id: 1,
-    title: '猪肉',
-    desc: '猪肉',
-    cover: 'https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/uni-ui/uni-list-item/uni-list-item.png',
-    kcal: 300,
-    num: 0,
-    ingredients: [],
-  },
-  {
-    id: 1,
-    title: '猪肉',
-    desc: '猪肉',
-    cover: 'https://img.cdn.aliyun.dcloud.net.cn/guide/uniapp/uni-ui/uni-list-item/uni-list-item.png',
-    kcal: 300,
-    num: 0,
-    ingredients: [],
-  },
-])
+const foodList = ref<{ title: string; num: string; isChecked: boolean }[]>([])
+
+const handleStartCook = () => {
+  console.log(foodList.value)
+  if (foodList.value.some((a) => a.isChecked === false)) {
+    Utils.showToast('请准备食材')
+    return
+  }
+  Utils.navigateTo('/pagesCook/process/index')
+}
+const handleChecked = (index: number) => {
+  foodList.value[index].isChecked = !foodList.value[index].isChecked
+}
 
 onMounted(() => {
-  // 从本地存储获取推荐食物
-  // uni.getStorage({
-  //   key: 'recommendedFoods',
-  //   success: (res) => {
-  //     if (res.data && Array.isArray(res.data)) {
-  //       // 如果从存储中获取到推荐食物数据，赋值给 foodList
-  //       foodList.value = res.data
-  //     } else {
-  //       console.log('没有找到推荐食物数据')
-  //     }
-  //   },
-  //   fail: () => {
-  //     console.log('无法获取推荐食物数据')
-  //   },
-  // })
+  const ingredients = chosedDiet.value.ingredients
+  // 如果 ingredients 是字符串，则先解析成对象
+  let ingredientsObj: Record<string, any> = {}
+  if (typeof ingredients === 'string') {
+    try {
+      ingredientsObj = JSON.parse(ingredients)
+    } catch (error) {
+      console.error('解析 ingredients 失败：', error)
+    }
+  } else {
+    ingredientsObj = ingredients
+  }
+
+  // 将 ingredients 对象转换为只包含 title 与 kcal 的数组
+  foodList.value = Object.entries(ingredientsObj).map(([key, value]) => ({
+    title: key, // 食材名称
+    num: value, // 此处放置对应的数值（本例中是“适量”）
+    isChecked: false,
+  }))
 })
 </script>
 

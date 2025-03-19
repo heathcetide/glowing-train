@@ -1,7 +1,7 @@
 <template>
-  <view class="card shadow1 rounded-20rpx">
+  <view class="card shadow1 rounded-20rpx min-h-524rpx">
     <up-image
-      :src="item.foodUrl"
+      :src="item.image"
       @click="goToDetail"
       width="100%"
       radius="20rpx 20rpx 0 0"
@@ -9,11 +9,11 @@
       mode="scaleToFill"
     ></up-image>
     <view class="flex flex-col gap-8rpx p-22rpx">
-      <text>{{ item.title }}</text>
-      <text class="text-#333333 text-21rpx ellipsis">热量 {{ item.kcal }}kcal</text>
+      <text class="ellipsis1">{{ item.title }}</text>
+      <text class="text-#333333 text-21rpx ellipsis">制作时间: {{ item.duration }}</text>
       <view class="ingredients">
-        <view v-for="(ingredient, index) in item.ingredients?.slice(0, 3)" :key="index" class="ingredient-tag">
-          {{ ingredient }}
+        <view class="ingredient-tag">
+          {{ item.level }}
         </view>
       </view>
       <button class="bg-#5DBE8A w-100% text-#fff" @click="handleClick">选择</button>
@@ -30,12 +30,12 @@
       >
         <view class="flex justify-between w-100% gap-30rpx">
           <view class="iamg">
-            <up-image :src="item.foodUrl" width="168rpx" height="168rpx" radius="20rpx" />
+            <up-image :src="item.image" width="168rpx" height="168rpx" radius="20rpx" />
           </view>
           <view class="flex-col flex w-100%">
             <view>
               <text>份数:</text>
-              <up-number-box v-model="item.num!">
+              <up-number-box v-model="item.num!" :min="0">
                 <template #minus>
                   <view class="minus">
                     <uni-icons type="minus" color="" size="24" />
@@ -65,6 +65,7 @@
 <script setup lang="ts">
 import icon1 from '@/static/image/cook/food-pic1.svg'
 import type { CookModule } from '@/types/component'
+import type { FoodMeanu } from '@/types/food'
 import { ref } from 'vue'
 
 interface Props {
@@ -77,15 +78,7 @@ interface Emits {
 }
 const emit = defineEmits<Emits>()
 const props = withDefaults(defineProps<Props>(), {
-  item: () =>
-    ({
-      id: 1,
-      foodUrl: icon1,
-      title: '红烧狮子头',
-      desc: '经典淮扬名菜，肉质鲜嫩',
-      kcal: 0,
-      ingredients: ['土豆', '牛肉', '小葱'], // 示例食材数据
-    } as CookModule.FoodCardItem),
+  item: () => ({} as CookModule.FoodCardItem),
 })
 
 const dialogConfirm = () => {
@@ -95,7 +88,7 @@ const dialogConfirm = () => {
 
 const goToDetail = () => {
   uni.navigateTo({
-    url: '/pages/dietDetails/dietDetails',
+    url: '/pages/dietDetails/dietDetails?id=' + props.item.id,
   })
 }
 

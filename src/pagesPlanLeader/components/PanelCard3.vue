@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import LeaderCard from './LeaderCard.vue'
 
 interface prop {
@@ -45,7 +45,7 @@ const list = computed(() => {
   return props.lists || likes
 })
 
-const activeIndex = ref<number[]>([-1])
+const activeIndex = ref<number[]>([])
 
 const emit = defineEmits(['taste'])
 
@@ -56,6 +56,14 @@ const handleClick = (index: number) => {
     activeIndex.value.push(index)
   }
 }
+
+watchEffect(() => {
+  // console.log(activeIndex.value)
+
+  activeIndex.value.forEach((index) => {
+    emit('taste', list.value[index].value)
+  })
+})
 </script>
 
 <style scoped>

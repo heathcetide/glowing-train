@@ -7,7 +7,7 @@
     </uni-nav-bar>
     <view class="wrap">
       <view class="logo">
-        <image :src="Logo" mode="widthFix" class="image" />
+        <image src="/static/image/logo/logo.png" mode="widthFix" class="image" />
       </view>
       <!-- 标题 -->
       <view class="group">
@@ -18,28 +18,102 @@
       <!-- 表单 -->
       <view class="logForm">
         <uni-forms ref="form" :modelValue="formData" :rules="rules" label-position="top" validate-trigger="submit">
-          <uni-forms-item label="用户名/邮箱 " name="username" :label-width="200" required>
-            <uni-easyinput type="text" v-model="formData.username" placeholder="用户名/邮箱" primary-color="#5DBE8A" />
-          </uni-forms-item>
-          <uni-forms-item label="密码" name="password" required>
+          <!-- <uni-forms-item label="用户名/邮箱 " name="email" :label-width="200" required>
+            <uni-easyinput type="text" v-model="formData.email" placeholder="邮箱" primary-color="#5DBE8A" />
+          </uni-forms-item> -->
+          <!-- <uni-forms-item label="密码" name="password" required>
             <uni-easyinput
               class="input"
-              v-model="formData.password"
+              v-model="formData."
               primary-color="#5DBE8A"
               type="password"
               placeholder="请输入密码"
               clearable
               password-icon
             />
+          </uni-forms-item> -->
+          <!-- <uni-forms-item required name="code" label="验证码">
+            <view class="code">
+              <uni-easyinput
+                class="easy-input"
+                prefixIcon="email"
+                type="text"
+                trim
+                placeholder="请输入验证码"
+                v-model="formData.code"
+                primary-color="#5DBE8A"
+              ></uni-easyinput>
+              <button
+                :disabled="isAdmitCode"
+                :class="{ 'bg-#ccc': !isAdmitCode }"
+                class="btn"
+                size="mini"
+                @click="onGetCode"
+              >
+                {{ textCode }}
+                <up-count-down
+                  ref="countDown"
+                  v-show="showCodeCountDown"
+                  @change="handleCountChange"
+                  @finish="handleFinish"
+                  :auto-start="false"
+                  :time="60 * 1000"
+                  format="ss"
+                ></up-count-down>
+              </button>
+            </view>
+          </uni-forms-item> -->
+
+          <uni-forms-item name="email" required label="邮箱">
+            <uni-easyinput
+              class="easy-input"
+              prefixIcon="phone-filled"
+              type="text"
+              trim
+              placeholder="请输入邮箱"
+              v-model="formData.email"
+              primary-color="#5DBE8A"
+              :selectable="true"
+            ></uni-easyinput>
+          </uni-forms-item>
+
+          <uni-forms-item required name="code" label="验证码">
+            <view class="code flex gap-10rpx">
+              <uni-easyinput
+                class="easy-input"
+                prefixIcon="email"
+                type="text"
+                trim
+                placeholder="请输入验证码"
+                v-model="formData.code"
+                primary-color="#5DBE8A"
+              ></uni-easyinput>
+              <button
+                :class="{ ' ': !isAdmitCode }"
+                class="btn bg-#5DBE8A text-15rpx flex text-#fff"
+                size="mini"
+                @click="onGetCode"
+              >
+                {{ textCode }}
+                <up-count-down
+                  ref="countDown"
+                  v-show="showCodeCountDown"
+                  @change="handleCountChange"
+                  @finish="handleFinish"
+                  :auto-start="false"
+                  :time="60 * 1000"
+                  format="ss"
+                ></up-count-down>
+              </button>
+            </view>
           </uni-forms-item>
 
           <uni-forms-item name="agree" required label="协议">
             <checkbox
               :checked="formData.agree"
               color="#5DBE8A "
+              value="1"
               class="checkbox"
-              activeBackgroundColor="#5DBE8A"
-              activeBorderColor="#5DBE8A"
               @click="formData.agree = !formData.agree"
             />
             <text class="privacy"
@@ -69,23 +143,29 @@
 </template>
 
 <script setup lang="ts">
-import Logo from '@/static/image/logo/logo.png'
 import { ref } from 'vue'
 import { onReady } from '@dcloudio/uni-app'
-import { getUserInfoAndLevel, loginAPI } from '@/services/user/userBaseModule'
+import { emailVerificationCodeAPI, getUserInfoAndLevel, loginAPI } from '@/services/user/userBaseModule'
 import { useMemberStore } from '@/stores/modules/member' // 导入 pinia store
 import Utils from '@/utils'
+import { Reglex } from '@/utils/reglex'
 const form = ref()
 const { safeAreaInsets } = uni.getWindowInfo()
 
-const formData = ref<{ username: string; password: string; agree: boolean }>({
-  username: '',
-  password: '',
+const showCodeCountDown = ref(false)
+
+const textCode = ref('获取验证码')
+const countDown = ref()
+const isAdmitCode = ref(false)
+
+const formData = ref({
+  email: '',
+  code: '',
   agree: false,
 })
 
 const rules: UniHelper.UniFormsRules = {
-  username: {
+  email: {
     rules: [
       {
         required: true,
@@ -97,15 +177,26 @@ const rules: UniHelper.UniFormsRules = {
       },
     ],
   },
-
-  password: {
+  code: {
     rules: [
       {
         required: true,
-        errorMessage: '请输入正确的密码',
+        errorMessage: '请输入验证码',
+      },
+      {
+        validateFunction: function (rule, value, data, callback) {
+          if (!value) {
+            return callback('请输入验证码')
+          }
+          if (!validate(value, 'code')) {
+            return callback('请输入正确的验证码')
+          }
+          return callback()
+        },
       },
     ],
   },
+
   agree: {
     rules: [
       {
@@ -124,33 +215,78 @@ const rules: UniHelper.UniFormsRules = {
   },
 }
 
+const validate = (value: string, type: Reglex.ReglexType) => {
+  if (!Reglex[type].test(value)) {
+    Utils.showToast('error: ' + type)
+    return false
+  }
+  return true
+}
+
+const onGetCode = async () => {
+  if (!validate(formData.value.email, 'email')) {
+    Utils.showToast('请输入正确的邮箱')
+    return
+  }
+  try {
+    console.log('formData.value.email', formData.value.email)
+
+    const res = await emailVerificationCodeAPI(formData.value.email)
+    if (res.code === 200) {
+      Utils.showToast('验证码发送成功')
+      isAdmitCode.value = false
+      showCodeCountDown.value = true
+      textCode.value = '验证码获取中'
+      countDown.value.start()
+    } else {
+      Utils.showToast('验证码发送失败')
+    }
+  } catch (error: any) {
+    Utils.navigateTo('/pages/message/fail?msg=' + error.errMsg)
+  }
+}
+
 const goToSeakPwd = () => {
   uni.navigateTo({
     url: '/pages/login/forget_pwd',
   })
 }
+const handleFinish = () => {
+  textCode.value = '重新获取'
+  countDown.value.reset()
+  isAdmitCode.value = true
+  showCodeCountDown.value = false
+}
+const handleCountChange = (e: any) => {
+  if (e.seconds === 0) {
+    isAdmitCode.value = true
+  }
+  isAdmitCode.value = false
+}
+
 const submit = () => {
   form.value
     .validate()
-    .then(async (res: { username: string; password: string; agree: boolean }) => {
+    .then(async (res: any) => {
       // TODO 登录
-      const result = await loginAPI({ username: res.username, password: res.password })
-      const { data } = await getUserInfoAndLevel()
-
+      const result = await loginAPI({ email: res.email, code: res.code })
+      console.log('res', result)
       if (result.code == 200) {
         const memberStore = useMemberStore()
         const { token } = result.data
         memberStore.setToken(token) // 保存令牌到 store
+        const { data } = await getUserInfoAndLevel()
         memberStore.setProfile(data) // 保存用户信息
         console.log('Stored token:', memberStore.token)
         uni.switchTab({
           url: '/pages/mine/mine',
         })
       } else {
-        Utils.showToast('登录失败')
+        // Utils.showToast('登录失败')
+        Utils.navigateTo('/pages/message/fail?msg=' + '登录失败')
       }
     })
-    .catch((err: unknown) => {
+    .catch((err: any) => {
       console.log('err', err)
     })
 }
@@ -240,6 +376,20 @@ onReady(() => {
     }
   }
 }
+
+.code {
+  display: flex;
+  gap: 32rpx;
+  button {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    background-color: #5dbe8a10;
+    color: #5dbe8a;
+    height: 80rpx;
+  }
+}
+
 .pwdInput {
   display: flex;
   align-items: center;

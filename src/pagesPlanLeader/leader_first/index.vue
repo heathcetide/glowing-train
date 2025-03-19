@@ -20,7 +20,7 @@
         />
       </view>
     </view>
-    <NextButton url="leader_two" />
+    <NextButton url="leader_two" @onNext="onNext" />
   </view>
 </template>
 
@@ -32,8 +32,10 @@ import PicSec2 from '@/static/image/plan-leader/icon-planleader-sec-2.svg'
 import PicSec3 from '@/static/image/plan-leader/icon-planleader-sec-3.svg'
 import PicSec4 from '@/static/image/plan-leader/icon-planleader-sec-4.svg'
 import NextButton from '../components/NextButton.vue'
+import { addOrUpdatePlanAPI } from '@/services/user/userBaseModule'
 
 import { ref } from 'vue'
+import Utils from '@/utils'
 
 const activeIndex = ref(-1)
 
@@ -59,6 +61,26 @@ const options = [
     subTitle: '提高耐力和心肺功能',
   },
 ]
+
+// 点击下一步时先将选择的数据发送至 API，再跳转页面
+const onNext = async () => {
+  if (activeIndex.value === -1) {
+    // 未选择目标时可以提示用户选择
+    console.warn('请先选择你的目标')
+    return
+  }
+  const selectedPlan = options[activeIndex.value]
+  try {
+    // 根据后端接口要求构造请求参数，这里假设传递目标标题和描述
+    await addOrUpdatePlanAPI({
+      goalCategory: selectedPlan.title,
+    })
+    Utils.navigateTo(`/pagesPlanLeader/leader_two/index`)
+  } catch (error) {
+    console.error('发送计划数据失败：', error)
+    // 根据需要添加错误提示或重试逻辑
+  }
+}
 </script>
 
 <style scoped>

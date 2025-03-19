@@ -18,13 +18,16 @@ interface Props {
   title: string
 }
 
+const emit = defineEmits(['onNext'])
 const props = withDefaults(defineProps<Props>(), {
   url: '',
   title: '下一步',
 })
 
 const onNext = () => {
-  Utils.navigateTo(`/pagesPlanLeader/${props.url}/index`)
+  emit('onNext')
+
+  // Utils.navigateTo(`/pagesPlanLeader/${props.url}/index`)
 }
 </script>
 

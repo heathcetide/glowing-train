@@ -4,7 +4,7 @@ import type { Food } from './food'
 import type { FoodUnit } from '@/enum/FoodEnum'
 import type { PlanStatus, PlanCategory, GoalCategory } from '@/enum/PlanEnum'
 
-export declare namespace User {
+declare namespace User {
   export interface GetLoginToken {
     token: string
     profile: Info
@@ -181,18 +181,18 @@ export declare namespace User {
   }
 }
 
-export declare namespace Plan {
+declare namespace Plan {
   /**计划信息 */
   export interface PlanInfo {
     /**创建时间 */
     createdAt: string
     /**每日运动计划 */
-    exercises: string[]
+    exercises: string
     /**饮食目标ID,示例值(1001) */
     goalId: number
     id: number
     /**每日食谱 */
-    meals: string[]
+    meals: string
     /** 计划类型 */
     planCategory: string
     /**计划内容( */

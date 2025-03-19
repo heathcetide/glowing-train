@@ -15,27 +15,35 @@ export const getUserInventoryAPI = () => {
   })
 }
 
+export const updateUserInventoryAPI = (data: UserInventory) => {
+  return http({
+    url: '/api/inventory/update', // 调用获取用户库存的接口
+    method: 'POST',
+    data,
+  })
+}
+
 /**
  * 假设你有一个接口返回的库存数据的类型定义
  */
 export interface UserInventory {
   id: number
-  user_id: number
-  food_id: number | null
-  custom_food_name: string | null
+  userId: number
+  foodId: number | null
+  customFoodName: string | null
   quantity: number
   unit: string
-  expiration_date: string | null
-  purchase_date: string | null
-  last_used_date: string | null
+  expirationDate: string | null
+  purchaseDate: string | null
+  lastUsedDate: string | null
   source: string | null
-  usage_category: string | null
-  is_available: boolean
-  storage_location: string | null
+  usageCategory: string | null
+  available: boolean
+  storageLocation: string | null
   notes: string | null
-  alert_threshold: number
-  created_at: string
-  updated_at: string
+  alertThreshold: number
+  createdAt: string
+  updatedAt: string
   deleted: boolean
 }
 
@@ -46,5 +54,13 @@ export const getUserInventoryMakeFoodAPI = () => {
   return http({
     url: '/api/recommendations/user/foods', // 调用获取用户库存的接口
     method: 'GET',
+  })
+}
+
+export const addUserStackAPI = (data: UserInventory) => {
+  return http({
+    url: '/api/inventory/add', // 调用获取用户库存的接口
+    method: 'POST',
+    data,
   })
 }
